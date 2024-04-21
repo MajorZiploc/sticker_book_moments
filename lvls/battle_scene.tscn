@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgtbv2iq43kru"]
+
+[ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
+[ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
+
+[node name="battle_scene" type="Node2D"]
+position = Vector2(194, 145)
+script = ExtResource("1_7ul4m")
+
+[node name="battle_char_left" parent="." instance=ExtResource("2_7aox0")]
+
+[node name="battle_char_right" parent="." instance=ExtResource("2_7aox0")]
+position = Vector2(102, 0)

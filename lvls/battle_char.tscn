@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2hixb1emgvvq"]
+
+[ext_resource type="Script" path="res://lvls/battle_char.gd" id="1_s7or0"]
+[ext_resource type="Texture2D" uid="uid://bdpxfaeqh6aif" path="res://art/Sprout Lands - Sprites - Basic pack/Characters/Egg_And_Nest.png" id="2_2einw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46h54"]
+
+[node name="battle_char" type="CharacterBody2D"]
+script = ExtResource("1_s7or0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2einw")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_46h54")
