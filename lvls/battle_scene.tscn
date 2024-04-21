@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
 
 [node name="battle_scene" type="Node2D"]
-position = Vector2(194, 145)
+position = Vector2(142, 143)
+scale = Vector2(0.22, 0.22)
 script = ExtResource("1_7ul4m")
 
 [node name="battle_char_left" parent="." instance=ExtResource("2_7aox0")]
+position = Vector2(-148.649, 0)
 
 [node name="battle_char_right" parent="." instance=ExtResource("2_7aox0")]
-position = Vector2(102, 0)
+position = Vector2(1029.73, 0)
