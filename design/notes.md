@@ -1,23 +1,31 @@
-## Genre
-turn based
+## Overview
 
-rogue lite
+stickers on a sticker book with turn based in rogue lite level scheme
 
 2 main scenes:
-  - battle_scene
-  - maze_scene (auto generated levels)
-  - end with a boss (likely going to be a larger char and larger flipbook)
+  - battle_scene (sticker book background with sticker props)
+  - maze_scene (auto generated levels) - basic maze with nodes that trigger encounters into battle_scene
+  - end a maze_scene with a boss
 
 1 vs 1 battles
 
-items and buffs and going to be stickers on the idle page in the flipbook
+items and buffs gotten from drops on beating enemies
 
-the flipbook will get more worn down as the char loses health
+## battle_scene details
+
+- when char dies, peel the sticker off the sticker book and discard off screen
+- no complex animations, just moving the sticker and using keyframes
+- keyframes for each char: [idle, pre_attack, post_attack, taking_damage, defended, dodged, parry, hurt]
+- to make more interactive and have decisions - add parry and defend on oppenent turn for the player. proly not for NPCs
 
 ## TODOs
-- Use top spiral flipbooks for chars instead of torn paper
-- flip the page to show next keyframe animation
-- when char dies, close the flipbook and burn or toss it;
-  since the flipbook is closed, the animation for it can be the same for all chars that fit in the same size flipbook
-- consider not flipping assets to look at each other. since its a flipbook, if they look the same way, thats proly ok
-- for now, dont do flipbooks, just basic stickers is fine
+
+need a bare bones full character sheet with all 6 keyframes. -- proly just a stick figure placeholder art.
+
+then design various systems.
+- the turn base system with perfect parry, parry, and defense ability on enemy turn
+- hp and stamina systems
+- item drop system
+- inventory system
+
+that all is the core, if its fun, then add more systems for rogue lite progression systems
