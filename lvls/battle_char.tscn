@@ -13,7 +13,7 @@ script = ExtResource("1_s7or0")
 z_index = 1
 texture = ExtResource("2_t1xdn")
 hframes = 2
-vframes = 4
+vframes = 2
 
 [node name="bg_basic" type="Sprite2D" parent="Sprite2D"]
 visible = false
