@@ -15,8 +15,31 @@ items and buffs gotten from drops on beating enemies
 
 - when char dies, peel the sticker off the sticker book and discard off screen
 - no complex animations, just moving the sticker and using keyframes
-- keyframes for each char: [idle, pre_attack, post_attack, taking_damage, defended, dodged, parry, hurt]
+- keyframes for each char - no deep animations
 - to make more interactive and have decisions - add parry and defend on oppenent turn for the player. proly not for NPCs
+
+### keyframes for each char
+
+#### MVP
+
+  - idle
+  - pre_attack
+  - post_attack
+  - defended
+
+#### NOT MVP
+
+  - taking_damage
+  - dodged
+  - parry
+  - hurt
+
+#### NOT MVP keyframe workarounds
+
+  - taking_damage - pointy spark thing - prob red
+  - dodged - shift sticker
+  - parry - white spark
+  - hurt - flash red
 
 ## TODOs
 
