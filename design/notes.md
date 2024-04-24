@@ -25,7 +25,7 @@ items and buffs gotten from drops on beating enemies
   - idle
   - pre_attack
   - post_attack
-  - defended
+  - defensive/readied/prep for (counter|parry)
 
 #### NOT MVP
 
@@ -40,6 +40,9 @@ items and buffs gotten from drops on beating enemies
   - dodged - shift sticker
   - parry - white spark
   - hurt - flash red
+
+alternatively instead of shaders for all of the above, could use a small item like sticker that is a child sprite of the battle sprite to indicate hurt and stuff
+  I like this idea ALOT, try this instead of shaders first
 
 ## TODOs
 
