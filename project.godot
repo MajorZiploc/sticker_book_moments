@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Godot4CrashCourse"
-run/main_scene="res://lvls/game_level.tscn"
+config/name="gd4_tb_paper"
+run/main_scene="res://lvls/battle_scene.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
