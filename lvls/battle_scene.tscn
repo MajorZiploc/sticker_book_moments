@@ -22,3 +22,26 @@ offset_right = 1454.55
 offset_bottom = 383.0
 texture = ExtResource("3_ooilf")
 metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="choice" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="attack" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+text = "Attack"
+
+[node name="PauseAfterPlayerAtk" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="pressed" from="CanvasLayer/choice/attack" to="." method="_on_attack_pressed"]
+[connection signal="timeout" from="PauseAfterPlayerAtk" to="." method="_on_pause_after_player_atk_timeout"]
