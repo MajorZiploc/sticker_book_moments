@@ -39,3 +39,5 @@ grow_vertical = 0
 [node name="attack" type="Button" parent="CanvasLayer/choice"]
 layout_mode = 2
 text = "Attack"
+
+[connection signal="pressed" from="CanvasLayer/choice/attack" to="." method="_on_attack_pressed"]

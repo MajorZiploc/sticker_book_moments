@@ -11,5 +11,10 @@ func _ready():
   battle_char_left.sprite.flip_h = true;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-  pass
+#func _process(delta):
+  #if Input.is_action_just_pressed("ui_accept"):
+    #battle_char_right.take_damage(1);
+
+
+func _on_attack_pressed():
+  battle_char_right.take_damage(1);
