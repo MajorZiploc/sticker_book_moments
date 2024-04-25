@@ -8,9 +8,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  # var texture = preload("res://art/my/chars/berserk_axer.png");
-  # if texture and texture is Texture:
-    # battle_char_right.sprite.texture = texture;
+  var texture = preload("res://art/my/chars/dual_hybrid.png");
+  if texture and texture is Texture:
+    battle_char_left.sprite.texture = texture;
   battle_char_left.sprite.flip_h = true;
 
 func _on_attack_pressed():
