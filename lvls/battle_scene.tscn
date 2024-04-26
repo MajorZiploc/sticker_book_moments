@@ -41,7 +41,12 @@ layout_mode = 2
 text = "Attack"
 
 [node name="PauseAfterPlayerAtk" type="Timer" parent="."]
-wait_time = 2.0
+
+[node name="PauseBeforeNPCAtk" type="Timer" parent="."]
+
+[node name="PauseAfterNPCAtk" type="Timer" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/choice/attack" to="." method="_on_attack_pressed"]
 [connection signal="timeout" from="PauseAfterPlayerAtk" to="." method="_on_pause_after_player_atk_timeout"]
+[connection signal="timeout" from="PauseBeforeNPCAtk" to="." method="_on_pause_before_npc_atk_timeout"]
+[connection signal="timeout" from="PauseAfterNPCAtk" to="." method="_on_pause_after_npc_atk_timeout"]
