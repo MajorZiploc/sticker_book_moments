@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D;
 @onready var progress_bar = $Sprite2D/ProgressBar;
-@onready var animation_player = $AnimationPlayer;
 
 @export var MAX_HEALTH: float = 7;
 
@@ -10,13 +9,14 @@ extends CharacterBody2D
   set(value):
     health = value;
     _update_progress_bar();
-    _play_animation_hurt();
     
 func _update_progress_bar():
   progress_bar.value = (health / MAX_HEALTH) * 100;
   
-func _play_animation_hurt():
-  animation_player.play("hurt");
-  
 func take_damage(value):
   health -= value;
+  var tween = get_tree().create_tween();
+  var og_modulate = sprite.modulate;
+  for n in 2:
+    tween.tween_callback(sprite.set_modulate.bind(Color(30, 1, 1, 1))).set_delay(0.1);
+    tween.tween_callback(sprite.set_modulate.bind(og_modulate)).set_delay(0.1);
