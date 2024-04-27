@@ -21,6 +21,27 @@ func _ready():
   battle_char_left.sprite.flip_h = true;
   battle_char_left_og_position = battle_char_left.position;
   battle_char_right_og_position = battle_char_right.position;
+  _demo_tweening();
+
+
+func _demo_tweening():
+  #TODO: use this to replace the position jump in the attack sequence
+  # for smooth movement needed for when we do the parry system
+  #var tween = get_tree().create_tween();
+  #var og_modulate = battle_char_left.modulate;
+  #for n in 10:
+  #  tween.tween_callback(battle_char_left.sprite.set_modulate.bind(Color.RED)).set_delay(0.1);
+  #  tween.tween_callback(battle_char_left.sprite.set_modulate.bind(og_modulate)).set_delay(0.1);
+  #tween.tween_property(battle_char_left, "modulate", Color.RED, 1);
+  #tween.tween_property(battle_char_left, "modulate", og_modulate, 1);
+  #tween.tween_property(battle_char_left, "scale", Vector2(), 1);
+  #tween.tween_callback(battle_char_left.queue_free);
+  var move_to = battle_char_left_og_position + attack_shift;
+  var speed = 3.0;
+  var unit_size = 2.0;
+  var duration = move_to.length() / float(speed * unit_size);
+  var idle_duration = 1.0;
+  # tween.tween_property(battle_char_left, "position", Vector2.ZERO, idle_duration);
 
 func _on_attack_pressed():
   if is_player_turn:

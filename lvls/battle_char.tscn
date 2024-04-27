@@ -1,34 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2hixb1emgvvq"]
+[gd_scene load_steps=5 format=3 uid="uid://c2hixb1emgvvq"]
 
 [ext_resource type="Script" path="res://lvls/battle_char.gd" id="1_s7or0"]
 [ext_resource type="Texture2D" uid="uid://bycg35m8ghgxi" path="res://art/my/chars/dual_wield_stub.png" id="2_t1xdn"]
 [ext_resource type="Texture2D" uid="uid://u8ubnggdlrm8" path="res://art/my/objs/bg_basic_paper.png" id="3_fky4h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46h54"]
-
-[sub_resource type="Animation" id="Animation_x64g0"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_w8tpj"]
-resource_name = "hurt"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(30, 1, 1, 1), Color(1, 1, 1, 1), Color(30, 1, 1, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hc366"]
-_data = {
-"RESET": SubResource("Animation_x64g0"),
-"hurt": SubResource("Animation_w8tpj")
-}
 
 [node name="battle_char" type="CharacterBody2D"]
 script = ExtResource("1_s7or0")
@@ -54,8 +30,3 @@ texture = ExtResource("3_fky4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_46h54")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_hc366")
-}
