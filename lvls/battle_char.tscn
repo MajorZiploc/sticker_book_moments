@@ -9,20 +9,20 @@
 [node name="battle_char" type="AnimatableBody2D"]
 script = ExtResource("1_s7or0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="sprite" type="Sprite2D" parent="."]
 z_index = 1
 texture = ExtResource("2_t1xdn")
 hframes = 2
 vframes = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Sprite2D"]
+[node name="health_bar" type="ProgressBar" parent="sprite"]
 offset_left = -27.0
 offset_top = -200.0
 offset_right = 73.0
 offset_bottom = -173.0
 value = 100.0
 
-[node name="bg_basic" type="Sprite2D" parent="Sprite2D"]
+[node name="bg_basic" type="Sprite2D" parent="sprite"]
 visible = false
 show_behind_parent = true
 scale = Vector2(2, 2)

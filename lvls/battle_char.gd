@@ -1,17 +1,17 @@
 extends AnimatableBody2D
 
-@onready var sprite = $Sprite2D;
-@onready var progress_bar = $Sprite2D/ProgressBar;
+@onready var sprite = $sprite;
+@onready var health_bar = $sprite/health_bar;
 
 @export var MAX_HEALTH: float = 7;
 
 @export var health: float = 7:
   set(value):
     health = value;
-    _update_progress_bar();
+    _update_health_bar();
     
-func _update_progress_bar():
-  progress_bar.value = (health / MAX_HEALTH) * 100;
+func _update_health_bar():
+  health_bar.value = (health / MAX_HEALTH) * 100;
   
 func take_damage(value):
   health -= value;
