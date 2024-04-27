@@ -20,8 +20,6 @@ func _ready():
   if texture and texture is Texture:
     player["char"].sprite.texture = texture;
   player["char"].sprite.flip_h = true;
-  player["init_position"] = player["char"].position;
-  npc["init_position"] = npc["char"].position;
 
 func start_char_turn(attacker, defender):
   attacker["char"].sprite.frame = 1;
