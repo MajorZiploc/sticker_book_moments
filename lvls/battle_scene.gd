@@ -21,6 +21,23 @@ func _ready():
   battle_char_left.sprite.flip_h = true;
   battle_char_left_og_position = battle_char_left.position;
   battle_char_right_og_position = battle_char_right.position;
+  _demo_tweening();
+
+func _demo_tweening():
+  #TODO: tween can likely replace the need for the self_modulate animation on the player
+  # would be nicer since i dont have to lock the base image like i do in an animation
+  #TODO: use this to replace the position jump in the attack sequence
+  # for smooth movement needed for when we do the parry system
+  var tween = get_tree().create_tween();
+  #tween.tween_property(battle_char_left, "modulate", Color.RED, 1);
+  #tween.tween_property(battle_char_left, "scale", Vector2(), 1);
+  #tween.tween_callback(battle_char_left.queue_free);
+  var move_to = battle_char_left_og_position + attack_shift;
+  var speed = 3.0;
+  var unit_size = 2.0;
+  var duration = move_to.length() / float(speed * unit_size);
+  var idle_duration = 1.0;
+  tween.tween_property(battle_char_left, "position", Vector2.ZERO, idle_duration);
 
 func _on_attack_pressed():
   if is_player_turn:
