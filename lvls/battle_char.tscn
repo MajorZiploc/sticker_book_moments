@@ -6,7 +6,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46h54"]
 
-[node name="battle_char" type="CharacterBody2D"]
+[node name="battle_char" type="AnimatableBody2D"]
 script = ExtResource("1_s7or0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends AnimatableBody2D
 
 @onready var sprite = $Sprite2D;
 @onready var progress_bar = $Sprite2D/ProgressBar;
