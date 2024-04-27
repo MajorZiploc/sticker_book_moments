@@ -1,4 +1,4 @@
-line art: 7.69px
+line art: 7.69px (8px for better tooling)
 stroke_outline:
   color: #eaeaea
   size: 11px
