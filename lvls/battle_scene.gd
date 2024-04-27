@@ -23,34 +23,34 @@ func _ready():
   player["init_position"] = player["char"].position;
   npc["init_position"] = npc["char"].position;
 
-func init_char_move(char_data, enemy_data):
-  char_data["char"].sprite.frame = 1;
-  enemy_data["char"].sprite.frame = 3;
+func start_char_turn(attacker, defender):
+  attacker["char"].sprite.frame = 1;
+  defender["char"].sprite.frame = 3;
   var tween = get_tree().create_tween();
-  tween.tween_property(char_data["path_follow"], "progress_ratio", 1, 1).set_trans(Tween.TRANS_CUBIC);
-  tween.connect("finished", func(): on_finished_char_move(char_data, enemy_data))
+  tween.tween_property(attacker["path_follow"], "progress_ratio", 1, 1).set_trans(Tween.TRANS_EXPO);
+  tween.connect("finished", func(): on_end_char_action(attacker, defender))
 
-func on_finished_char_move(char_data, enemy_data):
-  char_data["char"].sprite.frame = 2;
-  enemy_data["char"].take_damage(1);
+func on_end_char_action(attacker, defender):
+  attacker["char"].sprite.frame = 2;
+  defender["char"].take_damage(1);
   # HACK: to let the postatk frame show for a second
   var tween = get_tree().create_tween();
-  tween.tween_property(char_data["path_follow"], "progress_ratio", 1, 1);
-  tween.connect("finished", func(): char_move_reset(char_data, enemy_data))
+  tween.tween_property(attacker["path_follow"], "progress_ratio", 1, 1);
+  tween.connect("finished", func(): on_end_char_turn(attacker, defender))
 
-func char_move_reset(char_data, enemy_data):
-  char_data["char"].sprite.frame = 0;
-  enemy_data["char"].sprite.frame = 0;
+func on_end_char_turn(attacker, defender):
+  attacker["char"].sprite.frame = 0;
+  defender["char"].sprite.frame = 0;
   var tween = get_tree().create_tween();
-  tween.tween_property(char_data["path_follow"], "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
-  tween.connect("finished", func(): on_finished_char_move_reset(char_data, enemy_data))
+  tween.tween_property(attacker["path_follow"], "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
+  tween.connect("finished", func(): on_finished_char_move_reset(attacker, defender))
 
-func on_finished_char_move_reset(char_data, enemy_data):
+func on_finished_char_move_reset(attacker, defender):
   if !is_player_turn:
     is_player_turn = !is_player_turn;
-    init_char_move(npc, player);
+    start_char_turn(npc, player);
 
 func _on_attack_pressed():
   if is_player_turn:
     is_player_turn = !is_player_turn;
-    init_char_move(player, npc);
+    start_char_turn(player, npc);
