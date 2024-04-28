@@ -20,3 +20,26 @@ func take_damage(value):
   for n in 2:
     tween.tween_callback(sprite.set_modulate.bind(Color(30, 1, 1, 1))).set_delay(0.1);
     tween.tween_callback(sprite.set_modulate.bind(og_modulate)).set_delay(0.1);
+
+func idle():
+  sprite.frame = 0;
+
+func preatk():
+  sprite.frame = 1;
+
+func postatk():
+  sprite.frame = 2;
+
+func readied():
+  sprite.frame = 3;
+
+func to_player():
+  sprite.flip_h = true;
+
+func to_npc():
+  sprite.flip_h = false;
+
+func update_sprite_texture(asset_path):
+  var texture = load(asset_path);
+  if texture and texture is Texture:
+    sprite.texture = texture;
