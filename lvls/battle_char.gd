@@ -9,13 +9,31 @@ extends AnimatableBody2D
   set(value):
     health = value;
     _update_health_bar();
-    
+
+var scale_tween;
+var rotation_tween;
+
+func _ready():
+  scale_tween = create_tween();
+  var og_scale = sprite.scale;
+  scale_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 1).set_trans(scale_tween.TRANS_EXPO);
+  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(scale_tween.TRANS_EXPO);
+  scale_tween.set_loops(-1);
+  rotation_tween = create_tween();
+  var og_rotation = sprite.rotation_degrees;
+  rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.set_loops(-1);
+  scale_tween.stop();
+  rotation_tween.stop();
+
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
   
 func take_damage(value):
   health -= value;
-  var tween = get_tree().create_tween();
+  var tween = create_tween();
   var og_modulate = sprite.modulate;
   for n in 2:
     tween.tween_callback(sprite.set_modulate.bind(Color(30, 1, 1, 1))).set_delay(0.1);
@@ -23,15 +41,23 @@ func take_damage(value):
 
 func idle():
   sprite.frame = 0;
+  scale_tween.play();
+  rotation_tween.play();
 
 func preatk():
   sprite.frame = 1;
+  scale_tween.stop();
+  rotation_tween.stop();
 
 func postatk():
   sprite.frame = 2;
+  scale_tween.stop();
+  rotation_tween.stop();
 
 func readied():
   sprite.frame = 3;
+  scale_tween.stop();
+  rotation_tween.stop();
 
 func to_player():
   sprite.flip_h = true;

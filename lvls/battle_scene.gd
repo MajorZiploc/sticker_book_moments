@@ -18,11 +18,13 @@ var attack_shift = Vector2(175, 0);
 func _ready():
   player["char"].update_sprite_texture("res://art/my/chars/dual_hybrid.png");
   player["char"].to_player();
+  player["char"].idle();
+  npc["char"].idle();
 
 func start_char_turn(attacker, defender):
   attacker["char"].preatk();
   defender["char"].readied();
-  var tween = get_tree().create_tween();
+  var tween = create_tween();
   tween.tween_property(attacker["path_follow"], "progress_ratio", 1, 1).set_trans(Tween.TRANS_EXPO);
   tween.connect("finished", func(): on_end_char_action(attacker, defender))
 
@@ -30,14 +32,14 @@ func on_end_char_action(attacker, defender):
   attacker["char"].postatk();
   defender["char"].take_damage(1);
   # HACK: to let the postatk frame show for a second
-  var tween = get_tree().create_tween();
+  var tween = create_tween();
   tween.tween_property(attacker["path_follow"], "progress_ratio", 1, 1);
   tween.connect("finished", func(): on_end_char_turn(attacker, defender))
 
 func on_end_char_turn(attacker, defender):
   attacker["char"].idle();
   defender["char"].idle();
-  var tween = get_tree().create_tween();
+  var tween = create_tween();
   tween.tween_property(attacker["path_follow"], "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
   tween.connect("finished", func(): on_finished_char_move_reset(attacker, defender))
 
