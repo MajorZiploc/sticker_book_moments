@@ -1,7 +1,7 @@
 extends AnimatableBody2D
 
-@onready var sprite = $sprite;
-@onready var health_bar = $sprite/health_bar;
+@onready var sprite: Sprite2D = $sprite;
+@onready var health_bar: ProgressBar = $sprite/health_bar;
 
 @export var MAX_HEALTH: float = 7;
 
@@ -17,22 +17,17 @@ enum FrameType {
   READIED,
 }
 
-var tweens_key = "tweens";
+class FrameData:
+    var tweens: Array[Tween]
+    func _init():
+        tweens = []
 
-var frame_data = {
-  FrameType.IDLE: {
-    tweens_key: [],
-  },
-  FrameType.PREATK: {
-    tweens_key: [],
-  },
-  FrameType.POSTATK: {
-    tweens_key: [],
-  },
-  FrameType.READIED: {
-    tweens_key: [],
-  },
-};
+var frame_data: Dictionary = {
+    FrameType.IDLE: FrameData.new(),
+    FrameType.PREATK: FrameData.new(),
+    FrameType.POSTATK: FrameData.new(),
+    FrameType.READIED: FrameData.new()
+}
 
 func _ready():
   _init_idle_tweens();
@@ -51,12 +46,12 @@ func _init_idle_tweens():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
-  frame_data[FrameType.IDLE][tweens_key].append_array([scale_tween, rotation_tween]);
+  frame_data[FrameType.IDLE].tweens.append_array([scale_tween, rotation_tween]);
 
-func play_frame_tweens(frame_type):
+func play_frame_tweens(frame_type: FrameType):
   for cur_frame_type in FrameType:
     var cur_frame_type_value = FrameType[cur_frame_type];
-    var tweens = frame_data[cur_frame_type_value][tweens_key];
+    var tweens = frame_data[cur_frame_type_value].tweens;
     if cur_frame_type_value == frame_type:
       for tween in tweens:
         tween.play();
@@ -67,7 +62,7 @@ func play_frame_tweens(frame_type):
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
   
-func take_damage(value):
+func take_damage(value: float):
   health -= value;
   var tween = create_tween();
   var og_modulate = sprite.modulate;
@@ -97,7 +92,7 @@ func to_player():
 func to_npc():
   sprite.flip_h = false;
 
-func update_sprite_texture(asset_path):
+func update_sprite_texture(asset_path: String):
   var texture = load(asset_path);
   if texture and texture is Texture:
     sprite.texture = texture;
