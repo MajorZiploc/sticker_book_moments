@@ -9,10 +9,28 @@ extends AnimatableBody2D
   set(value):
     health = value;
     _update_health_bar();
+    
+enum FrameType {
+  IDLE,
+  PREATK,
+  POSTATK,
+  READIED,
+}
+
+var tweens_key = "tweens";
 
 var frame_data = {
-  "idle": {
-    "tweens": [],
+  FrameType.IDLE: {
+    tweens_key: [],
+  },
+  FrameType.PREATK: {
+    tweens_key: [],
+  },
+  FrameType.POSTATK: {
+    tweens_key: [],
+  },
+  FrameType.READIED: {
+    tweens_key: [],
   },
 };
 
@@ -33,15 +51,18 @@ func _init_idle_tweens():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
-  frame_data["idle"]["tweens"].append_array([scale_tween, rotation_tween]);
+  frame_data[FrameType.IDLE][tweens_key].append_array([scale_tween, rotation_tween]);
 
-func play_tweens(frame):
-  for tween in frame_data[frame]["tweens"]:
-    tween.play();
-
-func stop_tweens(frame):
-  for tween in frame_data[frame]["tweens"]:
-    tween.stop();
+func play_frame_tweens(frame_type):
+  for cur_frame_type in FrameType:
+    var cur_frame_type_value = FrameType[cur_frame_type];
+    var tweens = frame_data[cur_frame_type_value][tweens_key];
+    if cur_frame_type_value == frame_type:
+      for tween in tweens:
+        tween.play();
+    else:
+      for tween in tweens:
+        tween.stop();
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
@@ -56,19 +77,19 @@ func take_damage(value):
 
 func idle():
   sprite.frame = 0;
-  play_tweens("idle");
+  play_frame_tweens(FrameType.IDLE);
 
 func preatk():
   sprite.frame = 1;
-  stop_tweens("idle");
+  play_frame_tweens(FrameType.PREATK);
 
 func postatk():
   sprite.frame = 2;
-  stop_tweens("idle");
+  play_frame_tweens(FrameType.POSTATK);
 
 func readied():
   sprite.frame = 3;
-  stop_tweens("idle");
+  play_frame_tweens(FrameType.READIED);
 
 func to_player():
   sprite.flip_h = true;
