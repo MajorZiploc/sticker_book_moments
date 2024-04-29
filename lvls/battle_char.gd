@@ -1,4 +1,5 @@
 extends AnimatableBody2D
+class_name BattleChar
 
 @onready var sprite: Sprite2D = $sprite;
 @onready var health_bar: ProgressBar = $sprite/health_bar;
