@@ -19,15 +19,15 @@ enum FrameType {
 }
 
 class FrameData:
-    var tweens: Array[Tween]
-    func _init():
-        tweens = []
+  var tweens: Array[Tween]
+  func _init():
+    tweens = []
 
 var frame_data: Dictionary = {
-    FrameType.IDLE: FrameData.new(),
-    FrameType.PREATK: FrameData.new(),
-    FrameType.POSTATK: FrameData.new(),
-    FrameType.READIED: FrameData.new()
+  FrameType.IDLE: FrameData.new(),
+  FrameType.PREATK: FrameData.new(),
+  FrameType.POSTATK: FrameData.new(),
+  FrameType.READIED: FrameData.new()
 }
 
 func _ready():

@@ -1,11 +1,11 @@
 extends Node2D
 
 class CombatUnit:
-    var char: BattleChar;
-    var path_follow: PathFollow2D;
-    func _init(char, path_follow):
-      self.char = char;
-      self.path_follow = path_follow;
+  var char: BattleChar;
+  var path_follow: PathFollow2D;
+  func _init(char, path_follow):
+    self.char = char;
+    self.path_follow = path_follow;
 
 @onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow);
 @onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow);
