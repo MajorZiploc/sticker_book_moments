@@ -10,16 +10,22 @@ extends AnimatableBody2D
     health = value;
     _update_health_bar();
 
-var scale_tween;
-var rotation_tween;
+var frame_data = {
+  "idle": {
+    "tweens": [],
+  },
+};
 
 func _ready():
-  scale_tween = create_tween();
+  _init_idle_tweens();
+
+func _init_idle_tweens():
+  var scale_tween = create_tween();
   var og_scale = sprite.scale;
   scale_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 1).set_trans(scale_tween.TRANS_EXPO);
   scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(scale_tween.TRANS_EXPO);
   scale_tween.set_loops(-1);
-  rotation_tween = create_tween();
+  var rotation_tween = create_tween();
   var og_rotation = sprite.rotation_degrees;
   rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
   rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
@@ -27,6 +33,15 @@ func _ready():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
+  frame_data["idle"]["tweens"].append_array([scale_tween, rotation_tween]);
+
+func play_tweens(frame):
+  for tween in frame_data[frame]["tweens"]:
+    tween.play();
+
+func stop_tweens(frame):
+  for tween in frame_data[frame]["tweens"]:
+    tween.stop();
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
@@ -41,23 +56,19 @@ func take_damage(value):
 
 func idle():
   sprite.frame = 0;
-  scale_tween.play();
-  rotation_tween.play();
+  play_tweens("idle");
 
 func preatk():
   sprite.frame = 1;
-  scale_tween.stop();
-  rotation_tween.stop();
+  stop_tweens("idle");
 
 func postatk():
   sprite.frame = 2;
-  scale_tween.stop();
-  rotation_tween.stop();
+  stop_tweens("idle");
 
 func readied():
   sprite.frame = 3;
-  scale_tween.stop();
-  rotation_tween.stop();
+  stop_tweens("idle");
 
 func to_player():
   sprite.flip_h = true;
