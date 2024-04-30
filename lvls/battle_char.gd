@@ -18,13 +18,34 @@ enum FrameType {
   READIED,
 }
 
-class FrameData:
-  var tweens: Array[Tween]
-  func _init():
-    tweens = []
+func play_animate_generic(frame_data: FrameData):
+  var tweens = frame_data.animate.metadata["tweens"]
+  tweens = tweens if tweens else []
+  for tween in tweens:
+    tween.play();
 
-var frame_data: Dictionary = {
-  FrameType.IDLE: FrameData.new(),
+func stop_animate_generic(frame_data: FrameData):
+  var tweens = frame_data.animate.metadata["tweens"]
+  tweens = tweens if tweens else []
+  for tween in tweens:
+    tween.stop();
+
+class AnimateFrameData:
+  var metadata: Dictionary;
+  var play;
+  var stop;
+  func _init(metadata = {}, play = (func(frame_data: FrameData): return 0), stop = (func(frame_data: FrameData): return 0)):
+    self.metadata = metadata;
+    self.play = play;
+    self.stop = stop;
+
+class FrameData:
+  var animate: AnimateFrameData;
+  func _init(animate = AnimateFrameData.new()):
+    self.animate = animate;
+
+var frame_data_dict: Dictionary = {
+  FrameType.IDLE: FrameData.new(AnimateFrameData.new({ "tweens": [] }, play_animate_generic, stop_animate_generic)),
   FrameType.PREATK: FrameData.new(),
   FrameType.POSTATK: FrameData.new(),
   FrameType.READIED: FrameData.new()
@@ -47,18 +68,16 @@ func _init_idle_tweens():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
-  frame_data[FrameType.IDLE].tweens.append_array([scale_tween, rotation_tween]);
+  frame_data_dict[FrameType.IDLE].animate.metadata["tweens"].append_array([scale_tween, rotation_tween]);
 
-func play_frame_tweens(frame_type: FrameType):
+func play_frame_animation(frame_type: FrameType):
   for cur_frame_type in FrameType:
     var cur_frame_type_value = FrameType[cur_frame_type];
-    var tweens = frame_data[cur_frame_type_value].tweens;
+    var frame_data = frame_data_dict[cur_frame_type_value];
     if cur_frame_type_value == frame_type:
-      for tween in tweens:
-        tween.play();
+      frame_data.animate.play.call(frame_data);
     else:
-      for tween in tweens:
-        tween.stop();
+      frame_data.animate.stop.call(frame_data);
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
@@ -73,19 +92,19 @@ func take_damage(value: float):
 
 func idle():
   sprite.frame = 0;
-  play_frame_tweens(FrameType.IDLE);
+  play_frame_animation(FrameType.IDLE);
 
 func preatk():
   sprite.frame = 1;
-  play_frame_tweens(FrameType.PREATK);
+  play_frame_animation(FrameType.PREATK);
 
 func postatk():
   sprite.frame = 2;
-  play_frame_tweens(FrameType.POSTATK);
+  play_frame_animation(FrameType.POSTATK);
 
 func readied():
   sprite.frame = 3;
-  play_frame_tweens(FrameType.READIED);
+  play_frame_animation(FrameType.READIED);
 
 func to_player():
   sprite.flip_h = true;
