@@ -19,40 +19,26 @@ enum FrameType {
 }
 
 func play_animate_generic(frame_type: FrameType):
-  var frame_data: FrameData = frame_data_dict[frame_type];
+  var frame_data: FrameData.Data = frame_data_dict[frame_type];
   for tween in frame_data.animate.tweens:
     tween.play();
 
 func stop_animate_generic(frame_type: FrameType):
-  var frame_data: FrameData = frame_data_dict[frame_type];
+  var frame_data: FrameData.Data = frame_data_dict[frame_type];
   for tween in frame_data.animate.tweens:
     tween.stop();
 
-class AnimateFrameData:
-  var tweens: Array[Tween];
-  var play;
-  var stop;
-  func _init(tweens: Array[Tween] = [], play = (func(): return 0), stop = (func(): return 0)):
-    self.tweens = tweens;
-    self.play = play;
-    self.stop = stop;
-
-class FrameData:
-  var animate: AnimateFrameData;
-  func _init(animate = AnimateFrameData.new()):
-    self.animate = animate;
-
 var frame_data_dict: Dictionary = {
-  FrameType.IDLE: FrameData.new(
-    AnimateFrameData.new(
+  FrameType.IDLE: FrameData.Data.new(
+    FrameData.AnimateData.new(
       [],
       (func(): play_animate_generic(FrameType.IDLE)),
       (func(): stop_animate_generic(FrameType.IDLE)),
     )
   ),
-  FrameType.PREATK: FrameData.new(),
-  FrameType.POSTATK: FrameData.new(),
-  FrameType.READIED: FrameData.new()
+  FrameType.PREATK: FrameData.Data.new(),
+  FrameType.POSTATK: FrameData.Data.new(),
+  FrameType.READIED: FrameData.Data.new()
 }
 
 func _ready():
@@ -72,17 +58,12 @@ func _init_idle_tweens():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
-  var frame_data: FrameData = frame_data_dict[FrameType.IDLE];
+  var frame_data: FrameData.Data = frame_data_dict[FrameType.IDLE];
   frame_data.animate.tweens.append_array([scale_tween, rotation_tween]);
 
 func play_frame_animation(frame_type: FrameType):
   for cur_frame_type in FrameType:
-    var cur_frame_type_value = FrameType[cur_frame_type];
-    var frame_data: FrameData = frame_data_dict[cur_frame_type_value];
-    if cur_frame_type_value == frame_type:
-      frame_data.animate.play.call();
-    else:
-      frame_data.animate.stop.call();
+    FrameData.take_frame_animation_action(frame_data_dict, frame_type, FrameType[cur_frame_type]);
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
