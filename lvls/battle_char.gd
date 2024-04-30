@@ -18,17 +18,13 @@ enum FrameType {
   READIED,
 }
 
-func play_animate_generic(args: Dictionary = {}):
-  var frame_type = args["frame_type"];
-  if frame_type == null: return;
+func play_animate_generic(frame_type: FrameType):
   var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
     tween.play();
 
-func stop_animate_generic(args: Dictionary = {}):
-  var frame_type = args["frame_type"];
-  if frame_type == null: return;
+func stop_animate_generic(frame_type: FrameType):
   var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
@@ -38,7 +34,7 @@ class AnimateFrameData:
   var metadata: Dictionary;
   var play;
   var stop;
-  func _init(metadata = {}, play = (func(args): return 0), stop = (func(args): return 0)):
+  func _init(metadata = {}, play = (func(): return 0), stop = (func(): return 0)):
     self.metadata = metadata;
     self.play = play;
     self.stop = stop;
@@ -49,7 +45,11 @@ class FrameData:
     self.animate = animate;
 
 var frame_data_dict: Dictionary = {
-  FrameType.IDLE: FrameData.new(AnimateFrameData.new({ "tweens": [] }, play_animate_generic, stop_animate_generic)),
+  FrameType.IDLE: FrameData.new(
+    AnimateFrameData.new({ "tweens": [] },
+    (func(): play_animate_generic(FrameType.IDLE)),
+    (func(): stop_animate_generic(FrameType.IDLE)),
+  )),
   FrameType.PREATK: FrameData.new(),
   FrameType.POSTATK: FrameData.new(),
   FrameType.READIED: FrameData.new()
@@ -79,9 +79,9 @@ func play_frame_animation(frame_type: FrameType):
     var cur_frame_type_value = FrameType[cur_frame_type];
     var frame_data = frame_data_dict[cur_frame_type_value];
     if cur_frame_type_value == frame_type:
-      frame_data.animate.play.call({"frame_type": cur_frame_type_value});
+      frame_data.animate.play.call();
     else:
-      frame_data.animate.stop.call({"frame_type": cur_frame_type_value});
+      frame_data.animate.stop.call();
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
