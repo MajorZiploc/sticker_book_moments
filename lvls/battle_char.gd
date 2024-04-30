@@ -61,9 +61,14 @@ func _init_idle_tweens():
   var frame_data: FrameData.Data = frame_data_dict[FrameType.IDLE];
   frame_data.animate.tweens.append_array([scale_tween, rotation_tween]);
 
-func play_frame_animation(frame_type: FrameType):
+func play_frame_animation(frame_type_to_play: FrameType):
   for cur_frame_type in FrameType:
-    FrameData.take_frame_animation_action(frame_data_dict, frame_type, FrameType[cur_frame_type]);
+    var cur_frame_type_value = FrameType[cur_frame_type];
+    if cur_frame_type_value != frame_type_to_play:
+      var cur_frame_data: FrameData.Data = frame_data_dict[cur_frame_type_value];
+      cur_frame_data.animate.stop.call();
+  var frame_data: FrameData.Data = frame_data_dict[frame_type_to_play];
+  frame_data.animate.play.call();
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
