@@ -18,14 +18,18 @@ enum FrameType {
   READIED,
 }
 
-func play_animate_generic(frame_data: FrameData):
-  var tweens = frame_data.animate.metadata["tweens"]
+func play_animate_generic(args: Dictionary = {}):
+  var frame_type = args["frame_type"];
+  if frame_type == null: return;
+  var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
     tween.play();
 
-func stop_animate_generic(frame_data: FrameData):
-  var tweens = frame_data.animate.metadata["tweens"]
+func stop_animate_generic(args: Dictionary = {}):
+  var frame_type = args["frame_type"];
+  if frame_type == null: return;
+  var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
     tween.stop();
@@ -34,7 +38,7 @@ class AnimateFrameData:
   var metadata: Dictionary;
   var play;
   var stop;
-  func _init(metadata = {}, play = (func(frame_data: FrameData): return 0), stop = (func(frame_data: FrameData): return 0)):
+  func _init(metadata = {}, play = (func(args): return 0), stop = (func(args): return 0)):
     self.metadata = metadata;
     self.play = play;
     self.stop = stop;
@@ -75,9 +79,9 @@ func play_frame_animation(frame_type: FrameType):
     var cur_frame_type_value = FrameType[cur_frame_type];
     var frame_data = frame_data_dict[cur_frame_type_value];
     if cur_frame_type_value == frame_type:
-      frame_data.animate.play.call(frame_data);
+      frame_data.animate.play.call({"frame_type": cur_frame_type_value});
     else:
-      frame_data.animate.stop.call(frame_data);
+      frame_data.animate.stop.call({"frame_type": cur_frame_type_value});
 
 func _update_health_bar():
   health_bar.value = (health / MAX_HEALTH) * 100;
