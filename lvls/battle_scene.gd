@@ -21,34 +21,28 @@ func _ready():
   player.char.idle();
   npc.char.idle();
 
-func start_char_turn(attacker: CombatUnit, defender: CombatUnit):
+func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   attacker.char.preatk();
   defender.char.readied();
   var tween = create_tween();
   tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1).set_trans(Tween.TRANS_EXPO);
-  tween.connect("finished", func(): on_end_char_action(attacker, defender))
-
-func on_end_char_action(attacker: CombatUnit, defender: CombatUnit):
+  await tween.finished;
   attacker.char.postatk();
   defender.char.take_damage(1);
   # HACK: to let the postatk frame show for a second
-  var tween = create_tween();
+  tween = create_tween();
   tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1);
-  tween.connect("finished", func(): on_end_char_turn(attacker, defender))
-
-func on_end_char_turn(attacker: CombatUnit, defender: CombatUnit):
+  await tween.finished;
   attacker.char.idle();
   defender.char.idle();
-  var tween = create_tween();
+  tween = create_tween();
   tween.tween_property(attacker.path_follow, "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
-  tween.connect("finished", func(): on_finished_char_move_reset(attacker, defender))
-
-func on_finished_char_move_reset(attacker: CombatUnit, defender: CombatUnit):
+  await tween.finished;
   if !is_player_turn:
     is_player_turn = !is_player_turn;
-    start_char_turn(npc, player);
+    attack_sequence(npc, player);
 
 func _on_attack_pressed():
   if is_player_turn:
     is_player_turn = !is_player_turn;
-    start_char_turn(player, npc);
+    attack_sequence(player, npc);
