@@ -19,13 +19,15 @@ enum FrameType {
 }
 
 func play_animate_generic(frame_type: FrameType):
-  var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
+  var frame_data: FrameData = frame_data_dict[frame_type];
+  var tweens = frame_data.animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
     tween.play();
 
 func stop_animate_generic(frame_type: FrameType):
-  var tweens = frame_data_dict[frame_type].animate.metadata["tweens"]
+  var frame_data: FrameData = frame_data_dict[frame_type];
+  var tweens = frame_data.animate.metadata["tweens"]
   tweens = tweens if tweens else []
   for tween in tweens:
     tween.stop();
@@ -72,12 +74,13 @@ func _init_idle_tweens():
   rotation_tween.set_loops(-1);
   scale_tween.stop();
   rotation_tween.stop();
-  frame_data_dict[FrameType.IDLE].animate.metadata["tweens"].append_array([scale_tween, rotation_tween]);
+  var frame_data: FrameData = frame_data_dict[FrameType.IDLE];
+  frame_data.animate.metadata["tweens"].append_array([scale_tween, rotation_tween]);
 
 func play_frame_animation(frame_type: FrameType):
   for cur_frame_type in FrameType:
     var cur_frame_type_value = FrameType[cur_frame_type];
-    var frame_data = frame_data_dict[cur_frame_type_value];
+    var frame_data: FrameData = frame_data_dict[cur_frame_type_value];
     if cur_frame_type_value == frame_type:
       frame_data.animate.play.call();
     else:
