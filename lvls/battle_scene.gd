@@ -17,6 +17,7 @@ var attack_shift = Vector2(175, 0);
 # Called when the node enters the scene tree for the first time.
 func _ready():
   player.char.update_sprite_texture("res://art/my/chars/dual_hybrid.png");
+  npc.char.update_sprite_texture("res://art/my/chars/two_handed_axer.png");
   player.char.to_player();
   player.char.idle();
   npc.char.idle();
