@@ -4,6 +4,7 @@ class CombatUnit:
   var char: BattleChar;
   var path_follow: PathFollow2D;
   var path: Path2D;
+  var unit_data: CombatUnitData.Data;
   func _init(char, path_follow, path):
     self.char = char;
     self.path_follow = path_follow;
@@ -23,31 +24,23 @@ var max_parry_ratio = 1;
 var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1036, 5);
 var attack_position_offset = Vector2(175, 0);
-var basic_player_path_points = [
-  player_init_position,
-  Vector2(435, -100),
-  Vector2(667, -118),
-  npc_init_position - attack_position_offset,
-];
-var basic_npc_path_points = [
-  npc_init_position,
-  Vector2(667, -118),
-  Vector2(435, -100),
-  player_init_position + attack_position_offset,
-];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  player.char.update_sprite_texture(CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID].sprite_path);
-  npc.char.update_sprite_texture(CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER].sprite_path);
+  player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
+  npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
+  player.char.update_sprite_texture(player.unit_data.sprite_path);
+  npc.char.update_sprite_texture(npc.unit_data.sprite_path);
   player.char.to_player();
   player.char.idle();
   npc.char.idle();
+  var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position, attack_position_offset, true)
   player.path.curve.clear_points();
-  for point in basic_player_path_points:
+  for point in player_path_points:
     player.path.curve.add_point(point);
+  var npc_path_points: Array[Vector2] = npc.unit_data.get_path_points.call(player_init_position, npc_init_position, attack_position_offset, false)
   npc.path.curve.clear_points();
-  for point in basic_npc_path_points:
+  for point in npc_path_points:
     npc.path.curve.add_point(point);
     path_parry_marker.curve.add_point(point);
   path_parry_marker_path_follow.progress_ratio = (min_parry_ratio + max_parry_ratio) / 2;
