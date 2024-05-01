@@ -22,6 +22,11 @@ func _ready():
   player.char.idle();
   npc.char.idle();
 
+func full_round(attacker: CombatUnit, defender: CombatUnit):
+  await attack_sequence(attacker, defender);
+  is_player_turn = !is_player_turn;
+  await attack_sequence(defender, attacker);
+
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   attacker.char.preatk();
   defender.char.readied();
@@ -38,12 +43,16 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   defender.char.idle();
   tween = create_tween();
   tween.tween_property(attacker.path_follow, "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
-  await tween.finished;
-  if !is_player_turn:
-    is_player_turn = !is_player_turn;
-    attack_sequence(npc, player);
+  return await tween.finished;
 
 func _on_attack_pressed():
-  if is_player_turn:
+  if is_player_turn and npc.path_follow.progress_ratio == 0:
     is_player_turn = !is_player_turn;
-    attack_sequence(player, npc);
+    full_round(player, npc);
+  else:
+    # TODO: parry based on progress_ratio maybe if between 0.8 and 1 then parry instead of taking damage?
+    # maybe creating a 'parried' flag to check in the attack_sequence to see who damage should be put on and changing player sprite
+    # TODO: also only allow this path if the player has only tried to parry 1 time, all other parry attempts should come to this
+    #   flag for 'parry_attempted'
+    print('npc.path_follow.progress_ratio');
+    print(npc.path_follow.progress_ratio);
