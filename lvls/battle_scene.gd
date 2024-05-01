@@ -84,7 +84,5 @@ func _on_attack_pressed():
     parry_attempted_ratio = 0.0;
     full_round(player, npc);
   elif !parry_attempted:
-    print('npc.path_follow.progress_ratio');
-    print(npc.path_follow.progress_ratio);
     parry_attempted = true;
     parry_attempted_ratio = npc.path_follow.progress_ratio;
