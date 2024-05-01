@@ -46,7 +46,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   return await tween.finished;
 
 func _on_attack_pressed():
-  if is_player_turn and npc.path_follow.progress_ratio == 0:
+  if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
     is_player_turn = !is_player_turn;
     full_round(player, npc);
   else:
