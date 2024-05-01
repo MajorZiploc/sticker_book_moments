@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=8 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="Texture2D" uid="uid://osawdaxos1ae" path="res://art/tmp/battle/bg/bg_battle_foresttmp.jpg" id="3_ooilf"]
+
+[sub_resource type="Curve2D" id="Curve2D_ult4u"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_iky10"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
 _data = {
@@ -28,6 +32,17 @@ offset_right = 1454.55
 offset_bottom = 383.0
 texture = ExtResource("3_ooilf")
 metadata/_edit_use_anchors_ = true
+
+[node name="path_parry_marker" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ult4u")
+
+[node name="path_follow" type="PathFollow2D" parent="path_parry_marker"]
+
+[node name="parry_marker" type="TextureRect" parent="path_parry_marker/path_follow"]
+modulate = Color(0.984314, 0.231373, 1, 1)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_iky10")
 
 [node name="path_left" type="Path2D" parent="."]
 position = Vector2(-148.649, 0)
