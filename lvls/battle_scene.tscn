@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=12 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="Texture2D" uid="uid://osawdaxos1ae" path="res://art/tmp/battle/bg/bg_battle_foresttmp.jpg" id="3_ooilf"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_0cwmx"]
 
 [sub_resource type="Curve2D" id="Curve2D_ult4u"]
 
@@ -20,9 +23,14 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Resource" id="Resource_efo2m"]
+script = ExtResource("5_ry2gw")
+duration = 1.0
+transition = 0
+ease = 2
+
 [node name="battle_scene" type="Node2D"]
-position = Vector2(148, 210)
-scale = Vector2(0.22, 0.22)
+position = Vector2(564, 334)
 script = ExtResource("1_7ul4m")
 
 [node name="background_texture" type="TextureRect" parent="."]
@@ -80,12 +88,27 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -58.0
-offset_top = -40.0
+offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(150, 20)
 
 [node name="attack" type="Button" parent="CanvasLayer/choice"]
 layout_mode = 2
 text = "Attack"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(465, -282)
+zoom = Vector2(0.5, 0.5)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("6_0cwmx")
+
+[node name="cam" type="Node2D" parent="."]
+position = Vector2(465, -282)
+script = ExtResource("4_yfoe6")
+zoom = Vector2(0.5, 0.5)
+tween_resource = SubResource("Resource_efo2m")
 
 [connection signal="pressed" from="CanvasLayer/choice/attack" to="." method="_on_attack_pressed"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var cam: PhantomCamera2D = $cam;
+
 class CombatUnit:
   var char: BattleChar;
   var path_follow: PathFollow2D;

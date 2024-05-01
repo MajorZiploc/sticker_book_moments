@@ -20,18 +20,15 @@ config/icon="res://icon.svg"
 ReplaceColor="*res://lvls/utils/replace_color.gd"
 ColorPalette="*res://lvls/utils/color_palette.gd"
 FrameData="*res://lvls/utils/frame_data.gd"
+CombatUnitData="*res://lvls/utils/combat_unit_data.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="canvas_items"
-window/stretch/scale=4.0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
