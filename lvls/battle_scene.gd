@@ -25,6 +25,22 @@ func _ready():
   player.char.to_player();
   player.char.idle();
   npc.char.idle();
+  var path = Path2D.new()
+  var curve = Curve2D.new()
+  curve.add_point(Vector2(1036, 4))
+  curve.add_point(Vector2(631, -109))
+  curve.add_point(Vector2(363, -122))
+  path.curve = curve
+  var path_follow = PathFollow2D.new()
+  #path_follow.set_path(path)
+  path_follow.progress_ratio = 0.8
+  var marker = StaticBody2D.new()
+  var marker_sprite = Sprite2D.new()
+  marker_sprite.texture = load("res://art/Sprout Lands - Sprites - Basic pack/Characters/Egg_And_Nest.png");
+  marker.add_child(marker_sprite)
+  path_follow.add_child(marker)
+  path.add_child(path_follow)
+  add_child(path)
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
