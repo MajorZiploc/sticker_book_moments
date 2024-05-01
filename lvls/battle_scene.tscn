@@ -21,6 +21,14 @@ position = Vector2(148, 210)
 scale = Vector2(0.22, 0.22)
 script = ExtResource("1_7ul4m")
 
+[node name="background_texture" type="TextureRect" parent="."]
+offset_left = -545.455
+offset_top = -950.0
+offset_right = 1454.55
+offset_bottom = 383.0
+texture = ExtResource("3_ooilf")
+metadata/_edit_use_anchors_ = true
+
 [node name="path_left" type="Path2D" parent="."]
 position = Vector2(-148.649, 0)
 curve = SubResource("Curve2D_1ljv2")
@@ -47,14 +55,6 @@ loop = false
 [node name="battle_char" parent="path_right/path_follow" instance=ExtResource("2_7aox0")]
 position = Vector2(7.61572, 2.58209)
 rotation = 2.86775
-
-[node name="background_texture" type="TextureRect" parent="."]
-offset_left = -545.455
-offset_top = -950.0
-offset_right = 1454.55
-offset_bottom = 383.0
-texture = ExtResource("3_ooilf")
-metadata/_edit_use_anchors_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
