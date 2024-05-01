@@ -55,7 +55,7 @@ rotates = false
 loop = false
 
 [node name="battle_char" parent="path_left/path_follow" instance=ExtResource("2_7aox0")]
-position = Vector2(-3.11209, -0.720581)
+position = Vector2(-3.112, 2.08165e-12)
 rotation = 0.227567
 
 [node name="path_right" type="Path2D" parent="."]
@@ -68,7 +68,7 @@ rotates = false
 loop = false
 
 [node name="battle_char" parent="path_right/path_follow" instance=ExtResource("2_7aox0")]
-position = Vector2(7.61572, 2.58209)
+position = Vector2(7.616, 2.08165e-12)
 rotation = 2.86775
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

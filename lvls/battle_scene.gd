@@ -22,7 +22,7 @@ var parry_attempted_ratio = 0.0;
 var min_parry_ratio = 0.65;
 var max_parry_ratio = 1;
 var player_init_position = Vector2(2, 0);
-var npc_init_position = Vector2(1036, 5);
+var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
 
 # Called when the node enters the scene tree for the first time.
