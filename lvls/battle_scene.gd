@@ -13,6 +13,10 @@ class CombatUnit:
 @export var is_player_turn = true;
 
 var attack_shift = Vector2(175, 0);
+var parry_attempted = false;
+var parry_attempted_ratio = 0.0;
+var min_parry_ratio = 0.5;
+var max_parry_ratio = 1.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +38,13 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
   attacker.char.postatk();
-  defender.char.take_damage(1);
+  var damage_taker = defender;
+  # NOTE: this is actually the enemy turn if this is true at this point
+  if is_player_turn:
+    if parry_attempted and parry_attempted_ratio >= min_parry_ratio and parry_attempted_ratio <= max_parry_ratio:
+      damage_taker = attacker;
+      defender.char.postatk();
+  damage_taker.char.take_damage(1);
   # HACK: to let the postatk frame show for a second
   tween = create_tween();
   tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1);
@@ -48,11 +58,11 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
 func _on_attack_pressed():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
     is_player_turn = !is_player_turn;
+    parry_attempted = false;
+    parry_attempted_ratio = 0.0;
     full_round(player, npc);
-  else:
-    # TODO: parry based on progress_ratio maybe if between 0.8 and 1 then parry instead of taking damage?
-    # maybe creating a 'parried' flag to check in the attack_sequence to see who damage should be put on and changing player sprite
-    # TODO: also only allow this path if the player has only tried to parry 1 time, all other parry attempts should come to this
-    #   flag for 'parry_attempted'
+  elif !parry_attempted:
     print('npc.path_follow.progress_ratio');
     print(npc.path_follow.progress_ratio);
+    parry_attempted = true;
+    parry_attempted_ratio = npc.path_follow.progress_ratio;
