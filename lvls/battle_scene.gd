@@ -3,20 +3,36 @@ extends Node2D
 class CombatUnit:
   var char: BattleChar;
   var path_follow: PathFollow2D;
-  func _init(char, path_follow):
+  var path: Path2D;
+  func _init(char, path_follow, path):
     self.char = char;
     self.path_follow = path_follow;
+    self.path = path;
 
-@onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow);
-@onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow);
+@onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow, $path_left);
+@onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow, $path_right);
 
 @export var is_player_turn = true;
 
-var attack_shift = Vector2(175, 0);
 var parry_attempted = false;
 var parry_attempted_ratio = 0.0;
 var min_parry_ratio = 0.5;
 var max_parry_ratio = 1.0;
+var player_init_position = Vector2(2, 0);
+var npc_init_position = Vector2(1036, 5);
+var attack_position_offset = Vector2(175, 0);
+var basic_player_path_points = [
+  player_init_position,
+  Vector2(435, -100),
+  Vector2(667, -118),
+  npc_init_position - attack_position_offset,
+];
+var basic_npc_path_points = [
+  npc_init_position,
+  Vector2(667, -118),
+  Vector2(435, -100),
+  player_init_position + attack_position_offset,
+];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +41,12 @@ func _ready():
   player.char.to_player();
   player.char.idle();
   npc.char.idle();
+  player.path.curve.clear_points();
+  for point in basic_player_path_points:
+    player.path.curve.add_point(point);
+  npc.path.curve.clear_points();
+  for point in basic_npc_path_points:
+    npc.path.curve.add_point(point);
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
