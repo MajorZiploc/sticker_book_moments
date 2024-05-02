@@ -7,13 +7,15 @@ class CombatUnit:
   var path_follow: PathFollow2D;
   var path: Path2D;
   var unit_data: CombatUnitData.Data;
-  func _init(char, path_follow, path):
+  var health_bar: ProgressBar;
+  func _init(char, path_follow, path, health_bar):
     self.char = char;
     self.path_follow = path_follow;
     self.path = path;
+    self.health_bar = health_bar;
 
-@onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow, $path_left);
-@onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow, $path_right);
+@onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow, $path_left, $CanvasLayer/player_info/margin/healthbar);
+@onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow, $path_right, $CanvasLayer/npc_info/margin/healthbar);
 @onready var path_parry_marker: Path2D = $path_parry_marker;
 @onready var path_parry_marker_path_follow: PathFollow2D = $path_parry_marker/path_follow;
 
@@ -48,6 +50,11 @@ func _ready():
     path_parry_marker.curve.add_point(point);
   path_parry_marker_path_follow.progress_ratio = (min_parry_ratio + max_parry_ratio) / 2;
   path_parry_marker.visible = false;
+  _update_unit_ui_info(player);
+  _update_unit_ui_info(npc);
+
+func _update_unit_ui_info(combat_unit: CombatUnit):
+  combat_unit.health_bar.value = (combat_unit.char.health / combat_unit.char.MAX_HEALTH) * 100;
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
@@ -69,6 +76,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
       damage_taker = attacker;
       defender.char.postatk();
   damage_taker.char.take_damage(1);
+  _update_unit_ui_info(damage_taker);
   path_parry_marker.visible = false;
   # HACK: to let the postatk frame show for a second
   tween = create_tween();

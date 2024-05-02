@@ -2,14 +2,12 @@ extends AnimatableBody2D
 class_name BattleChar
 
 @onready var sprite: Sprite2D = $sprite;
-@onready var health_bar: ProgressBar = $sprite/health_bar;
 
 @export var MAX_HEALTH: float = 7;
 
 @export var health: float = 7:
   set(value):
     health = value;
-    _update_health_bar();
     
 enum FrameType {
   IDLE,
@@ -70,9 +68,6 @@ func play_frame_animation(frame_type_to_play: FrameType):
   var frame_data: FrameData.Data = frame_data_dict[frame_type_to_play];
   frame_data.animate.play.call();
 
-func _update_health_bar():
-  health_bar.value = (health / MAX_HEALTH) * 100;
-  
 func take_damage(value: float):
   health -= value;
   var tween = create_tween();

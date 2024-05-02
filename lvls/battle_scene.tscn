@@ -81,6 +81,19 @@ rotation = 2.86775
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="player_info" type="BoxContainer" parent="CanvasLayer"]
+offset_right = 500.0
+offset_bottom = 120.0
+
+[node name="margin" type="MarginContainer" parent="CanvasLayer/player_info"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 10
+
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/margin"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+
 [node name="choice" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -97,6 +110,24 @@ pivot_offset = Vector2(150, 20)
 [node name="attack" type="Button" parent="CanvasLayer/choice"]
 layout_mode = 2
 text = "Attack"
+
+[node name="npc_info" type="BoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -312.0
+offset_right = 188.0
+offset_bottom = 120.0
+grow_horizontal = 0
+
+[node name="margin" type="MarginContainer" parent="CanvasLayer/npc_info"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/margin"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(465, -282)
