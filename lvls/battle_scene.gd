@@ -71,16 +71,20 @@ func _ready():
   path_parry_marker.visible = false;
   player.name.text = player.unit_data.name;
   npc.name.text = npc.unit_data.name;
-  _update_unit_ui_info(player);
-  _update_unit_ui_info(npc);
+  _update_unit_health_bar(player);
+  _update_unit_health_bar(npc);
 
-func _update_unit_ui_info(combat_unit: CombatUnit):
+func _update_unit_health_bar(combat_unit: CombatUnit):
   combat_unit.health_bar.value = (combat_unit.char.health / combat_unit.char.MAX_HEALTH) * 100;
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
   is_player_turn = !is_player_turn;
   await attack_sequence(defender, attacker);
+
+func deal_damage_to(combat_unit: CombatUnit):
+  combat_unit.char.take_damage(1);
+  _update_unit_health_bar(combat_unit);
 
   # NOTE: in this func: is_player_turn actually means its enemy turn
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
@@ -96,8 +100,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
     if parry_attempted and parry_attempted_ratio >= min_parry_ratio and parry_attempted_ratio <= max_parry_ratio:
       damage_taker = attacker;
       defender.char.postatk();
-  damage_taker.char.take_damage(1);
-  _update_unit_ui_info(damage_taker);
+  deal_damage_to(damage_taker);
   path_parry_marker.visible = false;
   # HACK: to let the postatk frame show for a second
   tween = create_tween();
