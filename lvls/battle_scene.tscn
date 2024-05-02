@@ -90,7 +90,15 @@ layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 10
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/margin"]
+[node name="vbox" type="VBoxContainer" parent="CanvasLayer/player_info/margin"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="CanvasLayer/player_info/margin/vbox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "name"
+
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
@@ -125,7 +133,16 @@ layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 30
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/margin"]
+[node name="vbox" type="VBoxContainer" parent="CanvasLayer/npc_info/margin"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="CanvasLayer/npc_info/margin/vbox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "name"
+horizontal_alignment = 2
+
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 

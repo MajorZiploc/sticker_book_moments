@@ -8,14 +8,28 @@ class CombatUnit:
   var path: Path2D;
   var unit_data: CombatUnitData.Data;
   var health_bar: ProgressBar;
-  func _init(char, path_follow, path, health_bar):
+  var name: Label;
+  func _init(char, path_follow, path, health_bar, name):
     self.char = char;
     self.path_follow = path_follow;
     self.path = path;
     self.health_bar = health_bar;
+    self.name = name;
 
-@onready var player = CombatUnit.new($path_left/path_follow/battle_char, $path_left/path_follow, $path_left, $CanvasLayer/player_info/margin/healthbar);
-@onready var npc = CombatUnit.new($path_right/path_follow/battle_char, $path_right/path_follow, $path_right, $CanvasLayer/npc_info/margin/healthbar);
+@onready var player = CombatUnit.new(
+  $path_left/path_follow/battle_char,
+  $path_left/path_follow,
+  $path_left,
+  $CanvasLayer/player_info/margin/vbox/healthbar,
+  $CanvasLayer/player_info/margin/vbox/name,
+);
+@onready var npc = CombatUnit.new(
+  $path_right/path_follow/battle_char,
+  $path_right/path_follow,
+  $path_right,
+  $CanvasLayer/npc_info/margin/vbox/healthbar,
+  $CanvasLayer/npc_info/margin/vbox/name,
+);
 @onready var path_parry_marker: Path2D = $path_parry_marker;
 @onready var path_parry_marker_path_follow: PathFollow2D = $path_parry_marker/path_follow;
 
@@ -50,6 +64,8 @@ func _ready():
     path_parry_marker.curve.add_point(point);
   path_parry_marker_path_follow.progress_ratio = (min_parry_ratio + max_parry_ratio) / 2;
   path_parry_marker.visible = false;
+  player.name.text = player.unit_data.name;
+  npc.name.text = npc.unit_data.name;
   _update_unit_ui_info(player);
   _update_unit_ui_info(npc);
 
