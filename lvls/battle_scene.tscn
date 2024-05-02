@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="Texture2D" uid="uid://osawdaxos1ae" path="res://art/tmp/battle/bg/bg_battle_foresttmp.jpg" id="3_ooilf"]
+[ext_resource type="Texture2D" uid="uid://bv5g7qqln7x4o" path="res://art/my/chars/dual_wield_stub_bust.png" id="4_aqxti"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_0cwmx"]
@@ -85,20 +86,28 @@ rotation = 2.86775
 offset_right = 500.0
 offset_bottom = 120.0
 
-[node name="margin" type="MarginContainer" parent="CanvasLayer/player_info"]
+[node name="hbox" type="HBoxContainer" parent="CanvasLayer/player_info"]
+layout_mode = 2
+
+[node name="bust" type="TextureRect" parent="CanvasLayer/player_info/hbox"]
+layout_mode = 2
+texture = ExtResource("4_aqxti")
+expand_mode = 2
+
+[node name="margin" type="MarginContainer" parent="CanvasLayer/player_info/hbox"]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 10
 
-[node name="vbox" type="VBoxContainer" parent="CanvasLayer/player_info/margin"]
+[node name="vbox" type="VBoxContainer" parent="CanvasLayer/player_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="CanvasLayer/player_info/margin/vbox"]
+[node name="name" type="Label" parent="CanvasLayer/player_info/hbox/margin/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/margin/vbox"]
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
@@ -123,28 +132,36 @@ text = "Attack"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -312.0
-offset_right = 188.0
+offset_left = -452.0
+offset_right = 48.0002
 offset_bottom = 120.0
 grow_horizontal = 0
 
-[node name="margin" type="MarginContainer" parent="CanvasLayer/npc_info"]
+[node name="hbox" type="HBoxContainer" parent="CanvasLayer/npc_info"]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="CanvasLayer/npc_info/hbox"]
 layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 30
 
-[node name="vbox" type="VBoxContainer" parent="CanvasLayer/npc_info/margin"]
+[node name="vbox" type="VBoxContainer" parent="CanvasLayer/npc_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="CanvasLayer/npc_info/margin/vbox"]
+[node name="name" type="Label" parent="CanvasLayer/npc_info/hbox/margin/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
 horizontal_alignment = 2
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/margin/vbox"]
+[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
+
+[node name="bust" type="TextureRect" parent="CanvasLayer/npc_info/hbox"]
+layout_mode = 2
+texture = ExtResource("4_aqxti")
+expand_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(465, -282)

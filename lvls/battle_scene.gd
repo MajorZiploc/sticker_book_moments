@@ -9,26 +9,30 @@ class CombatUnit:
   var unit_data: CombatUnitData.Data;
   var health_bar: ProgressBar;
   var name: Label;
-  func _init(char, path_follow, path, health_bar, name):
+  var bust: TextureRect;
+  func _init(char, path_follow, path, health_bar, name, bust):
     self.char = char;
     self.path_follow = path_follow;
     self.path = path;
     self.health_bar = health_bar;
     self.name = name;
+    self.bust = bust;
 
 @onready var player = CombatUnit.new(
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
   $path_left,
-  $CanvasLayer/player_info/margin/vbox/healthbar,
-  $CanvasLayer/player_info/margin/vbox/name,
+  $CanvasLayer/player_info/hbox/margin/vbox/healthbar,
+  $CanvasLayer/player_info/hbox/margin/vbox/name,
+  $CanvasLayer/player_info/hbox/bust,
 );
 @onready var npc = CombatUnit.new(
   $path_right/path_follow/battle_char,
   $path_right/path_follow,
   $path_right,
-  $CanvasLayer/npc_info/margin/vbox/healthbar,
-  $CanvasLayer/npc_info/margin/vbox/name,
+  $CanvasLayer/npc_info/hbox/margin/vbox/healthbar,
+  $CanvasLayer/npc_info/hbox/margin/vbox/name,
+  $CanvasLayer/npc_info/hbox/bust,
 );
 @onready var path_parry_marker: Path2D = $path_parry_marker;
 @onready var path_parry_marker_path_follow: PathFollow2D = $path_parry_marker/path_follow;
@@ -50,6 +54,7 @@ func _ready():
   player.char.update_sprite_texture(player.unit_data.sprite_path);
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
   player.char.to_player();
+  player.bust.flip_h = true;
   player.char.idle();
   npc.char.idle();
   var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position - attack_position_offset)
