@@ -36,11 +36,12 @@ func _ready():
   player.char.to_player();
   player.char.idle();
   npc.char.idle();
-  var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position, attack_position_offset, true)
+  var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position - attack_position_offset)
   player.path.curve.clear_points();
-  for point in player_path_points:
+  for i in range(player_path_points.size() - 1, -1, -1):
+    var point = player_path_points[i];
     player.path.curve.add_point(point);
-  var npc_path_points: Array[Vector2] = npc.unit_data.get_path_points.call(player_init_position, npc_init_position, attack_position_offset, false)
+  var npc_path_points: Array[Vector2] = npc.unit_data.get_path_points.call(player_init_position + attack_position_offset, npc_init_position)
   npc.path.curve.clear_points();
   for point in npc_path_points:
     npc.path.curve.add_point(point);
