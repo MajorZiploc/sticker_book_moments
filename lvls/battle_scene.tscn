@@ -80,38 +80,48 @@ loop = false
 position = Vector2(7.616, 2.08165e-12)
 rotation = 2.86775
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ui_root" type="CanvasLayer" parent="."]
 
-[node name="player_info" type="BoxContainer" parent="CanvasLayer"]
+[node name="ui" type="Control" parent="ui_root"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="player_info" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 1
 offset_right = 500.0
 offset_bottom = 120.0
 
-[node name="hbox" type="HBoxContainer" parent="CanvasLayer/player_info"]
+[node name="hbox" type="HBoxContainer" parent="ui_root/ui/player_info"]
 layout_mode = 2
 
-[node name="bust" type="TextureRect" parent="CanvasLayer/player_info/hbox"]
+[node name="bust" type="TextureRect" parent="ui_root/ui/player_info/hbox"]
 layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="margin" type="MarginContainer" parent="CanvasLayer/player_info/hbox"]
+[node name="margin" type="MarginContainer" parent="ui_root/ui/player_info/hbox"]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 10
 
-[node name="vbox" type="VBoxContainer" parent="CanvasLayer/player_info/hbox/margin"]
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="CanvasLayer/player_info/hbox/margin/vbox"]
+[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/player_info/hbox/margin/vbox"]
+[node name="healthbar" type="ProgressBar" parent="ui_root/ui/player_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
-[node name="npc_info" type="BoxContainer" parent="CanvasLayer"]
+[node name="npc_info" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -120,46 +130,49 @@ offset_right = 48.0002
 offset_bottom = 120.0
 grow_horizontal = 0
 
-[node name="hbox" type="HBoxContainer" parent="CanvasLayer/npc_info"]
+[node name="hbox" type="HBoxContainer" parent="ui_root/ui/npc_info"]
 layout_mode = 2
 
-[node name="margin" type="MarginContainer" parent="CanvasLayer/npc_info/hbox"]
+[node name="margin" type="MarginContainer" parent="ui_root/ui/npc_info/hbox"]
 layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 30
 
-[node name="vbox" type="VBoxContainer" parent="CanvasLayer/npc_info/hbox/margin"]
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/npc_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="CanvasLayer/npc_info/hbox/margin/vbox"]
+[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
 horizontal_alignment = 2
 
-[node name="healthbar" type="ProgressBar" parent="CanvasLayer/npc_info/hbox/margin/vbox"]
+[node name="healthbar" type="ProgressBar" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
-[node name="bust" type="TextureRect" parent="CanvasLayer/npc_info/hbox"]
+[node name="bust" type="TextureRect" parent="ui_root/ui/npc_info/hbox"]
 layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="choice" type="VBoxContainer" parent="CanvasLayer"]
+[node name="choice" type="VBoxContainer" parent="ui_root/ui"]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = -31.0
+offset_left = -208.0
+offset_top = -51.0
+offset_right = -150.0
+offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(150, 20)
 
-[node name="attack" type="Button" parent="CanvasLayer/choice"]
+[node name="attack" type="Button" parent="ui_root/ui/choice"]
 layout_mode = 2
 text = "Attack"
 
@@ -176,4 +189,4 @@ script = ExtResource("4_yfoe6")
 zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_efo2m")
 
-[connection signal="pressed" from="CanvasLayer/choice/attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="ui_root/ui/choice/attack" to="." method="_on_attack_pressed"]

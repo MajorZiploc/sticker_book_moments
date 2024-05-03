@@ -22,17 +22,17 @@ class CombatUnit:
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
   $path_left,
-  $CanvasLayer/player_info/hbox/margin/vbox/healthbar,
-  $CanvasLayer/player_info/hbox/margin/vbox/name,
-  $CanvasLayer/player_info/hbox/bust,
+  $ui_root/ui/player_info/hbox/margin/vbox/healthbar,
+  $ui_root/ui/player_info/hbox/margin/vbox/name,
+  $ui_root/ui/player_info/hbox/bust,
 );
 @onready var npc = CombatUnit.new(
   $path_right/path_follow/battle_char,
   $path_right/path_follow,
   $path_right,
-  $CanvasLayer/npc_info/hbox/margin/vbox/healthbar,
-  $CanvasLayer/npc_info/hbox/margin/vbox/name,
-  $CanvasLayer/npc_info/hbox/bust,
+  $ui_root/ui/npc_info/hbox/margin/vbox/healthbar,
+  $ui_root/ui/npc_info/hbox/margin/vbox/name,
+  $ui_root/ui/npc_info/hbox/bust,
 );
 @onready var path_parry_marker: Path2D = $path_parry_marker;
 @onready var path_parry_marker_path_follow: PathFollow2D = $path_parry_marker/path_follow;
