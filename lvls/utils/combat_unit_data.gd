@@ -7,21 +7,25 @@ enum Type {
 
 class Data:
   var sprite_path: String;
+  var bust_path: String;
   var name: String;
   var get_path_points;
-  func _init(sprite_path, name, get_path_points):
+  func _init(sprite_path, bust_path, name, get_path_points):
     self.sprite_path = sprite_path;
+    self.bust_path = bust_path;
     self.name = name;
     self.get_path_points = get_path_points;
 
 var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(
     "res://art/my/chars/dual_hybrid.png",
+    "res://art/my/chars/dual_hybrid_bust.png",
     "Dual Hybrid",
     get_basic_path_points,
   ),
   Type.TWO_HANDED_AXER: Data.new(
     "res://art/my/chars/two_handed_axer.png",
+    "res://art/my/chars/two_handed_axer_bust.png",
     "Barbarian",
     get_basic_path_points,
   ),

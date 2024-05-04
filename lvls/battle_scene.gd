@@ -54,7 +54,8 @@ func _ready():
   player.char.update_sprite_texture(player.unit_data.sprite_path);
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
   player.char.to_player();
-  player.bust.flip_h = true;
+  update_bust_texture(player);
+  update_bust_texture(npc);
   player.char.idle();
   npc.char.idle();
   var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position - attack_position_offset)
@@ -73,6 +74,11 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
+
+func update_bust_texture(combat_unit: CombatUnit):
+  var texture = load(combat_unit.unit_data.bust_path);
+  if texture and texture is Texture:
+    combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: CombatUnit):
   combat_unit.health_bar.value = (combat_unit.char.health / combat_unit.char.MAX_HEALTH) * 100;
