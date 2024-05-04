@@ -7,7 +7,7 @@ class CombatUnit:
   var path_follow: PathFollow2D;
   var path: Path2D;
   var unit_data: CombatUnitData.Data;
-  var health_bar: ProgressBar;
+  var health_bar: TextureProgressBar;
   var name: Label;
   var bust: TextureRect;
   func _init(char, path_follow, path, health_bar, name, bust):
