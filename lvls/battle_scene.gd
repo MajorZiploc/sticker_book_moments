@@ -163,4 +163,4 @@ func _init_bg():
   _hide_bg_eles(background.sm_clouds);
   _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 60, 0.6);
   _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 65, 0.5);
-  _init_bg_cloud_movements(background.sm_clouds, -700, 2500, 90, 0.1);
+  _init_bg_cloud_movements(background.sm_clouds, -800, 2500, 90, 0.1);
