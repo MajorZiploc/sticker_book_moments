@@ -1,15 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=21 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
-[ext_resource type="Texture2D" uid="uid://osawdaxos1ae" path="res://art/tmp/battle/bg/bg_battle_foresttmp.jpg" id="3_ooilf"]
+[ext_resource type="Texture2D" uid="uid://bfox71yhwxpxh" path="res://art/my/bg/base/skybox/midday.png" id="3_iguue"]
 [ext_resource type="Texture2D" uid="uid://bv5g7qqln7x4o" path="res://art/my/chars/dual_wield_stub_bust.png" id="4_aqxti"]
+[ext_resource type="Texture2D" uid="uid://bb26s0pp64gl" path="res://art/my/bg/objs/large/mountain.png" id="4_e8mo6"]
+[ext_resource type="Texture2D" uid="uid://lo8itlpiihpn" path="res://art/my/bg/objs/large/clouds.png" id="4_t31yk"]
+[ext_resource type="Texture2D" uid="uid://bqqh1nafp4had" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
 [ext_resource type="Texture2D" uid="uid://dop5n1sx2ei8b" path="res://art/my/ui/healthbar_under.png" id="5_dr8ll"]
 [ext_resource type="Texture2D" uid="uid://rwi13dsww4y8" path="res://art/my/ui/healthbar_over.png" id="5_ghx12"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_0cwmx"]
 [ext_resource type="Texture2D" uid="uid://comjn2ghotdsq" path="res://art/my/ui/healthbar_progress.png" id="6_w675a"]
+[ext_resource type="Texture2D" uid="uid://cg61kr23rqa0b" path="res://art/my/bg/objs/small/clouds.png" id="7_fq0pl"]
+[ext_resource type="Texture2D" uid="uid://bxipwuo3e3w6u" path="res://art/my/bg/objs/medium/clouds.png" id="8_lex5n"]
 
 [sub_resource type="Curve2D" id="Curve2D_ult4u"]
 
@@ -37,13 +42,68 @@ ease = 2
 position = Vector2(564, 334)
 script = ExtResource("1_7ul4m")
 
-[node name="background_texture" type="TextureRect" parent="."]
-offset_left = -545.455
-offset_top = -950.0
-offset_right = 1454.55
-offset_bottom = 383.0
-texture = ExtResource("3_ooilf")
-metadata/_edit_use_anchors_ = true
+[node name="bg_root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="skybox" type="TextureRect" parent="bg_root"]
+offset_left = -805.0
+offset_top = -1032.0
+offset_right = 1695.0
+offset_bottom = 468.0
+texture = ExtResource("3_iguue")
+
+[node name="lg_cloud" type="Sprite2D" parent="bg_root"]
+position = Vector2(1604, -746)
+texture = ExtResource("4_t31yk")
+hframes = 2
+frame = 1
+
+[node name="mountain" type="TextureRect" parent="bg_root"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -547.0
+offset_right = 1936.0
+offset_bottom = 253.0
+texture = ExtResource("4_e8mo6")
+
+[node name="floor" type="TextureRect" parent="bg_root"]
+offset_left = -807.0
+offset_top = -1085.0
+offset_right = 1693.0
+offset_bottom = 415.0
+texture = ExtResource("4_tlgk2")
+
+[node name="lg_cloud_2" type="Sprite2D" parent="bg_root"]
+position = Vector2(-278, -762)
+texture = ExtResource("4_t31yk")
+hframes = 2
+
+[node name="sm_cloud" type="Sprite2D" parent="bg_root"]
+position = Vector2(288, -91)
+texture = ExtResource("7_fq0pl")
+hframes = 2
+
+[node name="sm_cloud_2" type="Sprite2D" parent="bg_root"]
+position = Vector2(119, -73)
+texture = ExtResource("7_fq0pl")
+hframes = 2
+frame = 1
+
+[node name="md_cloud" type="Sprite2D" parent="bg_root"]
+position = Vector2(333, -308)
+texture = ExtResource("8_lex5n")
+hframes = 2
+
+[node name="md_cloud_2" type="Sprite2D" parent="bg_root"]
+position = Vector2(-542, -323)
+texture = ExtResource("8_lex5n")
+hframes = 2
+frame = 1
 
 [node name="path_parry_marker" type="Path2D" parent="."]
 curve = SubResource("Curve2D_ult4u")
