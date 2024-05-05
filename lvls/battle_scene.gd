@@ -108,7 +108,7 @@ func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
   _update_unit_health_bar(combat_unit);
 
-  # NOTE: in this func: is_player_turn actually means its enemy turn
+# NOTE: in this func: is_player_turn actually means its enemy turn
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   path_parry_marker.visible = is_player_turn;
   attacker.char.preatk();
