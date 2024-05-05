@@ -124,9 +124,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   deal_damage_to(damage_taker);
   path_parry_marker.visible = false;
   # HACK: to let the postatk frame show for a second
-  tween = create_tween();
-  tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1);
-  await tween.finished;
+  await get_tree().create_timer(1).timeout;
   attacker.char.idle();
   defender.char.idle();
   tween = create_tween();
