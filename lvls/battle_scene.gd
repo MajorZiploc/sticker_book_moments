@@ -28,8 +28,8 @@ class Background:
     self.sm_clouds = sm_clouds;
 
 @onready var background = Background.new(
-  [$bg_root/lg_cloud, $bg_root/lg_cloud_2],
-  [],
+  [$bg_root/lg_cloud_2, $bg_root/lg_cloud],
+  [$bg_root/md_cloud_2, $bg_root/md_cloud],
   [],
 );
 @onready var player = CombatUnit.new(
@@ -155,9 +155,11 @@ func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: fl
     await get_tree().create_timer(timer_wait).timeout;
 
 func _hide_bg_eles(sprites: Array[Sprite2D]):
-  for cloud in background.lg_clouds:
-    cloud.visible = false;
+  for sprite in sprites:
+    sprite.visible = false;
 
 func _init_bg():
   _hide_bg_eles(background.lg_clouds);
+  _hide_bg_eles(background.md_clouds);
   _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 20, 0.6);
+  _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 30, 0.6);
