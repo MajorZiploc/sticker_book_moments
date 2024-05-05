@@ -20,13 +20,13 @@ var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(
     "res://art/my/char/dual_hybrid.png",
     "res://art/my/char/dual_hybrid_bust.png",
-    "Dual Hybrid",
+    "Marcella Silverheart",
     get_basic_path_points,
   ),
   Type.TWO_HANDED_AXER: Data.new(
     "res://art/my/char/two_handed_axer.png",
     "res://art/my/char/two_handed_axer_bust.png",
-    "Barbarian",
+    "Hilda Grimjaw",
     get_basic_path_points,
   ),
 }
