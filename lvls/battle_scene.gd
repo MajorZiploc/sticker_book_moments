@@ -37,7 +37,7 @@ class Background:
   $path_left/path_follow,
   $path_left,
   $ui_root/ui/player_info/hbox/margin/vbox/healthbar,
-  $ui_root/ui/player_info/hbox/margin/vbox/name,
+  $ui_root/ui/player_info/hbox/margin/vbox/panel/name,
   $ui_root/ui/player_info/hbox/bust,
 );
 @onready var npc = CombatUnit.new(
@@ -45,7 +45,7 @@ class Background:
   $path_right/path_follow,
   $path_right,
   $ui_root/ui/npc_info/hbox/margin/vbox/healthbar,
-  $ui_root/ui/npc_info/hbox/margin/vbox/name,
+  $ui_root/ui/npc_info/hbox/margin/vbox/panel/name,
   $ui_root/ui/npc_info/hbox/bust,
 );
 @onready var path_parry_marker: Path2D = $path_parry_marker;

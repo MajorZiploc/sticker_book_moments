@@ -176,7 +176,10 @@ theme_override_constants/margin_top = 10
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox"]
+[node name="panel" type="PanelContainer" parent="ui_root/ui/player_info/hbox/margin/vbox"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
@@ -189,6 +192,9 @@ nine_patch_stretch = true
 texture_under = ExtResource("5_dr8ll")
 texture_over = ExtResource("5_ghx12")
 texture_progress = ExtResource("6_w675a")
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_root/ui/player_info"]
+layout_mode = 2
 
 [node name="npc_info" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 1
@@ -211,7 +217,10 @@ theme_override_constants/margin_right = 30
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui/npc_info/hbox/margin"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
+[node name="panel" type="PanelContainer" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
