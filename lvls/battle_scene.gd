@@ -70,6 +70,7 @@ func _ready():
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
   player.char.to_player();
   update_bust_texture(player);
+  player.bust.flip_h = true;
   update_bust_texture(npc);
   player.char.idle();
   npc.char.idle();
