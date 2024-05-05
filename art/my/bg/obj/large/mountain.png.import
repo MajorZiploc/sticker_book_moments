@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beud1g3x3606t"
-path="res://.godot/imported/two_handed_axer.png-13846ebaea611073b3e85f949345e9f6.ctex"
+uid="uid://bwhv0ajbf6vlk"
+path="res://.godot/imported/mountain.png-8fc56a6bd9f17e725e26ca78bbd84a2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/my/chars/two_handed_axer.png"
-dest_files=["res://.godot/imported/two_handed_axer.png-13846ebaea611073b3e85f949345e9f6.ctex"]
+source_file="res://art/my/bg/obj/large/mountain.png"
+dest_files=["res://.godot/imported/mountain.png-8fc56a6bd9f17e725e26ca78bbd84a2b.ctex"]
 
 [params]
 

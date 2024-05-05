@@ -18,14 +18,14 @@ class Data:
 
 var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(
-    "res://art/my/chars/dual_hybrid.png",
-    "res://art/my/chars/dual_hybrid_bust.png",
+    "res://art/my/char/dual_hybrid.png",
+    "res://art/my/char/dual_hybrid_bust.png",
     "Dual Hybrid",
     get_basic_path_points,
   ),
   Type.TWO_HANDED_AXER: Data.new(
-    "res://art/my/chars/two_handed_axer.png",
-    "res://art/my/chars/two_handed_axer_bust.png",
+    "res://art/my/char/two_handed_axer.png",
+    "res://art/my/char/two_handed_axer_bust.png",
     "Barbarian",
     get_basic_path_points,
   ),

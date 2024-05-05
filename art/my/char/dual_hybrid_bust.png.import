@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxipwuo3e3w6u"
-path="res://.godot/imported/clouds.png-a0b6da2512136993e933c1fc97b530e0.ctex"
+uid="uid://gp25eg2bcjvp"
+path="res://.godot/imported/dual_hybrid_bust.png-f6daee84ecf9dbf0a95b2cd7ccca331e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/my/bg/objs/medium/clouds.png"
-dest_files=["res://.godot/imported/clouds.png-a0b6da2512136993e933c1fc97b530e0.ctex"]
+source_file="res://art/my/char/dual_hybrid_bust.png"
+dest_files=["res://.godot/imported/dual_hybrid_bust.png-f6daee84ecf9dbf0a95b2cd7ccca331e.ctex"]
 
 [params]
 

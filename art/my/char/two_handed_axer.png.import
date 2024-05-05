@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lo8itlpiihpn"
-path="res://.godot/imported/clouds.png-c62fc05efc42d472f8eed77751469257.ctex"
+uid="uid://ds1rgt82f0c28"
+path="res://.godot/imported/two_handed_axer.png-bbd5ed5330f46ca476adc266a1ff8010.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/my/bg/objs/large/clouds.png"
-dest_files=["res://.godot/imported/clouds.png-c62fc05efc42d472f8eed77751469257.ctex"]
+source_file="res://art/my/char/two_handed_axer.png"
+dest_files=["res://.godot/imported/two_handed_axer.png-bbd5ed5330f46ca476adc266a1ff8010.ctex"]
 
 [params]
 

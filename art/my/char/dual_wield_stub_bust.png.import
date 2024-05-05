@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv5g7qqln7x4o"
-path="res://.godot/imported/dual_wield_stub_bust.png-5d3f7a37ef1c0fed037bd2564cd9e545.ctex"
+uid="uid://dv43001dq4qm2"
+path="res://.godot/imported/dual_wield_stub_bust.png-562b46a8bb63b4d8b33247456aea714d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/my/chars/dual_wield_stub_bust.png"
-dest_files=["res://.godot/imported/dual_wield_stub_bust.png-5d3f7a37ef1c0fed037bd2564cd9e545.ctex"]
+source_file="res://art/my/char/dual_wield_stub_bust.png"
+dest_files=["res://.godot/imported/dual_wield_stub_bust.png-562b46a8bb63b4d8b33247456aea714d.ctex"]
 
 [params]
 
