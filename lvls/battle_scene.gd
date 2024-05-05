@@ -18,6 +18,20 @@ class CombatUnit:
     self.name = name;
     self.bust = bust;
 
+class Background:
+  var lg_clouds: Array[Sprite2D];
+  var md_clouds: Array[Sprite2D];
+  var sm_clouds: Array[Sprite2D];
+  func _init(lg_clouds: Array[Sprite2D], md_clouds: Array[Sprite2D], sm_clouds: Array[Sprite2D]):
+    self.lg_clouds = lg_clouds;
+    self.md_clouds = md_clouds;
+    self.sm_clouds = sm_clouds;
+
+@onready var background = Background.new(
+  [$bg_root/lg_cloud_2, $bg_root/lg_cloud],
+  [$bg_root/md_cloud_2, $bg_root/md_cloud],
+  [$bg_root/sm_cloud_2, $bg_root/sm_cloud],
+);
 @onready var player = CombatUnit.new(
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
@@ -49,6 +63,7 @@ var attack_position_offset = Vector2(175, 0);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
   player.char.update_sprite_texture(player.unit_data.sprite_path);
@@ -127,3 +142,26 @@ func _on_attack_pressed():
   elif !parry_attempted:
     parry_attempted = true;
     parry_attempted_ratio = npc.path_follow.progress_ratio;
+
+func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: float, total_move_secs: float, spacer: float):
+  for cloud in clouds:
+    cloud.position.x = start_x;
+    cloud.visible = true;
+    var timer_wait = total_move_secs * spacer;
+    var tween = create_tween();
+    tween.tween_property(cloud, "position:x", end_x, total_move_secs).set_trans(Tween.TRANS_LINEAR);
+    tween.tween_callback(func(): cloud.position.x = start_x).set_delay(0.1);
+    tween.set_loops(-1);
+    await get_tree().create_timer(timer_wait).timeout;
+
+func _hide_bg_eles(sprites: Array[Sprite2D]):
+  for sprite in sprites:
+    sprite.visible = false;
+
+func _init_bg():
+  _hide_bg_eles(background.lg_clouds);
+  _hide_bg_eles(background.md_clouds);
+  _hide_bg_eles(background.sm_clouds);
+  _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 60, 0.6);
+  _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 65, 0.5);
+  _init_bg_cloud_movements(background.sm_clouds, -700, 2500, 90, 0.1);

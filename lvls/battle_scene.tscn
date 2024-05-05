@@ -51,15 +51,21 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="skybox" type="TextureRect" parent="bg_root"]
+layout_mode = 0
 offset_left = -805.0
 offset_top = -1032.0
 offset_right = 1695.0
 offset_bottom = 468.0
 texture = ExtResource("3_iguue")
 
-[node name="lg_cloud" type="Sprite2D" parent="bg_root"]
-position = Vector2(1604, -746)
-texture = ExtResource("4_t31yk")
+[node name="sm_cloud" type="Sprite2D" parent="bg_root"]
+position = Vector2(288, -91)
+texture = ExtResource("7_fq0pl")
+hframes = 2
+
+[node name="sm_cloud_2" type="Sprite2D" parent="bg_root"]
+position = Vector2(119, -73)
+texture = ExtResource("7_fq0pl")
 hframes = 2
 frame = 1
 
@@ -72,27 +78,23 @@ offset_bottom = 253.0
 texture = ExtResource("4_e8mo6")
 
 [node name="floor" type="TextureRect" parent="bg_root"]
+layout_mode = 0
 offset_left = -807.0
 offset_top = -1085.0
 offset_right = 1693.0
 offset_bottom = 415.0
 texture = ExtResource("4_tlgk2")
 
+[node name="lg_cloud" type="Sprite2D" parent="bg_root"]
+position = Vector2(1604, -746)
+texture = ExtResource("4_t31yk")
+hframes = 2
+frame = 1
+
 [node name="lg_cloud_2" type="Sprite2D" parent="bg_root"]
 position = Vector2(-278, -762)
 texture = ExtResource("4_t31yk")
 hframes = 2
-
-[node name="sm_cloud" type="Sprite2D" parent="bg_root"]
-position = Vector2(288, -91)
-texture = ExtResource("7_fq0pl")
-hframes = 2
-
-[node name="sm_cloud_2" type="Sprite2D" parent="bg_root"]
-position = Vector2(119, -73)
-texture = ExtResource("7_fq0pl")
-hframes = 2
-frame = 1
 
 [node name="md_cloud" type="Sprite2D" parent="bg_root"]
 position = Vector2(333, -308)
