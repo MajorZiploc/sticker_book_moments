@@ -51,6 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="skybox" type="TextureRect" parent="bg_root"]
+layout_mode = 0
 offset_left = -805.0
 offset_top = -1032.0
 offset_right = 1695.0
@@ -72,6 +73,7 @@ offset_bottom = 253.0
 texture = ExtResource("4_e8mo6")
 
 [node name="floor" type="TextureRect" parent="bg_root"]
+layout_mode = 0
 offset_left = -807.0
 offset_top = -1085.0
 offset_right = 1693.0

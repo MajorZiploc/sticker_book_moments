@@ -18,6 +18,20 @@ class CombatUnit:
     self.name = name;
     self.bust = bust;
 
+class Background:
+  var lg_clouds: Array[Sprite2D];
+  var md_clouds: Array[Sprite2D];
+  var sm_clouds: Array[Sprite2D];
+  func _init(lg_clouds: Array[Sprite2D], md_clouds: Array[Sprite2D], sm_clouds: Array[Sprite2D]):
+    self.lg_clouds = lg_clouds;
+    self.md_clouds = md_clouds;
+    self.sm_clouds = sm_clouds;
+
+@onready var background = Background.new(
+  [$bg_root/lg_cloud, $bg_root/lg_cloud_2],
+  [],
+  [],
+);
 @onready var player = CombatUnit.new(
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
@@ -49,6 +63,7 @@ var attack_position_offset = Vector2(175, 0);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  _hide_bg_eles();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
   player.char.update_sprite_texture(player.unit_data.sprite_path);
@@ -74,6 +89,7 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
+  _init_bg_movements();
 
 func update_bust_texture(combat_unit: CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -127,3 +143,22 @@ func _on_attack_pressed():
   elif !parry_attempted:
     parry_attempted = true;
     parry_attempted_ratio = npc.path_follow.progress_ratio;
+
+func _init_bg_movements():
+  for cloud in background.lg_clouds:
+    var left_off_screen_x = -1200;
+    var right_off_screen_x = 3300;
+    print(cloud);
+    cloud.position.x = left_off_screen_x;
+    cloud.visible = true;
+    var total_movetime = 20;
+    var timer_wait = total_movetime * 0.6;
+    var tween = create_tween();
+    tween.tween_property(cloud, "position:x", right_off_screen_x, total_movetime).set_trans(Tween.TRANS_LINEAR);
+    tween.tween_callback(func(): cloud.position.x = left_off_screen_x).set_delay(0.1);
+    tween.set_loops(-1);
+    await get_tree().create_timer(timer_wait).timeout;
+
+func _hide_bg_eles():
+  for cloud in background.lg_clouds:
+    cloud.visible = false;
