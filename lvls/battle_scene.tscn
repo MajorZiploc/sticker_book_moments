@@ -179,10 +179,18 @@ layout_mode = 2
 [node name="panel" type="PanelContainer" parent="ui_root/ui/player_info/hbox/margin/vbox"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel"]
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info/hbox/margin/vbox/panel"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
+
+[node name="controller" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
+layout_mode = 2
+text = "player"
+horizontal_alignment = 2
 
 [node name="healthbar" type="TextureProgressBar" parent="ui_root/ui/player_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
@@ -220,11 +228,18 @@ layout_mode = 2
 [node name="panel" type="PanelContainer" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
 layout_mode = 2
 
-[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel"]
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "name"
 horizontal_alignment = 2
+
+[node name="controller" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox"]
+layout_mode = 2
+text = "npc"
 
 [node name="healthbar" type="TextureProgressBar" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
 custom_minimum_size = Vector2(300, 40)
