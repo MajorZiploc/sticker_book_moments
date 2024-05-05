@@ -30,7 +30,7 @@ class Background:
 @onready var background = Background.new(
   [$bg_root/lg_cloud_2, $bg_root/lg_cloud],
   [$bg_root/md_cloud_2, $bg_root/md_cloud],
-  [],
+  [$bg_root/sm_cloud_2, $bg_root/sm_cloud],
 );
 @onready var player = CombatUnit.new(
   $path_left/path_follow/battle_char,
@@ -147,7 +147,7 @@ func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: fl
   for cloud in clouds:
     cloud.position.x = start_x;
     cloud.visible = true;
-    var timer_wait = total_move_secs * 0.6;
+    var timer_wait = total_move_secs * spacer;
     var tween = create_tween();
     tween.tween_property(cloud, "position:x", end_x, total_move_secs).set_trans(Tween.TRANS_LINEAR);
     tween.tween_callback(func(): cloud.position.x = start_x).set_delay(0.1);
@@ -161,5 +161,7 @@ func _hide_bg_eles(sprites: Array[Sprite2D]):
 func _init_bg():
   _hide_bg_eles(background.lg_clouds);
   _hide_bg_eles(background.md_clouds);
-  _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 20, 0.6);
-  _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 30, 0.6);
+  _hide_bg_eles(background.sm_clouds);
+  _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 60, 0.6);
+  _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 65, 0.5);
+  _init_bg_cloud_movements(background.sm_clouds, -700, 2500, 90, 0.1);
