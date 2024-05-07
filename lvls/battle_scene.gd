@@ -48,6 +48,7 @@ class Background:
   $ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox/name,
   $ui_root/ui/npc_info/hbox/bust,
 );
+@onready var ui: Control = $ui_root/ui;
 @onready var qte_container: BoxContainer = $ui_root/ui/qte;
 @onready var qte_btn: Button = $ui_root/ui/qte/btn;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
@@ -73,9 +74,12 @@ var qte_key = "up";
 
 func _ready():
   self.modulate.a = 0;
+  ui.modulate.a = 0;
   cam.zoom = std_cam_zoom;
   var tween = create_tween();
   tween.tween_property(self, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  var ui_tween = create_tween();
+  ui_tween.tween_property(ui, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   switch_qte_state_to(false);
   _init_bg();
@@ -102,7 +106,7 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
-  await tween.finished;
+  Tweens.await_tweens([tween, ui_tween]);
 
 func _input(event: InputEvent):
   qte_attempt(event);
@@ -124,7 +128,6 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
-  # TODO: (cam_tween_finished) add cam_tween.finished where we need to wait for the camera to finish zooms, right now, it doesnt work
   var cam_tween = create_tween();
   cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), 1).set_trans(Tween.TRANS_EXPO);
   var tween = create_tween();
@@ -134,8 +137,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   tween = create_tween();
   tween.tween_property(npc_turn_ui, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
-  # TODO: (cam_tween_finished)
-  # await cam_tween.finished;
+  Tweens.await_tweens([tween, cam_tween])
   await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker);
   tween = create_tween();
@@ -143,8 +145,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   cam_tween = create_tween();
   cam_tween.tween_property(cam, "zoom", std_cam_zoom, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
-  # TODO: (cam_tween_finished)
-  # await cam_tween.finished;
+  Tweens.await_tweens([tween, cam_tween])
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
