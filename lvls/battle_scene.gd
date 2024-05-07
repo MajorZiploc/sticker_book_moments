@@ -50,6 +50,7 @@ class Background:
 );
 @onready var qte_container = $ui_root/ui/qte;
 @onready var qte_btn = $ui_root/ui/qte/btn;
+@onready var npc_turn_ui = $ui_root/ui/npc_turn;
 
 @export var is_player_turn = true;
 
@@ -114,6 +115,11 @@ func _update_unit_health_bar(combat_unit: CombatUnit):
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
   is_player_turn = !is_player_turn;
+  await get_tree().create_timer(1).timeout;
+  npc_turn_ui.visible = true;
+  await get_tree().create_timer(1).timeout;
+  npc_turn_ui.visible = false;
+  await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker);
 
 func deal_damage_to(combat_unit: CombatUnit):
