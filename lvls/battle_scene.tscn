@@ -262,14 +262,16 @@ layout_mode = 2
 text = "Attack"
 
 [node name="qte" type="BoxContainer" parent="ui_root/ui"]
+z_index = 5
 layout_mode = 0
 offset_left = 854.0
 offset_top = 541.0
-offset_right = 925.0
-offset_bottom = 581.0
+offset_right = 1054.0
+offset_bottom = 741.0
 
 [node name="btn" type="Button" parent="ui_root/ui/qte"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 75
 text = "click me"
 
 [node name="Camera2D" type="Camera2D" parent="."]
