@@ -4,6 +4,7 @@ extends Node2D
 
 # TODO: fix clicking follow up buttons in action_counter_container on npc turn
 # currently follow up button clicks require 2 clicks. should be 1
+# TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
 class CombatUnit:
   var char: BattleChar;
