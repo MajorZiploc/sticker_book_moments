@@ -2,6 +2,9 @@ extends Node2D
 
 @onready var cam: PhantomCamera2D = $cam;
 
+# TODO: fix clicking follow up buttons in action_counter_container on npc turn
+# currently follow up button clicks require 2 clicks. should be 1
+
 class CombatUnit:
   var char: BattleChar;
   var path_follow: PathFollow2D;
@@ -225,7 +228,6 @@ func qte_event_update():
     action_counter_progress_bar.value = (qte_current_action_count * 100) / qte_total_actions;
     parried = qte_current_action_count == qte_total_actions;
     update_qte_button();
-    switch_qte_state_to(!parried);
 
 func update_qte_button():
   qte_container.position = Vector2(
