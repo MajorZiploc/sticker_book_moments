@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=22 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
@@ -37,6 +37,8 @@ script = ExtResource("5_ry2gw")
 duration = 1.0
 transition = 0
 ease = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ekb0"]
 
 [node name="battle_scene" type="Node2D"]
 position = Vector2(564, 334)
@@ -288,5 +290,10 @@ position = Vector2(465, -282)
 script = ExtResource("4_yfoe6")
 zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_efo2m")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6ekb0")
 
 [connection signal="pressed" from="ui_root/ui/choice/attack" to="." method="_on_attack_pressed"]

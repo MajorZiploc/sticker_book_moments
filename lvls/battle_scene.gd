@@ -53,6 +53,8 @@ class Background:
 
 @export var is_player_turn = true;
 
+var qte = Area2DQuickTimeEvent.new();
+
 var parry_attempted = false;
 var parry_attempted_ratio = 0.0;
 var min_parry_ratio = 0.65;
