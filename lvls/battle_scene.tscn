@@ -275,7 +275,6 @@ theme_override_font_sizes/font_size = 75
 text = "click me"
 
 [node name="npc_turn" type="PanelContainer" parent="ui_root/ui"]
-visible = false
 layout_mode = 0
 offset_left = 285.0
 offset_top = 270.0

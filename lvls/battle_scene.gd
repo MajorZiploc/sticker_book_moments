@@ -48,9 +48,9 @@ class Background:
   $ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox/name,
   $ui_root/ui/npc_info/hbox/bust,
 );
-@onready var qte_container = $ui_root/ui/qte;
-@onready var qte_btn = $ui_root/ui/qte/btn;
-@onready var npc_turn_ui = $ui_root/ui/npc_turn;
+@onready var qte_container: BoxContainer = $ui_root/ui/qte;
+@onready var qte_btn: Button = $ui_root/ui/qte/btn;
+@onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 
 @export var is_player_turn = true;
 
@@ -70,6 +70,7 @@ var qte_all_keys = ["up", "down", "left", "right"];
 var qte_key = "up";
 
 func _ready():
+  npc_turn_ui.modulate.a = 0;
   switch_qte_state_to(false);
   _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
@@ -115,10 +116,14 @@ func _update_unit_health_bar(combat_unit: CombatUnit):
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
   is_player_turn = !is_player_turn;
-  await get_tree().create_timer(1).timeout;
-  npc_turn_ui.visible = true;
-  await get_tree().create_timer(1).timeout;
-  npc_turn_ui.visible = false;
+  await get_tree().create_timer(0.5).timeout;
+  var tween = create_tween();
+  tween.tween_property(npc_turn_ui, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  await tween.finished;
+  await get_tree().create_timer(0.5).timeout;
+  tween = create_tween();
+  tween.tween_property(npc_turn_ui, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
+  await tween.finished;
   await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker);
 
