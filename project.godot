@@ -21,7 +21,6 @@ ReplaceColor="*res://lvls/utils/replace_color.gd"
 ColorPalette="*res://lvls/utils/color_palette.gd"
 FrameData="*res://lvls/utils/frame_data.gd"
 CombatUnitData="*res://lvls/utils/combat_unit_data.gd"
-Tweens="*res://lvls/utils/tweens.gd"
 
 [display]
 
