@@ -62,6 +62,7 @@ var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
 var rng = RandomNumberGenerator.new();
+# TODO: add a label at the top of the screen during npc turn to indicate how many actions the player has done out of the total required
 var qte_current_action_count = 0;
 var qte_total_actions = 4;
 var qte_min_x = 100;
