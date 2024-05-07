@@ -62,8 +62,8 @@ var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
 var rng = RandomNumberGenerator.new();
-var qte_current_click_count = 0;
-var qte_click_total = 1;
+var qte_current_action_count = 0;
+var qte_total_actions = 4;
 var qte_min_x = 100;
 var qte_max_x = 850;
 var qte_min_y = 160;
@@ -125,7 +125,7 @@ func _update_unit_health_bar(combat_unit: CombatUnit):
   combat_unit.health_bar.value = (combat_unit.char.health / combat_unit.char.MAX_HEALTH) * 100;
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
-  await attack_sequence(attacker, defender);
+  await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
   var cam_tween = create_tween();
@@ -139,7 +139,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await tween.finished;
   Tweens.await_tweens([tween, cam_tween])
   await get_tree().create_timer(0.5).timeout;
-  await attack_sequence(defender, attacker);
+  await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
   tween = create_tween();
   tween.tween_property(player_choices, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
   cam_tween = create_tween();
@@ -151,17 +151,16 @@ func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
   _update_unit_health_bar(combat_unit);
 
-# NOTE: in this func: is_player_turn actually means its enemy turn
-func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
-  switch_qte_state_to(is_player_turn);
+func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
+  switch_qte_state_to(is_npc_turn);
   attacker.char.preatk();
   defender.char.readied();
   var tween = create_tween();
-  tween.tween_property(attacker.path_follow, "progress_ratio", 1, 1).set_trans(Tween.TRANS_EXPO);
+  tween.tween_property(attacker.path_follow, "progress_ratio", 1, total_atk_time).set_trans(atk_trans);
   await tween.finished;
   attacker.char.postatk();
   var damage_taker = defender;
-  if is_player_turn and parried:
+  if is_npc_turn and parried:
     damage_taker = attacker;
     defender.char.postatk();
   deal_damage_to(damage_taker);
@@ -181,7 +180,7 @@ func _on_attack_pressed():
     update_qte_button();
     is_player_turn = !is_player_turn;
     parried = false;
-    qte_current_click_count = 0;
+    qte_current_action_count = 0;
     full_round(player, npc);
 
 func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: float, total_move_secs: float, spacer: float):
@@ -208,9 +207,9 @@ func _init_bg():
   _init_bg_cloud_movements(background.sm_clouds, -800, 2500, 90, 0.1);
 
 func qte_event_update():
-  if qte_current_click_count < qte_click_total:
-    qte_current_click_count = qte_current_click_count + 1;
-    parried = qte_current_click_count == qte_click_total;
+  if qte_current_action_count < qte_total_actions:
+    qte_current_action_count = qte_current_action_count + 1;
+    parried = qte_current_action_count == qte_total_actions;
     update_qte_button();
     switch_qte_state_to(!parried);
 
