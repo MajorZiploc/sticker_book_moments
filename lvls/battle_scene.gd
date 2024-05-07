@@ -51,6 +51,7 @@ class Background:
 @onready var qte_container: BoxContainer = $ui_root/ui/qte;
 @onready var qte_btn: Button = $ui_root/ui/qte/btn;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
+@onready var player_choices: BoxContainer = $ui_root/ui/choice;
 
 @export var is_player_turn = true;
 
@@ -126,6 +127,9 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await tween.finished;
   await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker);
+  tween = create_tween();
+  tween.tween_property(player_choices, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  await tween.finished;
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
@@ -156,6 +160,8 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
 
 func _on_attack_pressed():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
+    var tween = create_tween();
+    tween.tween_property(player_choices, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
     update_qte_button();
     is_player_turn = !is_player_turn;
     parried = false;
