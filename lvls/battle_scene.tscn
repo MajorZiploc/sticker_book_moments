@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=19 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
@@ -15,10 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://c1dsboiio3jux" path="res://art/my/ui/healthbar_progress.png" id="6_w675a"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
-
-[sub_resource type="Curve2D" id="Curve2D_ult4u"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_iky10"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
 _data = {
@@ -106,17 +102,6 @@ position = Vector2(-542, -323)
 texture = ExtResource("8_lex5n")
 hframes = 2
 frame = 1
-
-[node name="path_parry_marker" type="Path2D" parent="."]
-curve = SubResource("Curve2D_ult4u")
-
-[node name="path_follow" type="PathFollow2D" parent="path_parry_marker"]
-
-[node name="parry_marker" type="TextureRect" parent="path_parry_marker/path_follow"]
-modulate = Color(0.984314, 0.231373, 1, 1)
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("CanvasTexture_iky10")
 
 [node name="path_left" type="Path2D" parent="."]
 position = Vector2(-148.649, 0)
@@ -283,7 +268,7 @@ offset_top = 541.0
 offset_right = 925.0
 offset_bottom = 581.0
 
-[node name="click_me_btn" type="Button" parent="ui_root/ui/qte"]
+[node name="btn" type="Button" parent="ui_root/ui/qte"]
 layout_mode = 2
 text = "click me"
 
@@ -301,4 +286,4 @@ zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_efo2m")
 
 [connection signal="pressed" from="ui_root/ui/choice/attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="ui_root/ui/qte/click_me_btn" to="." method="_on_qte_click_me_btn_pressed"]
+[connection signal="pressed" from="ui_root/ui/qte/btn" to="." method="_on_qte_btn_pressed"]
