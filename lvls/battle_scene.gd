@@ -71,6 +71,9 @@ var qte_all_keys = ["up", "down", "left", "right"];
 var qte_key = "up";
 
 func _ready():
+  self.modulate.a = 0;
+  var tween = create_tween();
+  tween.tween_property(self, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   switch_qte_state_to(false);
   _init_bg();
@@ -97,6 +100,7 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
+  await tween.finished;
 
 func _input(event: InputEvent):
   qte_attempt(event);
