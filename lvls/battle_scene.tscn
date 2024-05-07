@@ -287,6 +287,17 @@ theme_override_font_sizes/font_size = 70
 text = "NPC Turn"
 horizontal_alignment = 1
 
+[node name="action_counter" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 587.0
+offset_right = 725.0
+offset_bottom = 627.0
+
+[node name="progress_bar" type="ProgressBar" parent="ui_root/ui/action_counter"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)

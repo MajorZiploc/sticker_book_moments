@@ -53,6 +53,8 @@ class Background:
 @onready var qte_btn: Button = $ui_root/ui/qte/btn;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 @onready var player_choices: BoxContainer = $ui_root/ui/choice;
+@onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
+@onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
@@ -62,13 +64,13 @@ var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
 var rng = RandomNumberGenerator.new();
-# TODO: add a label at the top of the screen during npc turn to indicate how many actions the player has done out of the total required
 var qte_current_action_count = 0;
 var qte_total_actions = 4;
 var qte_min_x = 100;
 var qte_max_x = 850;
 var qte_min_y = 160;
 var qte_max_y = 540;
+var std_tween_time = 1;
 
 var qte_all_keys = ["up", "down", "left", "right"];
 var qte_key = "up";
@@ -76,11 +78,14 @@ var qte_key = "up";
 func _ready():
   self.modulate.a = 0;
   ui.modulate.a = 0;
+  action_counter_container.modulate.a = 0;
   cam.zoom = std_cam_zoom;
-  var tween = create_tween();
-  tween.tween_property(self, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  var scene_tween_time = std_tween_time;
+  var scene_tween = create_tween();
+  scene_tween.tween_property(self, "modulate:a", 1, scene_tween_time).set_trans(Tween.TRANS_EXPO);
+  var ui_tween_time = std_tween_time;
   var ui_tween = create_tween();
-  ui_tween.tween_property(ui, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   switch_qte_state_to(false);
   _init_bg();
@@ -107,7 +112,7 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
-  Tweens.await_tweens([tween, ui_tween]);
+  await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
 func _input(event: InputEvent):
   qte_attempt(event);
@@ -129,24 +134,31 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
+  var cam_tween_time = std_tween_time;
   var cam_tween = create_tween();
-  cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), 1).set_trans(Tween.TRANS_EXPO);
-  var tween = create_tween();
-  tween.tween_property(npc_turn_ui, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
-  await tween.finished;
+  cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), cam_tween_time).set_trans(Tween.TRANS_EXPO);
+  var npc_turn_ui_tween = create_tween();
+  npc_turn_ui_tween.tween_property(npc_turn_ui, "modulate:a", 1, std_tween_time).set_trans(Tween.TRANS_EXPO);
+  await npc_turn_ui_tween.finished;
   await get_tree().create_timer(0.5).timeout;
-  tween = create_tween();
-  tween.tween_property(npc_turn_ui, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
-  await tween.finished;
-  Tweens.await_tweens([tween, cam_tween])
+  var npc_turn_ui_tween_out_time = std_tween_time;
+  var npc_turn_ui_tween_out = create_tween();
+  npc_turn_ui_tween_out.tween_property(npc_turn_ui, "modulate:a", 0, npc_turn_ui_tween_out_time).set_trans(Tween.TRANS_EXPO);
+  var progress_bar_tween_time = std_tween_time;
+  var progress_bar_tween = create_tween();
+  progress_bar_tween.tween_property(action_counter_container, "modulate:a", 1, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
+  await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
   await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
-  tween = create_tween();
-  tween.tween_property(player_choices, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  var player_choices_tween_time = std_tween_time;
+  var player_choices_tween = create_tween();
+  player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
   cam_tween = create_tween();
-  cam_tween.tween_property(cam, "zoom", std_cam_zoom, 1).set_trans(Tween.TRANS_EXPO);
-  await tween.finished;
-  Tweens.await_tweens([tween, cam_tween])
+  cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
+  progress_bar_tween = create_tween();
+  progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
+  await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
+  action_counter_progress_bar.value = 0;
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
@@ -156,9 +168,9 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
   switch_qte_state_to(is_npc_turn);
   attacker.char.preatk();
   defender.char.readied();
-  var tween = create_tween();
-  tween.tween_property(attacker.path_follow, "progress_ratio", 1, total_atk_time).set_trans(atk_trans);
-  await tween.finished;
+  var atk_path_follow_tween = create_tween();
+  atk_path_follow_tween.tween_property(attacker.path_follow, "progress_ratio", 1, total_atk_time).set_trans(atk_trans);
+  await atk_path_follow_tween.finished;
   attacker.char.postatk();
   var damage_taker = defender;
   if is_npc_turn and parried:
@@ -170,14 +182,14 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
   await get_tree().create_timer(1).timeout;
   attacker.char.idle();
   defender.char.idle();
-  tween = create_tween();
-  tween.tween_property(attacker.path_follow, "progress_ratio", 0, 1).set_trans(Tween.TRANS_CUBIC);
-  return await tween.finished;
+  var atk_path_follow_tween_out = create_tween();
+  atk_path_follow_tween_out.tween_property(attacker.path_follow, "progress_ratio", 0, std_tween_time).set_trans(Tween.TRANS_CUBIC);
+  return await atk_path_follow_tween_out.finished;
 
 func _on_attack_pressed():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
-    var tween = create_tween();
-    tween.tween_property(player_choices, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
+    var player_choices_tween_out = create_tween();
+    player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
     update_qte_button();
     is_player_turn = !is_player_turn;
     parried = false;
@@ -189,10 +201,10 @@ func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: fl
     cloud.position.x = start_x;
     cloud.visible = true;
     var timer_wait = total_move_secs * spacer;
-    var tween = create_tween();
-    tween.tween_property(cloud, "position:x", end_x, total_move_secs).set_trans(Tween.TRANS_LINEAR);
-    tween.tween_callback(func(): cloud.position.x = start_x).set_delay(0.1);
-    tween.set_loops(-1);
+    var cloud_tween = create_tween();
+    cloud_tween.tween_property(cloud, "position:x", end_x, total_move_secs).set_trans(Tween.TRANS_LINEAR);
+    cloud_tween.tween_callback(func(): cloud.position.x = start_x).set_delay(0.1);
+    cloud_tween.set_loops(-1);
     await get_tree().create_timer(timer_wait).timeout;
 
 func _hide_bg_eles(sprites: Array[Sprite2D]):
@@ -210,6 +222,7 @@ func _init_bg():
 func qte_event_update():
   if qte_current_action_count < qte_total_actions:
     qte_current_action_count = qte_current_action_count + 1;
+    action_counter_progress_bar.value = (qte_current_action_count * 100) / qte_total_actions;
     parried = qte_current_action_count == qte_total_actions;
     update_qte_button();
     switch_qte_state_to(!parried);
