@@ -73,7 +73,7 @@ var qte_max_y = 540;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  qte_container.visible = false;
+  switch_qte_state_to(false);
   _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
@@ -122,7 +122,7 @@ func deal_damage_to(combat_unit: CombatUnit):
 # NOTE: in this func: is_player_turn actually means its enemy turn
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
   # path_parry_marker.visible = is_player_turn;
-  qte_container.visible = is_player_turn;
+  switch_qte_state_to(is_player_turn);
   attacker.char.preatk();
   defender.char.readied();
   var tween = create_tween();
@@ -136,7 +136,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
     defender.char.postatk();
   deal_damage_to(damage_taker);
   # path_parry_marker.visible = false;
-  qte_container.visible = false;
+  switch_qte_state_to(false);
   # HACK: to let the postatk frame show for a second
   await get_tree().create_timer(1).timeout;
   attacker.char.idle();
@@ -147,6 +147,10 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit):
 
 func _on_attack_pressed():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
+    qte_container.position = Vector2(
+      rng.randf_range(qte_min_x, qte_max_x),
+      rng.randf_range(qte_min_y, qte_max_y)
+    );
     is_player_turn = !is_player_turn;
     parried = false;
     qte_current_click_count = 0;
@@ -187,4 +191,8 @@ func _on_qte_click_me_btn_pressed():
       rng.randf_range(qte_min_x, qte_max_x),
       rng.randf_range(qte_min_y, qte_max_y)
     );
-    qte_container.visible = !parried;
+    switch_qte_state_to(!parried);
+
+func switch_qte_state_to(is_enabled: bool):
+  qte_container.visible = is_enabled;
+  qte_click_me_btn.disabled = !is_enabled;
