@@ -276,6 +276,17 @@ pivot_offset = Vector2(150, 20)
 layout_mode = 2
 text = "Attack"
 
+[node name="qte" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 854.0
+offset_top = 541.0
+offset_right = 925.0
+offset_bottom = 581.0
+
+[node name="click_me_btn" type="Button" parent="ui_root/ui/qte"]
+layout_mode = 2
+text = "click me"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
@@ -290,3 +301,4 @@ zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_efo2m")
 
 [connection signal="pressed" from="ui_root/ui/choice/attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="ui_root/ui/qte/click_me_btn" to="." method="_on_qte_click_me_btn_pressed"]

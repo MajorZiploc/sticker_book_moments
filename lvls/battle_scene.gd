@@ -50,6 +50,8 @@ class Background:
 );
 @onready var path_parry_marker: Path2D = $path_parry_marker;
 @onready var path_parry_marker_path_follow: PathFollow2D = $path_parry_marker/path_follow;
+@onready var qte_container = $ui_root/ui/qte;
+@onready var qte_click_me_btn = $ui_root/ui/qte/click_me_btn;
 
 @export var is_player_turn = true;
 
@@ -60,9 +62,15 @@ var max_parry_ratio = 1;
 var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
+var rng = RandomNumberGenerator.new();
+var qte_min_x = 100;
+var qte_max_x = 850;
+var qte_min_y = 160;
+var qte_max_y = 540;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  qte_click_me_btn.visible = false;
   _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
@@ -90,6 +98,7 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
+  qte_click_me_btn.visible = true;
 
 func update_bust_texture(combat_unit: CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -164,3 +173,11 @@ func _init_bg():
   _init_bg_cloud_movements(background.lg_clouds, -1200, 3300, 60, 0.6);
   _init_bg_cloud_movements(background.md_clouds, 2800, -1000, 65, 0.5);
   _init_bg_cloud_movements(background.sm_clouds, -800, 2500, 90, 0.1);
+
+func _on_qte_click_me_btn_pressed():
+  qte_container.position = Vector2(
+    rng.randf_range(qte_min_x, qte_max_x),
+    rng.randf_range(qte_min_y, qte_max_y)
+  );
+  deal_damage_to(npc);
+
