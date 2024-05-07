@@ -54,6 +54,7 @@ class Background:
 @onready var player_choices: BoxContainer = $ui_root/ui/choice;
 
 @export var is_player_turn = true;
+@export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
 var parried = false;
 var player_init_position = Vector2(2, 0);
@@ -72,6 +73,7 @@ var qte_key = "up";
 
 func _ready():
   self.modulate.a = 0;
+  cam.zoom = std_cam_zoom;
   var tween = create_tween();
   tween.tween_property(self, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
@@ -122,6 +124,9 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
+  # TODO: (cam_tween_finished) add cam_tween.finished where we need to wait for the camera to finish zooms, right now, it doesnt work
+  var cam_tween = create_tween();
+  cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), 1).set_trans(Tween.TRANS_EXPO);
   var tween = create_tween();
   tween.tween_property(npc_turn_ui, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
@@ -129,11 +134,17 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   tween = create_tween();
   tween.tween_property(npc_turn_ui, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
+  # TODO: (cam_tween_finished)
+  # await cam_tween.finished;
   await get_tree().create_timer(0.5).timeout;
   await attack_sequence(defender, attacker);
   tween = create_tween();
   tween.tween_property(player_choices, "modulate:a", 1, 1).set_trans(Tween.TRANS_EXPO);
+  cam_tween = create_tween();
+  cam_tween.tween_property(cam, "zoom", std_cam_zoom, 1).set_trans(Tween.TRANS_EXPO);
   await tween.finished;
+  # TODO: (cam_tween_finished)
+  # await cam_tween.finished;
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
