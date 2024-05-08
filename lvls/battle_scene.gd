@@ -3,7 +3,6 @@ extends Node2D
 @onready var cam: PhantomCamera2D = $cam;
 
 # TODO: change qte button to textured buttons instead of generic fonts
-# TODO: change qte buttons to fade in/out or pulse instead of just toggling visible -- using modulate.a
 # TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
 class CombatUnit:
@@ -240,13 +239,15 @@ func hide_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   qte_item.button.disabled = true;
-  qte_item.box.visible = false;
+  var qte_box_tween = create_tween();
+  qte_box_tween.tween_property(qte_item.box, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func show_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   qte_item.button.disabled = false;
-  qte_item.box.visible = true;
+  var qte_box_tween = create_tween();
+  qte_box_tween.tween_property(qte_item.box, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func get_qte_item(index):
   if index >= qte_items.size(): return;
@@ -262,6 +263,8 @@ func create_qte_items(is_npc_turn):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   qte_item.box.visible = true;
+  var qte_box_tween = create_tween();
+  qte_box_tween.tween_property(qte_item.box, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
   qte_item.button.disabled = false;
 
 func create_qte_item():
@@ -274,7 +277,7 @@ func create_qte_item():
   );
   button.text = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
   button.disabled = true;
-  box.visible = false;
+  box.modulate.a = 0;
   box.add_child(button);
   ui.add_child(box);
   return QTEItem.new(box, button);
