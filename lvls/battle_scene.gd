@@ -3,6 +3,7 @@ extends Node2D
 @onready var cam: PhantomCamera2D = $cam;
 
 # TODO: change qte button to textured buttons instead of generic fonts
+# TODO: on hide of a qte button: pulse the size of the button slightly down and then back to og
 # TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
 class CombatUnit:
