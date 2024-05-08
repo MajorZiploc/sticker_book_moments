@@ -3,9 +3,6 @@ class_name BattleScene
 
 @onready var cam: PhantomCamera2D = $cam;
 
-# TODO: Add a 'finger' icon and key to QTEItemMetaData only this key type should get the press event
-# TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
-
 class CombatUnit:
   var char: BattleChar;
   var path_follow: PathFollow2D;
