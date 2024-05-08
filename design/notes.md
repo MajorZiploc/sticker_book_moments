@@ -1,14 +1,4 @@
-## name ideas:
-Sticker Strife: Maze of Mayhem
-Sticker Showdown: Quick Time Quest
-Sticker Fantasy: Parry Combat
-Sticker Fantasy: Parry Frenzy
-
-Sticker for art style
-Fantasy for turn based combat (Final Fantasy)
-Parry for the quick time event countering on npc turn
-Frenzy - bcuz
-
+# Patch Tactics
 
 ## Overview
 
