@@ -298,4 +298,4 @@ script = ExtResource("4_yfoe6")
 zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_efo2m")
 
-[connection signal="pressed" from="ui_root/ui/choice/attack" to="." method="_on_attack_pressed"]
+[connection signal="button_up" from="ui_root/ui/choice/attack" to="." method="_on_attack_button_up"]

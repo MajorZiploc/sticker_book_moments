@@ -224,7 +224,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
   atk_path_follow_tween_out.tween_property(attacker.path_follow, "progress_ratio", 0, std_tween_time).set_trans(Tween.TRANS_CUBIC);
   return await atk_path_follow_tween_out.finished;
 
-func _on_attack_pressed():
+func _on_attack_button_up():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
     var player_choices_tween_out = create_tween();
     player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
