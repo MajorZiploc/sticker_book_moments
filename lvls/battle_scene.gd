@@ -2,8 +2,7 @@ extends Node2D
 
 @onready var cam: PhantomCamera2D = $cam;
 
-# TODO: textured buttons requires 2 clicks for a press to register. it should be 1 click
-# TODO: on hide of a qte button: pulse the size of the button slightly down and then back to og
+# TODO: Add a 'finger' icon and key to QTEItemMetaData only this key type should get the press event
 # TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
 class CombatUnit:
@@ -302,7 +301,7 @@ func create_qte_item():
   var box = BoxContainer.new();
   var button = TextureButton.new();
   box.scale = Vector2(0.7, 0.7);
-  button.pressed.connect(_on_qte_btn_pressed);
+  button.focus_entered.connect(_on_qte_btn_pressed);
   box.position = Vector2(
     rng.randf_range(qte_min_x, qte_max_x),
     rng.randf_range(qte_min_y, qte_max_y)
