@@ -2,8 +2,8 @@ extends Node2D
 
 @onready var cam: PhantomCamera2D = $cam;
 
-# TODO: fix clicking follow up buttons in action_counter_container on npc turn
-# currently follow up button clicks require 2 clicks. should be 1
+# TODO: change qte button to textured buttons instead of generic fonts
+# TODO: change qte buttons to fade in/out or pulse instead of just toggling visible -- using modulate.a
 # TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
 class CombatUnit:
@@ -53,8 +53,6 @@ class Background:
   $ui_root/ui/npc_info/hbox/bust,
 );
 @onready var ui: Control = $ui_root/ui;
-@onready var qte_container: BoxContainer = $ui_root/ui/qte;
-@onready var qte_btn: Button = $ui_root/ui/qte/btn;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 @onready var player_choices: BoxContainer = $ui_root/ui/choice;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
@@ -76,8 +74,16 @@ var qte_min_y = 160;
 var qte_max_y = 540;
 var std_tween_time = 1;
 
+class QTEItem:
+  var box: BoxContainer;
+  var button: Button;
+  func _init(box, button):
+    self.box = box;
+    self.button = button;
+
+var qte_items: Array[QTEItem] = [];
+
 var qte_all_keys = ["up", "down", "left", "right"];
-var qte_key = "up";
 
 func _ready():
   self.modulate.a = 0;
@@ -91,7 +97,6 @@ func _ready():
   var ui_tween = create_tween();
   ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
-  switch_qte_state_to(false);
   _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
@@ -122,8 +127,9 @@ func _input(event: InputEvent):
   qte_attempt(event);
 
 func qte_attempt(event: InputEvent):
-  if not qte_container.visible: return;
-  if event.is_action_pressed(qte_key):
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  if qte_item and event.is_action_pressed(qte_item.button.text):
     qte_event_update();
 
 func update_bust_texture(combat_unit: CombatUnit):
@@ -169,7 +175,7 @@ func deal_damage_to(combat_unit: CombatUnit):
   _update_unit_health_bar(combat_unit);
 
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
-  switch_qte_state_to(is_npc_turn);
+  create_qte_items(is_npc_turn);
   attacker.char.preatk();
   defender.char.readied();
   var atk_path_follow_tween = create_tween();
@@ -181,7 +187,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
     damage_taker = attacker;
     defender.char.postatk();
   deal_damage_to(damage_taker);
-  switch_qte_state_to(false);
+  destory_qte_btns(is_npc_turn);
   # HACK: to let the postatk frame show for a second
   await get_tree().create_timer(1).timeout;
   attacker.char.idle();
@@ -194,7 +200,6 @@ func _on_attack_pressed():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
     var player_choices_tween_out = create_tween();
     player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
-    update_qte_button();
     is_player_turn = !is_player_turn;
     parried = false;
     qte_current_action_count = 0;
@@ -225,22 +230,57 @@ func _init_bg():
 
 func qte_event_update():
   if qte_current_action_count < qte_total_actions:
+    hide_qte_item();
     qte_current_action_count = qte_current_action_count + 1;
     action_counter_progress_bar.value = (qte_current_action_count * 100) / qte_total_actions;
     parried = qte_current_action_count == qte_total_actions;
-    update_qte_button();
+    show_qte_item();
 
-func update_qte_button():
-  qte_container.position = Vector2(
-    rng.randf_range(qte_min_x, qte_max_x),
-    rng.randf_range(qte_min_y, qte_max_y)
-  );
-  qte_key = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
-  qte_btn.text = qte_key;
+func hide_qte_item():
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  qte_item.button.disabled = true;
+  qte_item.box.visible = false;
 
-func switch_qte_state_to(is_enabled: bool):
-  qte_container.visible = is_enabled;
-  qte_btn.disabled = !is_enabled;
+func show_qte_item():
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  qte_item.button.disabled = false;
+  qte_item.box.visible = true;
+
+func get_qte_item(index):
+  if index >= qte_items.size(): return;
+  return qte_items[index];
 
 func _on_qte_btn_pressed():
   qte_event_update();
+
+func create_qte_items(is_npc_turn):
+  if not is_npc_turn: return;
+  for i in qte_total_actions:
+    qte_items.append(create_qte_item());
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  qte_item.box.visible = true;
+  qte_item.button.disabled = false;
+
+func create_qte_item():
+  var box = BoxContainer.new();
+  var button = Button.new()
+  button.pressed.connect(_on_qte_btn_pressed)
+  box.position = Vector2(
+    rng.randf_range(qte_min_x, qte_max_x),
+    rng.randf_range(qte_min_y, qte_max_y)
+  );
+  button.text = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
+  button.disabled = true;
+  box.visible = false;
+  box.add_child(button);
+  ui.add_child(box);
+  return QTEItem.new(box, button);
+
+func destory_qte_btns(is_npc_turn):
+  if not is_npc_turn: return;
+  for qte_item in qte_items:
+    ui.remove_child(qte_item.box);
+  qte_items = [];
