@@ -1,3 +1,15 @@
+## name ideas:
+Sticker Strife: Maze of Mayhem
+Sticker Showdown: Quick Time Quest
+Sticker Fantasy: Parry Combat
+Sticker Fantasy: Parry Frenzy
+
+Sticker for art style
+Fantasy for turn based combat (Final Fantasy)
+Parry for the quick time event countering on npc turn
+Frenzy - bcuz
+
+
 ## Overview
 
 stickers on a sticker book with turn based in rogue lite level scheme
@@ -13,6 +25,8 @@ items and buffs gotten from drops on beating enemies
 
 ## battle_scene details
 
+- on player turn, it plays like final fantasy
+- on npc turn, it plays like a quick time event or ddr
 - when char dies, peel the sticker off the sticker book and discard off screen
 - no complex animations, just moving the sticker and using keyframes
 - keyframes for each char - no deep animations
