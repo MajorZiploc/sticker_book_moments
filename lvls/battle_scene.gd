@@ -267,6 +267,8 @@ func qte_event_update():
 func hide_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
+  # HACK: to show pressed texture when using keys instead of mouse clicks
+  qte_item.button.texture_normal = qte_item.button.texture_pressed;
   qte_item.button.disabled = true;
   var qte_box_tween = create_tween();
   qte_box_tween.tween_property(qte_item.box, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
