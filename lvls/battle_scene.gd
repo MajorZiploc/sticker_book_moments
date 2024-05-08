@@ -1,4 +1,5 @@
 extends Node2D
+class_name BattleScene
 
 @onready var cam: PhantomCamera2D = $cam;
 
