@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var cam: PhantomCamera2D = $cam;
 
-# TODO: change qte button to textured buttons instead of generic fonts
+# TODO: textured buttons requires 2 clicks for a press to register. it should be 1 click
 # TODO: on hide of a qte button: pulse the size of the button slightly down and then back to og
 # TODO: figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
 
@@ -67,7 +67,7 @@ var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
 var rng = RandomNumberGenerator.new();
 var qte_current_action_count = 0;
-var qte_total_actions = 4;
+var qte_total_actions = 5;
 var qte_min_x = 100;
 var qte_max_x = 850;
 var qte_min_y = 160;
@@ -75,15 +75,43 @@ var qte_max_y = 540;
 var std_tween_time = 1;
 
 class QTEItem:
+  var key: String;
   var box: BoxContainer;
-  var button: Button;
-  func _init(box, button):
+  var button: TextureButton;
+  func _init(key, box, button):
+    self.key = key;
     self.box = box;
     self.button = button;
 
+class QTEItemMetaData:
+  var normal: Texture;
+  var pressed: Texture;
+  func _init(normal: Texture, pressed: Texture):
+    self.normal = normal;
+    self.pressed = normal;
+
 var qte_items: Array[QTEItem] = [];
 
-var qte_all_keys = ["up", "down", "left", "right"];
+var qte_item_metadata: Dictionary = {
+  "up": QTEItemMetaData.new(
+    preload("res://art/my/ui/qte_btn/up/normal.png"),
+    preload("res://art/my/ui/qte_btn/up/pressed.png")
+  ),
+  "down": QTEItemMetaData.new(
+    preload("res://art/my/ui/qte_btn/down/normal.png"),
+    preload("res://art/my/ui/qte_btn/down/pressed.png")
+  ),
+  "left": QTEItemMetaData.new(
+    preload("res://art/my/ui/qte_btn/left/normal.png"),
+    preload("res://art/my/ui/qte_btn/left/pressed.png")
+  ),
+  "right": QTEItemMetaData.new(
+    preload("res://art/my/ui/qte_btn/right/normal.png"),
+    preload("res://art/my/ui/qte_btn/right/pressed.png")
+  ),
+};
+
+var qte_all_keys = qte_item_metadata.keys();
 
 func _ready():
   self.modulate.a = 0;
@@ -129,7 +157,7 @@ func _input(event: InputEvent):
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  if qte_item and event.is_action_pressed(qte_item.button.text):
+  if qte_item and event.is_action_pressed(qte_item.key):
     qte_event_update();
 
 func update_bust_texture(combat_unit: CombatUnit):
@@ -270,18 +298,21 @@ func create_qte_items(is_npc_turn):
 
 func create_qte_item():
   var box = BoxContainer.new();
-  var button = Button.new()
-  button.pressed.connect(_on_qte_btn_pressed)
+  var button = TextureButton.new();
+  box.scale = Vector2(0.7, 0.7);
+  button.pressed.connect(_on_qte_btn_pressed);
   box.position = Vector2(
     rng.randf_range(qte_min_x, qte_max_x),
     rng.randf_range(qte_min_y, qte_max_y)
   );
-  button.text = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
+  var key = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
+  button.texture_normal = qte_item_metadata[key].normal;
+  button.texture_pressed = qte_item_metadata[key].pressed;
   button.disabled = true;
   box.modulate.a = 0;
   box.add_child(button);
   ui.add_child(box);
-  return QTEItem.new(box, button);
+  return QTEItem.new(key, box, button);
 
 func destory_qte_btns(is_npc_turn):
   if not is_npc_turn: return;
