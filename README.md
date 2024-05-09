@@ -1,4 +1,4 @@
-# Sticker Moments
+# Sticker Book: Moments
 
 ## TODO:
 
