@@ -1,6 +1,9 @@
-# Sticker Book: Moments
+# Sticker Book: Time Attack
 
 ## Alt names:
+- Sticker Book: Slow mo
+- Sticker Book: Bullet Time
+- Sticker Book: Moments
 - Patched Moments
 - Stickers of Time
 - Sticker Time
