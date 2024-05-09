@@ -95,12 +95,12 @@ the damage can occur after each action
 
 different characters as npc would effect things like damage amount and time to act on each action
   Hilda - more damage and more time to react
-  Marcella - 2 nodes at a time - each node is half standard damage with standard time to react to each
+  Raven - 2 nodes at a time - each node is half standard damage with standard time to react to each
   spearwomen - standard damage and standard time to react (consider if less time makes this more balanced)
 
 what do different characters as player choice do?
   Hilda - more HP, but comes at a slight reduction in time to react
-  Marcella - less HP, but comes at a slight increase in time to react
+  Raven - less HP, but comes at a slight increase in time to react
   spearwomen - standard HP, with standard time to react
 
 NOTE: consider configuring it to allow the player to adjust how much they get buttons/keys vs clicks
