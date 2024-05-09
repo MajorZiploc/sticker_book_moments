@@ -1,5 +1,5 @@
 function just_copy_assets_from_assets_repo {
-  cd ~/projects/gd4_tb_paper_assets/krita/;
+  cd ~/projects/sticker_book_moments_assets/krita/;
   local assets_to_move_rel_paths; assets_to_move_rel_paths=$(gfind_files ".*\.png");
   local assets_to_move_abs_paths; assets_to_move_abs_paths=$(echo "$assets_to_move_rel_paths" | sed -E "s,^(\.),${path_replace:-$PWD},");
   cd ~-;
