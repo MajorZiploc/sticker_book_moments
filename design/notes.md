@@ -1,5 +1,12 @@
 # Sticker Moments
 
+## Alt names:
+- Patched Moments
+- Stickers of Time
+- Sticker Time
+- Patched in Time
+- Timed Decal
+
 ## Overview
 
 stickers on a sticker book with turn based in rogue lite level scheme
