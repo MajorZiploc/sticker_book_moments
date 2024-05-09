@@ -46,7 +46,7 @@ offset_bottom = 137.0
 [node name="label" type="Label" parent="ui_root/ui/title/panel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
-text = "Patch Tactics"
+text = "Sticker Moments"
 
 [node name="play" type="Control" parent="ui_root/ui"]
 layout_mode = 1
