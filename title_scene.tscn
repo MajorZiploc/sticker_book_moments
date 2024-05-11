@@ -48,13 +48,13 @@ layout_mode = 2
 
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
+theme_type_variation = &"HeaderXLarge"
 text = "Sticker Book"
 
 [node name="subtitle" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"HeaderMedium"
 text = "Time Attack"
 
 [node name="play" type="Control" parent="ui_root/ui"]

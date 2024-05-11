@@ -169,7 +169,7 @@ layout_mode = 2
 
 [node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
 layout_mode = 2
-theme_type_variation = &"HeaderLarge"
+theme_type_variation = &"HeaderMedium"
 text = "name"
 
 [node name="controller" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
@@ -218,7 +218,7 @@ layout_mode = 2
 
 [node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox"]
 layout_mode = 2
-theme_type_variation = &"HeaderLarge"
+theme_type_variation = &"HeaderMedium"
 text = "name"
 horizontal_alignment = 2
 
@@ -270,7 +270,7 @@ offset_bottom = 467.0
 
 [node name="title" type="Label" parent="ui_root/ui/npc_turn"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 70
+theme_type_variation = &"HeaderLarge"
 text = "NPC Turn"
 horizontal_alignment = 1
 
