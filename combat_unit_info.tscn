@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://fwq33p5strsa"]
+
+[ext_resource type="Texture2D" uid="uid://ci7l4io34pbto" path="res://art/my/ui/healthbar_under.png" id="1_5f1x8"]
+[ext_resource type="Texture2D" uid="uid://y5trpafakxt4" path="res://art/my/ui/healthbar_over.png" id="2_6vr0v"]
+[ext_resource type="Texture2D" uid="uid://c1dsboiio3jux" path="res://art/my/ui/healthbar_progress.png" id="3_1nk36"]
+
+[node name="margin" type="MarginContainer"]
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="panel" type="PanelContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="vbox/panel"]
+layout_mode = 2
+
+[node name="name" type="Label" parent="vbox/panel/vbox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "name"
+horizontal_alignment = 2
+
+[node name="controller" type="Label" parent="vbox/panel/vbox"]
+layout_mode = 2
+text = "npc"
+
+[node name="healthbar" type="TextureProgressBar" parent="vbox"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+step = 0.01
+fill_mode = 1
+nine_patch_stretch = true
+texture_under = ExtResource("1_5f1x8")
+texture_over = ExtResource("2_6vr0v")
+texture_progress = ExtResource("3_1nk36")

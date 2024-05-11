@@ -108,6 +108,8 @@ var qte_item_metadata: Dictionary = {
   ),
 };
 
+@onready var player_info_controller = $ui_root/ui/player_info/hbox/margin/vbox/panel/vbox/controller;
+
 var qte_all_keys = qte_item_metadata.keys();
 
 func _ready():
@@ -127,9 +129,8 @@ func _ready():
   npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
   player.char.update_sprite_texture(player.unit_data.sprite_path);
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
-  player.char.to_player();
+  to_player(player);
   update_bust_texture(player);
-  player.bust.flip_h = true;
   update_bust_texture(npc);
   player.char.idle();
   npc.char.idle();
@@ -147,6 +148,14 @@ func _ready():
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
+
+func to_player(player: CombatUnit):
+  player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
+  player_info_controller.text = "player";
+  player.char.to_player();
+  player.bust.flip_h = true;
+  player.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
+  player.health_bar.fill_mode = TextureProgressBar.FillMode.FILL_LEFT_TO_RIGHT;
 
 func _input(event: InputEvent):
   qte_attempt(event);

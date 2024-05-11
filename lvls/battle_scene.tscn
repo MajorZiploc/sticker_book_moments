@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=17 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
@@ -8,13 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://gj6sfl74h844" path="res://art/my/bg/obj/large/clouds.png" id="4_t31yk"]
 [ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
-[ext_resource type="Texture2D" uid="uid://ci7l4io34pbto" path="res://art/my/ui/healthbar_under.png" id="5_dr8ll"]
-[ext_resource type="Texture2D" uid="uid://y5trpafakxt4" path="res://art/my/ui/healthbar_over.png" id="5_ghx12"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_0cwmx"]
-[ext_resource type="Texture2D" uid="uid://c1dsboiio3jux" path="res://art/my/ui/healthbar_progress.png" id="6_w675a"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
+[ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
 _data = {
@@ -153,38 +151,8 @@ layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="margin" type="MarginContainer" parent="ui_root/ui/player_info/hbox"]
+[node name="margin" parent="ui_root/ui/player_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 10
-
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info/hbox/margin"]
-layout_mode = 2
-
-[node name="panel" type="PanelContainer" parent="ui_root/ui/player_info/hbox/margin/vbox"]
-layout_mode = 2
-
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info/hbox/margin/vbox/panel"]
-layout_mode = 2
-
-[node name="name" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "name"
-
-[node name="controller" type="Label" parent="ui_root/ui/player_info/hbox/margin/vbox/panel/vbox"]
-layout_mode = 2
-text = "player"
-horizontal_alignment = 2
-
-[node name="healthbar" type="TextureProgressBar" parent="ui_root/ui/player_info/hbox/margin/vbox"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-step = 0.01
-nine_patch_stretch = true
-texture_under = ExtResource("5_dr8ll")
-texture_over = ExtResource("5_ghx12")
-texture_progress = ExtResource("6_w675a")
 
 [node name="PanelContainer" type="PanelContainer" parent="ui_root/ui/player_info"]
 layout_mode = 2
@@ -202,39 +170,8 @@ grow_horizontal = 0
 [node name="hbox" type="HBoxContainer" parent="ui_root/ui/npc_info"]
 layout_mode = 2
 
-[node name="margin" type="MarginContainer" parent="ui_root/ui/npc_info/hbox"]
+[node name="margin" parent="ui_root/ui/npc_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 30
-
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui/npc_info/hbox/margin"]
-layout_mode = 2
-
-[node name="panel" type="PanelContainer" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
-layout_mode = 2
-
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel"]
-layout_mode = 2
-
-[node name="name" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox"]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "name"
-horizontal_alignment = 2
-
-[node name="controller" type="Label" parent="ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox"]
-layout_mode = 2
-text = "npc"
-
-[node name="healthbar" type="TextureProgressBar" parent="ui_root/ui/npc_info/hbox/margin/vbox"]
-custom_minimum_size = Vector2(300, 40)
-layout_mode = 2
-step = 0.01
-fill_mode = 1
-nine_patch_stretch = true
-texture_under = ExtResource("5_dr8ll")
-texture_over = ExtResource("5_ghx12")
-texture_progress = ExtResource("6_w675a")
 
 [node name="bust" type="TextureRect" parent="ui_root/ui/npc_info/hbox"]
 layout_mode = 2
