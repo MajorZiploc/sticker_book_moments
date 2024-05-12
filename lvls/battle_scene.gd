@@ -178,31 +178,36 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
-  var cam_tween_time = std_tween_time;
-  var cam_tween = create_tween();
-  cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), cam_tween_time).set_trans(Tween.TRANS_EXPO);
-  var npc_turn_ui_tween = create_tween();
-  npc_turn_ui_tween.tween_property(npc_turn_ui, "modulate:a", 1, std_tween_time).set_trans(Tween.TRANS_EXPO);
-  await npc_turn_ui_tween.finished;
-  await get_tree().create_timer(0.5).timeout;
-  var npc_turn_ui_tween_out_time = std_tween_time;
-  var npc_turn_ui_tween_out = create_tween();
-  npc_turn_ui_tween_out.tween_property(npc_turn_ui, "modulate:a", 0, npc_turn_ui_tween_out_time).set_trans(Tween.TRANS_EXPO);
-  var progress_bar_tween_time = std_tween_time;
-  var progress_bar_tween = create_tween();
-  progress_bar_tween.tween_property(action_counter_container, "modulate:a", 1, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
-  await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
-  await get_tree().create_timer(0.5).timeout;
-  await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
-  var player_choices_tween_time = std_tween_time;
-  var player_choices_tween = create_tween();
-  player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
-  cam_tween = create_tween();
-  cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
-  progress_bar_tween = create_tween();
-  progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
-  await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
-  action_counter_progress_bar.value = 0;
+  var did_battle_end = defender.char.health <= 0;
+  if not did_battle_end:
+    var cam_tween_time = std_tween_time;
+    var cam_tween = create_tween();
+    cam_tween.tween_property(cam, "zoom", Vector2(0.65, 0.65), cam_tween_time).set_trans(Tween.TRANS_EXPO);
+    var npc_turn_ui_tween = create_tween();
+    npc_turn_ui_tween.tween_property(npc_turn_ui, "modulate:a", 1, std_tween_time).set_trans(Tween.TRANS_EXPO);
+    await npc_turn_ui_tween.finished;
+    await get_tree().create_timer(0.5).timeout;
+    var npc_turn_ui_tween_out_time = std_tween_time;
+    var npc_turn_ui_tween_out = create_tween();
+    npc_turn_ui_tween_out.tween_property(npc_turn_ui, "modulate:a", 0, npc_turn_ui_tween_out_time).set_trans(Tween.TRANS_EXPO);
+    var progress_bar_tween_time = std_tween_time;
+    var progress_bar_tween = create_tween();
+    progress_bar_tween.tween_property(action_counter_container, "modulate:a", 1, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
+    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
+    await get_tree().create_timer(0.5).timeout;
+    await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
+    var player_choices_tween_time = std_tween_time;
+    var player_choices_tween = create_tween();
+    player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
+    cam_tween = create_tween();
+    cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
+    progress_bar_tween = create_tween();
+    progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
+    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
+    action_counter_progress_bar.value = 0;
+    did_battle_end = defender.char.health <= 0 or attacker.char.health <= 0;
+  if did_battle_end:
+    end_battle_scene();
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
@@ -303,6 +308,27 @@ func create_qte_items(is_npc_turn):
   var qte_box_tween = create_tween();
   qte_box_tween.tween_property(qte_item.box, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
   qte_item.button.disabled = false;
+
+func _on_end_battle_scene():
+  get_tree().change_scene_to_file("res://title_scene.tscn");
+
+func end_battle_scene():
+  var box = BoxContainer.new();
+  box.anchor_right = 0.5;
+  box.anchor_left = 0.5;
+  box.anchor_bottom = 0.5;
+  box.anchor_top = 0.5;
+  box.grow_horizontal = 2
+  box.grow_vertical = 2
+  # box.layout_mode;
+  # box.anchors_preset;
+  var button = Button.new();
+  button.text = "END";
+  # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+  button.focus_entered.connect(_on_end_battle_scene);
+  button.theme_type_variation = &"ButtonLarge";
+  box.add_child(button);
+  ui.add_child(box);
 
 func create_qte_item():
   var box = BoxContainer.new();
