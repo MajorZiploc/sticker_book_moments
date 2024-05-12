@@ -6,7 +6,6 @@
 
 [node name="margin" type="MarginContainer"]
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 30
 
 [node name="vbox" type="VBoxContainer" parent="."]
 layout_mode = 2
