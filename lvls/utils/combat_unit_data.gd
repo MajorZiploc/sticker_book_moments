@@ -3,6 +3,7 @@ extends Node
 enum Type {
   DUAL_HYBRID,
   TWO_HANDED_AXER,
+  SPEARWOMAN,
 }
 
 class Data:
@@ -27,6 +28,12 @@ var entries: Dictionary = {
     "res://art/my/char/two_handed_axer.png",
     "res://art/my/char/two_handed_axer_bust.png",
     "Hilda Grimjaw",
+    get_basic_path_points,
+  ),
+  Type.SPEARWOMAN: Data.new(
+    "res://art/my/char/spearwoman.png",
+    "res://art/my/char/spearwoman_bust.png",
+    "Nova Windstriker",
     get_basic_path_points,
   ),
 }

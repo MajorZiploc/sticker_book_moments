@@ -126,7 +126,7 @@ func _ready():
   npc_turn_ui.modulate.a = 0;
   _init_bg();
   player.unit_data = CombatUnitData.entries[CombatUnitData.Type.DUAL_HYBRID];
-  npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.TWO_HANDED_AXER];
+  npc.unit_data = CombatUnitData.entries[CombatUnitData.Type.SPEARWOMAN];
   player.char.update_sprite_texture(player.unit_data.sprite_path);
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
   to_player(player);
