@@ -37,16 +37,16 @@ class Background:
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
   $path_left,
-  $ui_root/ui/player_info/hbox/margin/vbox/healthbar,
-  $ui_root/ui/player_info/hbox/margin/vbox/panel/vbox/name,
+  $ui_root/ui/player_info/hbox/combat_unit_info/vbox/healthbar,
+  $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/name,
   $ui_root/ui/player_info/hbox/bust,
 );
 @onready var npc = CombatUnit.new(
   $path_right/path_follow/battle_char,
   $path_right/path_follow,
   $path_right,
-  $ui_root/ui/npc_info/hbox/margin/vbox/healthbar,
-  $ui_root/ui/npc_info/hbox/margin/vbox/panel/vbox/name,
+  $ui_root/ui/npc_info/hbox/combat_unit_info/vbox/healthbar,
+  $ui_root/ui/npc_info/hbox/combat_unit_info/vbox/panel/vbox/name,
   $ui_root/ui/npc_info/hbox/bust,
 );
 @onready var ui: Control = $ui_root/ui;
@@ -108,7 +108,7 @@ var qte_item_metadata: Dictionary = {
   ),
 };
 
-@onready var player_info_controller = $ui_root/ui/player_info/hbox/margin/vbox/panel/vbox/controller;
+@onready var player_info_controller = $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/controller;
 
 var qte_all_keys = qte_item_metadata.keys();
 

@@ -151,7 +151,7 @@ layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="margin" parent="ui_root/ui/player_info/hbox" instance=ExtResource("13_jnomy")]
+[node name="combat_unit_info" parent="ui_root/ui/player_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="ui_root/ui/player_info"]
@@ -170,7 +170,7 @@ grow_horizontal = 0
 [node name="hbox" type="HBoxContainer" parent="ui_root/ui/npc_info"]
 layout_mode = 2
 
-[node name="margin" parent="ui_root/ui/npc_info/hbox" instance=ExtResource("13_jnomy")]
+[node name="combat_unit_info" parent="ui_root/ui/npc_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
 
 [node name="bust" type="TextureRect" parent="ui_root/ui/npc_info/hbox"]
