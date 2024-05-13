@@ -11,6 +11,7 @@ class CombatUnit:
   var health_bar: TextureProgressBar;
   var name: Label;
   var bust: TextureRect;
+  var is_player: bool;
   func _init(char, path_follow, path, health_bar, name, bust):
     self.char = char;
     self.path_follow = path_follow;
@@ -18,6 +19,7 @@ class CombatUnit:
     self.health_bar = health_bar;
     self.name = name;
     self.bust = bust;
+    self.is_player = false;
 
 class Background:
   var lg_clouds: Array[Sprite2D];
@@ -156,6 +158,7 @@ func to_player(player: CombatUnit):
   player.bust.flip_h = true;
   player.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
   player.health_bar.fill_mode = TextureProgressBar.FillMode.FILL_LEFT_TO_RIGHT;
+  player.is_player = true;
 
 func _input(event: InputEvent):
   qte_attempt(event);
@@ -329,7 +332,8 @@ func end_battle_scene(combat_unit: CombatUnit):
   # box.layout_mode;
   # box.anchors_preset;
   var button = Button.new();
-  button.text = combat_unit.unit_data.name + " Wins!";
+  var result = "Loses" if not combat_unit.is_player else "Wins"
+  button.text = "Player " + result + "!";
   # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
   button.focus_entered.connect(_on_end_battle_scene);
   button.theme_type_variation = &"ButtonLarge";
