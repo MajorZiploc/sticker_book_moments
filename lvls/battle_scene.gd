@@ -84,29 +84,23 @@ class QTEItem:
 
 class QTEItemMetaData:
   var normal: Texture;
-  var pressed: Texture;
-  func _init(normal: Texture, pressed: Texture):
+  func _init(normal: Texture):
     self.normal = normal;
-    self.pressed = normal;
 
 var qte_items: Array[QTEItem] = [];
 
 var qte_item_metadata: Dictionary = {
   "up": QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/up/normal.png"),
-    preload("res://art/my/ui/qte_btn/up/pressed.png")
   ),
   "down": QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/down/normal.png"),
-    preload("res://art/my/ui/qte_btn/down/pressed.png")
   ),
   "left": QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/left/normal.png"),
-    preload("res://art/my/ui/qte_btn/left/pressed.png")
   ),
   "right": QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/right/normal.png"),
-    preload("res://art/my/ui/qte_btn/right/pressed.png")
   ),
 };
 
@@ -287,11 +281,10 @@ func qte_event_update():
 func hide_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  # HACK: to show pressed texture when using keys instead of mouse clicks
-  qte_item.button.texture_normal = qte_item.button.texture_pressed;
   qte_item.button.disabled = true;
-  var qte_box_tween = create_tween();
-  qte_box_tween.tween_property(qte_item.box, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
+  var qte_tween = create_tween().set_parallel(true);
+  qte_tween.tween_property(qte_item.button, "modulate", Color(0.8, 0.8, 0.8), 0.2).set_trans(Tween.TRANS_LINEAR);
+  qte_tween.tween_property(qte_item.box, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func show_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
@@ -351,7 +344,6 @@ func create_qte_item():
   );
   var key = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
   button.texture_normal = qte_item_metadata[key].normal;
-  button.texture_pressed = qte_item_metadata[key].pressed;
   button.disabled = true;
   box.modulate.a = 0;
   box.add_child(button);
