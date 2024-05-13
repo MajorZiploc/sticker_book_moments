@@ -179,6 +179,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
   var did_battle_end = defender.char.health <= 0;
+  var winner = attacker if did_battle_end else defender;
   if not did_battle_end:
     var cam_tween_time = std_tween_time;
     var cam_tween = create_tween();
@@ -205,9 +206,14 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
     action_counter_progress_bar.value = 0;
-    did_battle_end = defender.char.health <= 0 or attacker.char.health <= 0;
+    did_battle_end = defender.char.health <= 0;
+    if did_battle_end:
+      winner = attacker;
+    did_battle_end = attacker.char.health <= 0;
+    if did_battle_end:
+      winner = defender;
   if did_battle_end:
-    end_battle_scene();
+    end_battle_scene(winner);
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);
@@ -312,7 +318,7 @@ func create_qte_items(is_npc_turn):
 func _on_end_battle_scene():
   get_tree().change_scene_to_file("res://title_scene.tscn");
 
-func end_battle_scene():
+func end_battle_scene(combat_unit: CombatUnit):
   var box = BoxContainer.new();
   box.anchor_right = 0.5;
   box.anchor_left = 0.5;
@@ -323,7 +329,7 @@ func end_battle_scene():
   # box.layout_mode;
   # box.anchors_preset;
   var button = Button.new();
-  button.text = "END";
+  button.text = combat_unit.unit_data.name + " Wins!";
   # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
   button.focus_entered.connect(_on_end_battle_scene);
   button.theme_type_variation = &"ButtonLarge";
