@@ -11,11 +11,11 @@ class Data:
   var bust_path: String;
   var name: String;
   var get_path_points;
-  func _init(sprite_path, bust_path, name, get_path_points):
-    self.sprite_path = sprite_path;
-    self.bust_path = bust_path;
-    self.name = name;
-    self.get_path_points = get_path_points;
+  func _init(sprite_path_, bust_path_, name_, get_path_points_):
+    self.sprite_path = sprite_path_;
+    self.bust_path = bust_path_;
+    self.name = name_;
+    self.get_path_points = get_path_points_;
 
 var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(

@@ -12,23 +12,23 @@ class CombatUnit:
   var name: Label;
   var bust: TextureRect;
   var is_player: bool;
-  func _init(char, path_follow, path, health_bar, name, bust):
-    self.char = char;
-    self.path_follow = path_follow;
-    self.path = path;
-    self.health_bar = health_bar;
-    self.name = name;
-    self.bust = bust;
+  func _init(char_, path_follow_, path_, health_bar_, name_, bust_):
+    self.char = char_;
+    self.path_follow = path_follow_;
+    self.path = path_;
+    self.health_bar = health_bar_;
+    self.name = name_;
+    self.bust = bust_;
     self.is_player = false;
 
 class Background:
   var lg_clouds: Array[Sprite2D];
   var md_clouds: Array[Sprite2D];
   var sm_clouds: Array[Sprite2D];
-  func _init(lg_clouds: Array[Sprite2D], md_clouds: Array[Sprite2D], sm_clouds: Array[Sprite2D]):
-    self.lg_clouds = lg_clouds;
-    self.md_clouds = md_clouds;
-    self.sm_clouds = sm_clouds;
+  func _init(lg_clouds_: Array[Sprite2D], md_clouds_: Array[Sprite2D], sm_clouds_: Array[Sprite2D]):
+    self.lg_clouds = lg_clouds_;
+    self.md_clouds = md_clouds_;
+    self.sm_clouds = sm_clouds_;
 
 @onready var background = Background.new(
   [$bg_root/lg_cloud_2, $bg_root/lg_cloud],
