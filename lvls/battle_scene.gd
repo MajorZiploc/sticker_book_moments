@@ -312,7 +312,7 @@ func create_qte_items(is_npc_turn):
   qte_item.button.disabled = false;
 
 func _on_end_battle_scene():
-  get_tree().change_scene_to_file("res://title_scene.tscn");
+  SceneSwitcher.change_scene("res://title_scene.tscn", {})
 
 func end_battle_scene(combat_unit: CombatUnit):
   var box = BoxContainer.new();
