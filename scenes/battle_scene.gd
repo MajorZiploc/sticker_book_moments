@@ -130,6 +130,9 @@ func _ready():
   to_player(player);
   update_bust_texture(player);
   update_bust_texture(npc);
+  if npc_combat_unit_data_type == player_combat_unit_data_type:
+    npc.char.modulate = Color(0.8, 0.8, 0.8);
+    npc.bust.modulate = Color(0.8, 0.8, 0.8);
   player.char.idle();
   npc.char.idle();
   var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position - attack_position_offset)
