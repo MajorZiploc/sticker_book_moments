@@ -1,17 +1,17 @@
 [gd_scene load_steps=24 format=3 uid="uid://bdf7qmifj6obk"]
 
-[ext_resource type="PackedScene" uid="uid://cmnehhf03kacp" path="res://lvls/chars/player_cat.tscn" id="1_edl26"]
+[ext_resource type="PackedScene" uid="uid://cmnehhf03kacp" path="res://scenes/chars/player_cat.tscn" id="1_edl26"]
 [ext_resource type="Texture2D" uid="uid://110eba13osom" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="2_lqvjs"]
-[ext_resource type="Shader" path="res://lvls/chars/player_cat.gdshader" id="2_yjncr"]
+[ext_resource type="Shader" path="res://scenes/chars/player_cat.gdshader" id="2_yjncr"]
 [ext_resource type="Texture2D" uid="uid://cjxxi8xy3auv5" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="3_o3chd"]
 [ext_resource type="Texture2D" uid="uid://bvdw2bh6awc34" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Tilled Dirt.png" id="4_urxvr"]
 [ext_resource type="Texture2D" uid="uid://bmswiv2jx7sbg" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Water.png" id="5_16hrw"]
 [ext_resource type="Texture2D" uid="uid://ckk6jwm8dggh2" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Wooden House.png" id="6_nflkt"]
 [ext_resource type="Texture2D" uid="uid://c7prkt5t8xmeu" path="res://art/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="7_dfj7w"]
-[ext_resource type="PackedScene" uid="uid://dlj0hniggb8dk" path="res://lvls/chars/mob_cow.tscn" id="8_mxh75"]
+[ext_resource type="PackedScene" uid="uid://dlj0hniggb8dk" path="res://scenes/chars/mob_cow.tscn" id="8_mxh75"]
 [ext_resource type="PackedScene" uid="uid://dduox185t3esw" path="res://objects/chest.tscn" id="9_t8y83"]
 [ext_resource type="PackedScene" uid="uid://ym01n21xwv38" path="res://objects/bed.tscn" id="10_ae5mr"]
-[ext_resource type="Shader" path="res://lvls/fog.gdshader" id="11_gwwlh"]
+[ext_resource type="Shader" path="res://scenes/fog.gdshader" id="11_gwwlh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4miwc"]
 shader = ExtResource("2_yjncr")

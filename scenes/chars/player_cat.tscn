@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=3 uid="uid://cmnehhf03kacp"]
 
-[ext_resource type="Script" path="res://lvls/chars/player_cat.gd" id="1_bvqh6"]
+[ext_resource type="Script" path="res://scenes/chars/player_cat.gd" id="1_bvqh6"]
 [ext_resource type="Texture2D" uid="uid://cwnihx3tovtf6" path="res://art/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_gd6e4"]
-[ext_resource type="Shader" path="res://lvls/chars/player_cat.gdshader" id="2_3e04q"]
+[ext_resource type="Shader" path="res://scenes/chars/player_cat.gdshader" id="2_3e04q"]
 [ext_resource type="Texture2D" uid="uid://b6dtimr78lnas" path="res://art/Sprout Lands - Sprites - Basic pack/Objects/Egg item.png" id="4_ly844"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_2pc62"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://bgtbv2iq43kru"]
 
-[ext_resource type="Script" path="res://lvls/battle_scene.gd" id="1_7ul4m"]
-[ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://lvls/battle_char.tscn" id="2_7aox0"]
+[ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
+[ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="Texture2D" uid="uid://bqda2v1osjqmn" path="res://art/my/bg/base/skybox/midday.png" id="3_iguue"]
 [ext_resource type="Texture2D" uid="uid://dv43001dq4qm2" path="res://art/my/char/dual_wield_stub_bust.png" id="4_aqxti"]
 [ext_resource type="Texture2D" uid="uid://bwhv0ajbf6vlk" path="res://art/my/bg/obj/large/mountain.png" id="4_e8mo6"]

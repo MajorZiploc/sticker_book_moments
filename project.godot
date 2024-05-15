@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="sticker_book_moments"
-run/main_scene="res://title_scene.tscn"
+run/main_scene="res://scenes/title_scene.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-ReplaceColor="*res://lvls/utils/replace_color.gd"
-ColorPalette="*res://lvls/utils/color_palette.gd"
-FrameData="*res://lvls/utils/frame_data.gd"
-CombatUnitData="*res://lvls/utils/combat_unit_data.gd"
-SceneSwitcher="*res://lvls/utils/scene_switcher.gd"
+ReplaceColor="*res://scenes/utils/replace_color.gd"
+ColorPalette="*res://scenes/utils/color_palette.gd"
+FrameData="*res://scenes/utils/frame_data.gd"
+CombatUnitData="*res://scenes/utils/combat_unit_data.gd"
+SceneSwitcher="*res://scenes/utils/scene_switcher.gd"
 
 [display]
 

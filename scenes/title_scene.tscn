@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c76wd8iwrix3h"]
+[gd_scene load_steps=5 format=3 uid="uid://c76wd8iwrix3h"]
 
-[ext_resource type="Script" path="res://title_scene.gd" id="1_fopmr"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_j4hj6"]
+[ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_f4cjv"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_w5hde"]
 
@@ -11,7 +10,7 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[node name="title_scene" type="Node2D"]
+[node name="scenes/title_scene" type="Node2D"]
 script = ExtResource("1_fopmr")
 
 [node name="ui_root" type="CanvasLayer" parent="."]
@@ -81,9 +80,6 @@ text = "Play"
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-script = ExtResource("1_j4hj6")
 
 [node name="cam" type="Node2D" parent="."]
 position = Vector2(830, 361)

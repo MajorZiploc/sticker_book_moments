@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2hixb1emgvvq"]
 
-[ext_resource type="Script" path="res://lvls/battle_char.gd" id="1_s7or0"]
+[ext_resource type="Script" path="res://scenes/battle_char.gd" id="1_s7or0"]
 [ext_resource type="Texture2D" uid="uid://snetoshwvohk" path="res://art/my/char/dual_wield_stub.png" id="2_t1xdn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46h54"]

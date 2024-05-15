@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://dlj0hniggb8dk"]
 
 [ext_resource type="Texture2D" uid="uid://ccaagdc1q6fey" path="res://art/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="1_a3ugh"]
-[ext_resource type="Script" path="res://lvls/chars/mob_cow.gd" id="1_vvhie"]
+[ext_resource type="Script" path="res://scenes/chars/mob_cow.gd" id="1_vvhie"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1el8"]
 size = Vector2(12, 10)
