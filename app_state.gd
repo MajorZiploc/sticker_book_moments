@@ -30,3 +30,4 @@ func delete_session():
 func insert_data(key, data_):
   data[key] = data.get(key, {});
   data[key].merge(data_, true);
+  return data;
