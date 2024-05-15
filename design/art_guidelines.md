@@ -13,6 +13,18 @@ ui:
     color: #eaeaea
     size: 5px
 
+buffs (items):
+  stroke_outline:  (external)
+    color: #eaeaea
+    size: 5px
+    NOTE: internal can be smaller
+
+debuffs (items):
+  stroke_outline: (external)
+    color: #090a14
+    size: 5px
+    NOTE: internal can be smaller
+
 else:
   stroke_outline:
     color: #eaeaea
