@@ -4,7 +4,7 @@ class_name BattleScene
 @onready var cam: PhantomCamera2D = $cam;
 
 class CombatUnit:
-  var char: BattleChar;
+  var battle_char: BattleChar;
   var path_follow: PathFollow2D;
   var path: Path2D;
   var unit_data: CombatUnitData.Data;
@@ -13,7 +13,7 @@ class CombatUnit:
   var bust: TextureRect;
   var is_player: bool;
   func _init(char_, path_follow_, path_, health_bar_, name_, bust_):
-    self.char = char_;
+    self.battle_char = char_;
     self.path_follow = path_follow_;
     self.path = path_;
     self.health_bar = health_bar_;
@@ -125,16 +125,16 @@ func _ready():
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
   var npc_combat_unit_data_type = Global.app_state["npc"]["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
-  player.char.update_sprite_texture(player.unit_data.sprite_path);
-  npc.char.update_sprite_texture(npc.unit_data.sprite_path);
+  player.battle_char.update_sprite_texture(player.unit_data.sprite_path);
+  npc.battle_char.update_sprite_texture(npc.unit_data.sprite_path);
   to_player(player);
   update_bust_texture(player);
   update_bust_texture(npc);
   if npc_combat_unit_data_type == player_combat_unit_data_type:
-    npc.char.modulate = Color(0.8, 0.8, 0.8);
+    npc.battle_char.modulate = Color(0.8, 0.8, 0.8);
     npc.bust.modulate = Color(0.8, 0.8, 0.8);
-  player.char.idle();
-  npc.char.idle();
+  player.battle_char.idle();
+  npc.battle_char.idle();
   var player_path_points: Array[Vector2] = player.unit_data.get_path_points.call(player_init_position, npc_init_position - attack_position_offset)
   player.path.curve.clear_points();
   for i in range(player_path_points.size() - 1, -1, -1):
@@ -153,7 +153,7 @@ func _ready():
 func to_player(player: CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
   player_info_controller.text = "player";
-  player.char.to_player();
+  player.battle_char.to_player();
   player.bust.flip_h = true;
   player.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
   player.health_bar.fill_mode = TextureProgressBar.FillMode.FILL_LEFT_TO_RIGHT;
@@ -174,13 +174,13 @@ func update_bust_texture(combat_unit: CombatUnit):
     combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: CombatUnit):
-  combat_unit.health_bar.value = (combat_unit.char.health / combat_unit.char.MAX_HEALTH) * 100;
+  combat_unit.health_bar.value = (combat_unit.battle_char.health / combat_unit.battle_char.MAX_HEALTH) * 100;
 
 func full_round(attacker: CombatUnit, defender: CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
-  var did_battle_end = defender.char.health <= 0;
+  var did_battle_end = defender.battle_char.health <= 0;
   var winner = attacker if did_battle_end else defender;
   if not did_battle_end:
     var cam_tween_time = std_tween_time;
@@ -208,10 +208,10 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
     action_counter_progress_bar.value = 0;
-    did_battle_end = defender.char.health <= 0;
+    did_battle_end = defender.battle_char.health <= 0;
     if did_battle_end:
       winner = attacker;
-    did_battle_end = attacker.char.health <= 0;
+    did_battle_end = attacker.battle_char.health <= 0;
     if did_battle_end:
       winner = defender;
   if did_battle_end:
@@ -219,27 +219,27 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   Global.save_session();
 
 func deal_damage_to(combat_unit: CombatUnit):
-  combat_unit.char.take_damage(1);
+  combat_unit.battle_char.take_damage(1);
   _update_unit_health_bar(combat_unit);
 
 func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
   create_qte_items(is_npc_turn);
-  attacker.char.preatk();
-  defender.char.readied();
+  attacker.battle_char.preatk();
+  defender.battle_char.readied();
   var atk_path_follow_tween = create_tween();
   atk_path_follow_tween.tween_property(attacker.path_follow, "progress_ratio", 1, total_atk_time).set_trans(atk_trans);
   await atk_path_follow_tween.finished;
-  attacker.char.postatk();
+  attacker.battle_char.postatk();
   var damage_taker = defender;
   if is_npc_turn and parried:
     damage_taker = attacker;
-    defender.char.postatk();
+    defender.battle_char.postatk();
   deal_damage_to(damage_taker);
   destory_qte_btns(is_npc_turn);
   # HACK: to let the postatk frame show for a second
   await get_tree().create_timer(1).timeout;
-  attacker.char.idle();
-  defender.char.idle();
+  attacker.battle_char.idle();
+  defender.battle_char.idle();
   var atk_path_follow_tween_out = create_tween();
   atk_path_follow_tween_out.tween_property(attacker.path_follow, "progress_ratio", 0, std_tween_time).set_trans(Tween.TRANS_CUBIC);
   return await atk_path_follow_tween_out.finished;
