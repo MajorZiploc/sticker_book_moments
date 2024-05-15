@@ -6,8 +6,7 @@ func _ready():
   create_char_choices();
 
 func on_char_selected(key: CombatUnitData.Type):
-  Global.app_state["player"]["combat_unit_data_type"] = key;
-  SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
+  SceneSwitcher.change_scene("res://scenes/battle_scene.tscn", {"npc_combat_unit_data_type": key})
 
 func create_char_choices():
   var box = BoxContainer.new();
