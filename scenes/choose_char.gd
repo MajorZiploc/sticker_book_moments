@@ -20,4 +20,4 @@ func create_char_choices():
     button.focus_entered.connect(func(): on_char_selected(key));
     button.text = entry.name;
     box.add_child(button);
-    ui.add_child(box);
+  ui.add_child(box);
