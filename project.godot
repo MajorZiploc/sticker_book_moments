@@ -17,11 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ReplaceColor="*res://scenes/utils/replace_color.gd"
-ColorPalette="*res://scenes/utils/color_palette.gd"
-FrameData="*res://scenes/utils/frame_data.gd"
-CombatUnitData="*res://scenes/utils/combat_unit_data.gd"
-SceneSwitcher="*res://scenes/utils/scene_switcher.gd"
+ReplaceColor="*res://utils/replace_color.gd"
+ColorPalette="*res://utils/color_palette.gd"
+FrameData="*res://utils/frame_data.gd"
+CombatUnitData="*res://utils/combat_unit_data.gd"
+SceneSwitcher="*res://utils/scene_switcher.gd"
 
 [display]
 
