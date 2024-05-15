@@ -77,15 +77,15 @@ class QTEItem:
   var key: String;
   var box: BoxContainer;
   var button: TextureButton;
-  func _init(key, box, button):
-    self.key = key;
-    self.box = box;
-    self.button = button;
+  func _init(key_, box_, button_):
+    self.key = key_;
+    self.box = box_;
+    self.button = button_;
 
 class QTEItemMetaData:
   var normal: Texture;
-  func _init(normal: Texture):
-    self.normal = normal;
+  func _init(normal_: Texture):
+    self.normal = normal_;
 
 var qte_items: Array[QTEItem] = [];
 
@@ -150,14 +150,14 @@ func _ready():
   _update_unit_health_bar(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
-func to_player(player: CombatUnit):
+func to_player(player_: CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
   player_info_controller.text = "player";
-  player.battle_char.to_player();
-  player.bust.flip_h = true;
-  player.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
-  player.health_bar.fill_mode = TextureProgressBar.FillMode.FILL_LEFT_TO_RIGHT;
-  player.is_player = true;
+  player_.battle_char.to_player();
+  player_.bust.flip_h = true;
+  player_.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
+  player_.health_bar.fill_mode = TextureProgressBar.FillMode.FILL_LEFT_TO_RIGHT;
+  player_.is_player = true;
 
 func _input(event: InputEvent):
   qte_attempt(event);
