@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=16 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_0cwmx"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
@@ -225,9 +224,6 @@ layout_mode = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-script = ExtResource("6_0cwmx")
 
 [node name="cam" type="Node2D" parent="."]
 position = Vector2(465, -282)

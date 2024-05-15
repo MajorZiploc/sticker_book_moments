@@ -121,9 +121,9 @@ func _ready():
   ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   _init_bg();
-  var player_combat_unit_data_type = Global.app_state["player"]["combat_unit_data_type"];
+  var player_combat_unit_data_type = AppState.data["player"]["combat_unit_data_type"];
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
-  var npc_combat_unit_data_type = Global.app_state["npc"]["combat_unit_data_type"];
+  var npc_combat_unit_data_type = AppState.data["npc"]["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
   player.battle_char.update_sprite_texture(player.unit_data.sprite_path);
   npc.battle_char.update_sprite_texture(npc.unit_data.sprite_path);
@@ -216,7 +216,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
       winner = defender;
   if did_battle_end:
     end_battle_scene(winner);
-  Global.save_session();
+  AppState.save_session();
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.battle_char.take_damage(1);

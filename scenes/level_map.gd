@@ -6,8 +6,8 @@ func _ready():
   create_char_choices();
 
 func on_char_selected(key: CombatUnitData.Type):
-  Global.insert_data("npc", {"combat_unit_data_type": key});
-  Global.save_session();
+  AppState.insert_data("npc", {"combat_unit_data_type": key});
+  AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/battle_scene.tscn", {});
 
 func create_char_choices():

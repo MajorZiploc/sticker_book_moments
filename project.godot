@@ -22,7 +22,7 @@ ColorPalette="*res://utils/color_palette.gd"
 FrameData="*res://utils/frame_data.gd"
 CombatUnitData="*res://utils/combat_unit_data.gd"
 SceneSwitcher="*res://utils/scene_switcher.gd"
-Global="*res://global.gd"
+AppState="*res://app_state.gd"
 
 [display]
 
