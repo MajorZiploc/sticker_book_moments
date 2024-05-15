@@ -280,7 +280,7 @@ func qte_event_update():
   if qte_current_action_count < qte_total_actions:
     hide_qte_item();
     qte_current_action_count = qte_current_action_count + 1;
-    action_counter_progress_bar.value = (qte_current_action_count * 100) / qte_total_actions;
+    action_counter_progress_bar.value = (qte_current_action_count * 100) / float(qte_total_actions);
     parried = qte_current_action_count == qte_total_actions;
     show_qte_item();
 
