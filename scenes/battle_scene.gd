@@ -123,7 +123,7 @@ func _ready():
   _init_bg();
   var player_combat_unit_data_type = Global.app_state["player"]["combat_unit_data_type"];
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
-  var npc_combat_unit_data_type = SceneSwitcher.get_param("npc_combat_unit_data_type");
+  var npc_combat_unit_data_type = Global.app_state["npc"]["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
   player.char.update_sprite_texture(player.unit_data.sprite_path);
   npc.char.update_sprite_texture(npc.unit_data.sprite_path);
@@ -216,6 +216,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
       winner = defender;
   if did_battle_end:
     end_battle_scene(winner);
+  Global.save_session();
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.char.take_damage(1);

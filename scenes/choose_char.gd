@@ -6,7 +6,8 @@ func _ready():
   create_char_choices();
 
 func on_char_selected(key: CombatUnitData.Type):
-  Global.app_state["player"]["combat_unit_data_type"] = key;
+  Global.insert_data("player", {"combat_unit_data_type": key});
+  Global.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
 
 func create_char_choices():
