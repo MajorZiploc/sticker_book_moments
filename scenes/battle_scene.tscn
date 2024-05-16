@@ -153,9 +153,6 @@ expand_mode = 2
 [node name="combat_unit_info" parent="ui_root/ui/player_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="ui_root/ui/player_info"]
-layout_mode = 2
-
 [node name="npc_info" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 1
 anchors_preset = 1
