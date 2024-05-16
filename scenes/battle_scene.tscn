@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=17 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
+[ext_resource type="Texture2D" uid="uid://c76v47yk8gqse" path="res://art/my/items/posion.png" id="11_bmtsi"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -132,7 +133,7 @@ grow_vertical = 2
 [node name="player_info" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 1
 offset_right = 500.0
-offset_bottom = 120.0
+offset_bottom = 141.0
 
 [node name="hbox" type="HBoxContainer" parent="ui_root/ui/player_info"]
 layout_mode = 2
@@ -144,6 +145,77 @@ expand_mode = 2
 
 [node name="combat_unit_info" parent="ui_root/ui/player_info/hbox" instance=ExtResource("13_jnomy")]
 layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/player_info"]
+layout_mode = 2
+
+[node name="player_icon_draw" type="VBoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_top = 153.0
+offset_right = 150.0
+offset_bottom = 303.0
+scale = Vector2(0.5, 0.5)
+
+[node name="icon" type="BoxContainer" parent="ui_root/ui/player_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/player_icon_draw/icon"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer" type="Control" parent="ui_root/ui/player_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon2" type="BoxContainer" parent="ui_root/ui/player_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/player_icon_draw/icon2"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer2" type="Control" parent="ui_root/ui/player_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon3" type="BoxContainer" parent="ui_root/ui/player_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/player_icon_draw/icon3"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer3" type="Control" parent="ui_root/ui/player_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon4" type="BoxContainer" parent="ui_root/ui/player_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/player_icon_draw/icon4"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer4" type="Control" parent="ui_root/ui/player_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon5" type="BoxContainer" parent="ui_root/ui/player_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/player_icon_draw/icon5"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
 
 [node name="npc_info" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 1
@@ -199,6 +271,75 @@ layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "NPC Turn"
 horizontal_alignment = 1
+
+[node name="npc_icon_draw" type="VBoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 1041.0
+offset_top = 153.0
+offset_right = 1191.0
+offset_bottom = 995.0
+scale = Vector2(0.5, 0.5)
+
+[node name="icon" type="BoxContainer" parent="ui_root/ui/npc_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/npc_icon_draw/icon"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer" type="Control" parent="ui_root/ui/npc_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon2" type="BoxContainer" parent="ui_root/ui/npc_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/npc_icon_draw/icon2"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer2" type="Control" parent="ui_root/ui/npc_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon3" type="BoxContainer" parent="ui_root/ui/npc_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/npc_icon_draw/icon3"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer3" type="Control" parent="ui_root/ui/npc_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon4" type="BoxContainer" parent="ui_root/ui/npc_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/npc_icon_draw/icon4"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
+
+[node name="spacer4" type="Control" parent="ui_root/ui/npc_icon_draw"]
+custom_minimum_size = Vector2(2.08165e-12, 15)
+layout_mode = 2
+
+[node name="icon5" type="BoxContainer" parent="ui_root/ui/npc_icon_draw"]
+layout_mode = 2
+alignment = 2
+
+[node name="image" type="TextureRect" parent="ui_root/ui/npc_icon_draw/icon5"]
+layout_mode = 2
+texture = ExtResource("11_bmtsi")
+stretch_mode = 3
 
 [node name="action_counter" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 0
