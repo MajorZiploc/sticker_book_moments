@@ -12,6 +12,7 @@ layout_mode = 2
 
 [node name="panel" type="PanelContainer" parent="vbox"]
 layout_mode = 2
+theme_type_variation = &"PanelSmallSticker"
 
 [node name="vbox" type="VBoxContainer" parent="vbox/panel"]
 layout_mode = 2

@@ -1,4 +1,29 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b755fr2pdu1kf"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b755fr2pdu1kf"]
+
+[ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
+[ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
+[ext_resource type="Texture2D" uid="uid://cw3p0r02olwim" path="res://art/my/ui/panel_sticker_small.png" id="3_1kfiv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3sabn"]
+texture = ExtResource("1_47dse")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohgbv"]
+texture = ExtResource("2_nqhew")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rh7gh"]
+texture = ExtResource("3_1kfiv")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhojr"]
 bg_color = Color(0.847059, 0.494118, 0.337255, 1)
@@ -18,6 +43,12 @@ HeaderXLarge/font_sizes/font_size = 100
 Label/font_sizes/font_size = 20
 MenuButton/font_sizes/font_size = 20
 OptionButton/font_sizes/font_size = 20
+PanelLargeSticker/base_type = &"PanelContainer"
+PanelLargeSticker/styles/panel = SubResource("StyleBoxTexture_3sabn")
+PanelMediumSticker/base_type = &"PanelContainer"
+PanelMediumSticker/styles/panel = SubResource("StyleBoxTexture_ohgbv")
+PanelSmallSticker/base_type = &"PanelContainer"
+PanelSmallSticker/styles/panel = SubResource("StyleBoxTexture_rh7gh")
 ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/font_sizes/font_size = 20
 ProgressBar/styles/background = SubResource("StyleBoxFlat_hhojr")
