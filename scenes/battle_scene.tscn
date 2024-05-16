@@ -192,7 +192,7 @@ pivot_offset = Vector2(150, 20)
 
 [node name="attack" type="Button" parent="ui_root/ui/choice"]
 layout_mode = 2
-text = "Attack"
+text = " Attack "
 
 [node name="npc_turn" type="PanelContainer" parent="ui_root/ui"]
 layout_mode = 0

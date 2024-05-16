@@ -12,12 +12,12 @@ func on_char_selected(key: CombatUnitData.Type):
 
 func create_char_choices():
   var box = BoxContainer.new();
-  box.position = Vector2(100, 300);
+  box.position = Vector2(40, 300);
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
     var button = Button.new();
     button.theme_type_variation = &"ButtonMedium";
     button.focus_entered.connect(func(): on_char_selected(key));
-    button.text = entry.name;
+    button.text = " " + entry.name + " ";
     box.add_child(button);
   ui.add_child(box);

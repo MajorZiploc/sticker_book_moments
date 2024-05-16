@@ -20,12 +20,12 @@ layout_mode = 2
 [node name="name" type="Label" parent="vbox/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
-text = "name"
+text = " name "
 horizontal_alignment = 2
 
 [node name="controller" type="Label" parent="vbox/panel/vbox"]
 layout_mode = 2
-text = "npc"
+text = " npc "
 
 [node name="healthbar" type="TextureProgressBar" parent="vbox"]
 custom_minimum_size = Vector2(300, 40)
