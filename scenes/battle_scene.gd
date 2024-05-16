@@ -1,7 +1,7 @@
 extends Node2D
 class_name BattleScene
 
-@onready var cam: PhantomCamera2D = $cam;
+@onready var cam: Camera2D = $cam;
 
 class CombatUnit:
   var battle_char: BattleChar;

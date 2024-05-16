@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=23 format=3 uid="uid://b755fr2pdu1kf"]
 
-[ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
-[ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
-[ext_resource type="Texture2D" uid="uid://cw3p0r02olwim" path="res://art/my/ui/panel_sticker_small.png" id="3_1kfiv"]
+[ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
+[ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
+[ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_small.png" id="3_1kfiv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhqe4"]
 texture = ExtResource("3_1kfiv")

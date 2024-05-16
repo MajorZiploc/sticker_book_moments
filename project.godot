@@ -30,8 +30,6 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
-
 [gui]
 
 theme/custom="res://our_theme.tres"

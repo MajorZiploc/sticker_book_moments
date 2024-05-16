@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bwhv0ajbf6vlk" path="res://art/my/bg/obj/large/mountain.png" id="4_e8mo6"]
 [ext_resource type="Texture2D" uid="uid://gj6sfl74h844" path="res://art/my/bg/obj/large/clouds.png" id="4_t31yk"]
 [ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_yfoe6"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_ry2gw"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
@@ -24,12 +22,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1036.36, 4.54541, 0, 0, 0, 0, 631.818, -109.091, 0, 0, 0, 0, 363.636, -122.727)
 }
 point_count = 3
-
-[sub_resource type="Resource" id="Resource_efo2m"]
-script = ExtResource("5_ry2gw")
-duration = 1.0
-transition = 0
-ease = 2
 
 [node name="battle_scene" type="Node2D"]
 position = Vector2(564, 334)
@@ -218,14 +210,8 @@ offset_bottom = 627.0
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
-
-[node name="cam" type="Node2D" parent="."]
-position = Vector2(465, -282)
-script = ExtResource("4_yfoe6")
-zoom = Vector2(0.5, 0.5)
-tween_resource = SubResource("Resource_efo2m")
 
 [connection signal="button_up" from="ui_root/ui/choice/attack" to="." method="_on_attack_button_up"]
