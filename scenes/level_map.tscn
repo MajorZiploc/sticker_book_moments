@@ -33,6 +33,7 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 629.0
 offset_bottom = 137.0
+theme_type_variation = &"PanelLargeSticker"
 
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui/title_card/panel"]
 layout_mode = 2
@@ -40,7 +41,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = "Level Map"
+text = " Level Map "
+horizontal_alignment = 1
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)

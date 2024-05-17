@@ -192,11 +192,12 @@ offset_left = 285.0
 offset_top = 270.0
 offset_right = 883.0
 offset_bottom = 467.0
+theme_type_variation = &"PanelLargeSticker"
 
 [node name="title" type="Label" parent="ui_root/ui/npc_turn"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "NPC Turn"
+text = " NPC Turn "
 horizontal_alignment = 1
 
 [node name="action_counter" type="BoxContainer" parent="ui_root/ui"]

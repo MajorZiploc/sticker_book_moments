@@ -31,8 +31,10 @@ grow_vertical = 2
 
 [node name="panel" type="PanelContainer" parent="ui_root/ui/title_card"]
 layout_mode = 0
-offset_right = 629.0
-offset_bottom = 137.0
+offset_left = -164.0
+offset_right = 774.0
+offset_bottom = 167.0
+theme_type_variation = &"PanelLargeSticker"
 
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui/title_card/panel"]
 layout_mode = 2
@@ -40,7 +42,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = "Choose Character"
+text = " Choose Character "
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)

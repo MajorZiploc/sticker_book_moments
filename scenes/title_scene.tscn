@@ -31,8 +31,11 @@ grow_vertical = 2
 
 [node name="panel" type="PanelContainer" parent="ui_root/ui/title_card"]
 layout_mode = 0
-offset_right = 629.0
-offset_bottom = 137.0
+offset_left = -18.0
+offset_top = -15.0
+offset_right = 665.0
+offset_bottom = 211.0
+theme_type_variation = &"PanelLargeSticker"
 
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui/title_card/panel"]
 layout_mode = 2
@@ -40,13 +43,13 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = "Sticker Book"
+text = " Sticker Book "
 
 [node name="subtitle" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"HeaderMedium"
-text = "Time Attack"
+text = " Time Attack "
 
 [node name="play" type="Control" parent="ui_root/ui"]
 layout_mode = 1
