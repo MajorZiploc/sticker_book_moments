@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://b755fr2pdu1kf"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b755fr2pdu1kf"]
 
 [ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
 [ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
 [ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_small.png" id="3_1kfiv"]
+[ext_resource type="Texture2D" uid="uid://bw2f2ypxgr8qf" path="res://art/my/ui/panel_sticker_xsmall.png" id="4_oa1fk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhqe4"]
 texture = ExtResource("3_1kfiv")
@@ -88,7 +89,7 @@ texture_margin_left = 15.0
 texture_margin_top = 15.0
 texture_margin_right = 15.0
 texture_margin_bottom = 15.0
-modulate_color = Color(1, 1, 1, 0.7)
+modulate_color = Color(1, 1, 1, 0.701961)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gxl7i"]
 texture = ExtResource("2_nqhew")
@@ -96,7 +97,7 @@ texture_margin_left = 15.0
 texture_margin_top = 15.0
 texture_margin_right = 15.0
 texture_margin_bottom = 15.0
-modulate_color = Color(0.9, 0.9, 0.9, 1)
+modulate_color = Color(0.901961, 0.901961, 0.901961, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_st18e"]
 texture = ExtResource("2_nqhew")
@@ -121,6 +122,25 @@ texture_margin_right = 15.0
 texture_margin_bottom = 15.0
 modulate_color = Color(0.8, 0.8, 0.8, 1)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w880r"]
+texture = ExtResource("4_oa1fk")
+modulate_color = Color(1, 1, 1, 0.7)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cr758"]
+texture = ExtResource("4_oa1fk")
+modulate_color = Color(0.9, 0.9, 0.9, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yo488"]
+texture = ExtResource("4_oa1fk")
+modulate_color = Color(0.9, 0.9, 0.9, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mypvk"]
+texture = ExtResource("4_oa1fk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2qsks"]
+texture = ExtResource("4_oa1fk")
+modulate_color = Color(0.9, 0.9, 0.9, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3sabn"]
 texture = ExtResource("1_47dse")
 texture_margin_left = 20.0
@@ -141,6 +161,9 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwg57"]
+texture = ExtResource("4_oa1fk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhojr"]
 bg_color = Color(0.847059, 0.494118, 0.337255, 1)
@@ -166,6 +189,12 @@ ButtonMedium/styles/focus = SubResource("StyleBoxTexture_gxl7i")
 ButtonMedium/styles/hover = SubResource("StyleBoxTexture_st18e")
 ButtonMedium/styles/normal = SubResource("StyleBoxTexture_7bw55")
 ButtonMedium/styles/pressed = SubResource("StyleBoxTexture_xhut6")
+ButtonXSmall/base_type = &"Button"
+ButtonXSmall/styles/disabled = SubResource("StyleBoxTexture_w880r")
+ButtonXSmall/styles/focus = SubResource("StyleBoxTexture_cr758")
+ButtonXSmall/styles/hover = SubResource("StyleBoxTexture_yo488")
+ButtonXSmall/styles/normal = SubResource("StyleBoxTexture_mypvk")
+ButtonXSmall/styles/pressed = SubResource("StyleBoxTexture_2qsks")
 CheckButton/font_sizes/font_size = 20
 HeaderLarge/font_sizes/font_size = 70
 HeaderMedium/font_sizes/font_size = 40
@@ -181,6 +210,8 @@ PanelMediumSticker/base_type = &"PanelContainer"
 PanelMediumSticker/styles/panel = SubResource("StyleBoxTexture_ohgbv")
 PanelSmallSticker/base_type = &"PanelContainer"
 PanelSmallSticker/styles/panel = SubResource("StyleBoxTexture_rh7gh")
+PanelXSmallSticker/base_type = &"PanelContainer"
+PanelXSmallSticker/styles/panel = SubResource("StyleBoxTexture_kwg57")
 ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/font_sizes/font_size = 20
 ProgressBar/styles/background = SubResource("StyleBoxFlat_hhojr")
