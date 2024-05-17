@@ -144,15 +144,15 @@ func _ready():
   npc.path.curve.clear_points();
   for point in npc_path_points:
     npc.path.curve.add_point(point);
-  player.name.text = " " + player.unit_data.name + " ";
-  npc.name.text = " " + npc.unit_data.name + " ";
+  player.name.text = player.unit_data.name;
+  npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
 func to_player(player_: CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
-  player_info_controller.text = " player ";
+  player_info_controller.text = "player";
   player_.battle_char.to_player();
   player_.bust.flip_h = true;
   player_.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;

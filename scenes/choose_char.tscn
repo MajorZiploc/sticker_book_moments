@@ -42,7 +42,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = " Choose Character "
+text = "Choose Character"
+horizontal_alignment = 1
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
