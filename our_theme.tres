@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
 [ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
 [ext_resource type="Texture2D" uid="uid://cw3p0r02olwim" path="res://art/my/ui/panel_sticker_small.png" id="3_1kfiv"]
-[ext_resource type="Texture2D" uid="uid://bw2f2ypxgr8qf" path="res://art/my/ui/panel_sticker_xsmall.png" id="4_oa1fk"]
+[ext_resource type="Texture2D" path="res://art/my/ui/panel_sticker_xsmall.png" id="4_oa1fk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhqe4"]
 texture = ExtResource("3_1kfiv")
