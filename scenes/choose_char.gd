@@ -5,6 +5,9 @@ extends Node2D
 func _ready():
   create_char_choices();
 
+func _input(event: InputEvent):
+  SceneHelper.process_input(event);
+
 func on_char_selected(key: CombatUnitData.Type):
   AppState.insert_data("player", {"combat_unit_data_type": key});
   AppState.save_session();

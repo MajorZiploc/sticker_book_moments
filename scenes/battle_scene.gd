@@ -60,6 +60,7 @@ class Background:
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
+var round_happening = false;
 var parried = false;
 var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
@@ -160,7 +161,10 @@ func to_player(player_: CombatUnit):
   player_.is_player = true;
 
 func _input(event: InputEvent):
-  qte_attempt(event);
+  if round_happening:
+    qte_attempt(event);
+    return;
+  SceneHelper.process_input(event);
 
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
@@ -217,6 +221,7 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   if did_battle_end:
     end_battle_scene(winner);
   AppState.save_session();
+  round_happening = false;
 
 func deal_damage_to(combat_unit: CombatUnit):
   combat_unit.battle_char.take_damage(1);
@@ -246,6 +251,7 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
 
 func _on_attack_button_up():
   if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
+    round_happening = true;
     var player_choices_tween_out = create_tween();
     player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
     is_player_turn = !is_player_turn;
