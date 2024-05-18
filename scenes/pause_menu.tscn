@@ -52,6 +52,11 @@ offset_top = 316.0
 offset_right = 598.0
 offset_bottom = 401.0
 
+[node name="back" type="Button" parent="ui_root/ui/vbox"]
+layout_mode = 2
+theme_type_variation = &"ButtonMedium"
+text = "back"
+
 [node name="quit" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
 theme_type_variation = &"ButtonMedium"
@@ -61,4 +66,5 @@ text = "quit"
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
+[connection signal="button_up" from="ui_root/ui/vbox/back" to="." method="_on_back_button_up"]
 [connection signal="button_up" from="ui_root/ui/vbox/quit" to="." method="_on_quit_button_up"]

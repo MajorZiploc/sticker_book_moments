@@ -29,8 +29,6 @@ SceneHelper="*res://utils/scene_helper.gd"
 
 window/stretch/mode="canvas_items"
 
-[editor_plugins]
-
 [gui]
 
 theme/custom="res://our_theme.tres"
