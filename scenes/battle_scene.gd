@@ -98,10 +98,10 @@ func _ready():
   ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   _init_bg();
-  var player_data = AppState.data["player"];
+  var player_data = AppState.data[Constants.player];
   var player_combat_unit_data_type = player_data["combat_unit_data_type"];
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
-  var npc_data = AppState.data["npc"];
+  var npc_data = AppState.data[Constants.npc];
   var npc_combat_unit_data_type = npc_data["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
   player.battle_char.update_sprite_texture(player.unit_data.sprite_path);
@@ -174,7 +174,7 @@ func _on_inventory_item_selected(idx):
 
 func to_player(player_: BattleSceneHelper.CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
-  player_info_controller.text = "player";
+  player_info_controller.text = Constants.player;
   player_.battle_char.to_player();
   player_.bust.flip_h = true;
   player_.name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
@@ -199,7 +199,7 @@ func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
-  AppState.insert_data("player" if combat_unit.is_player else "npc", { "health": combat_unit.battle_char.health });
+  AppState.insert_data(Constants.player if combat_unit.is_player else Constants.npc, { "health": combat_unit.battle_char.health });
   combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.MAX_HEALTH) * 100;
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):

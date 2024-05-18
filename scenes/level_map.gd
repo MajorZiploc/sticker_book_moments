@@ -9,7 +9,7 @@ func _input(event: InputEvent):
   SceneHelper.process_input(event);
 
 func on_char_selected(key: CombatUnitData.Type):
-  AppState.insert_data("npc", {"combat_unit_data_type": key});
+  AppState.insert_data(Constants.npc, {"combat_unit_data_type": key});
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/battle_scene.tscn", {});
 
