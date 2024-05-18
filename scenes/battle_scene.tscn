@@ -166,26 +166,6 @@ layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="attack" type="BoxContainer" parent="ui_root/ui"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -106.0
-offset_top = -78.0
-offset_right = -14.0
-offset_bottom = -30.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(2, 2)
-pivot_offset = Vector2(150, 20)
-
-[node name="btn" type="Button" parent="ui_root/ui/attack"]
-layout_mode = 2
-text = "Attack"
-
 [node name="npc_turn" type="PanelContainer" parent="ui_root/ui"]
 layout_mode = 0
 offset_left = 285.0
@@ -211,14 +191,14 @@ offset_bottom = 627.0
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
-[node name="menu" type="BoxContainer" parent="ui_root/ui"]
+[node name="player_choices" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 0
-offset_left = 25.0
-offset_top = 553.0
-offset_right = 177.0
-offset_bottom = 638.0
+offset_left = 926.0
+offset_top = 561.0
+offset_right = 1078.0
+offset_bottom = 646.0
 
-[node name="btn" type="MenuButton" parent="ui_root/ui/menu"]
+[node name="btn" type="MenuButton" parent="ui_root/ui/player_choices"]
 layout_mode = 2
 theme_type_variation = &"FlatMenuButton"
 theme_override_font_sizes/font_size = 40
@@ -234,5 +214,3 @@ popup/item_1/id = 1
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
-
-[connection signal="button_up" from="ui_root/ui/attack/btn" to="." method="_on_attack_button_up"]

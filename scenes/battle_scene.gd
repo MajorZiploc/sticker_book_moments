@@ -21,6 +21,11 @@ class CombatUnit:
     self.bust = bust_;
     self.is_player = false;
 
+enum PlayerChoicesMenuPopupItems {
+  ATTACK,
+  INVENTORY,
+}
+
 class Background:
   var lg_clouds: Array[Sprite2D];
   var md_clouds: Array[Sprite2D];
@@ -53,7 +58,8 @@ class Background:
 );
 @onready var ui: Control = $ui_root/ui;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
-@onready var player_choices: BoxContainer = $ui_root/ui/attack;
+@onready var player_choices: BoxContainer = $ui_root/ui/player_choices;
+@onready var player_choices_btn: MenuButton = $ui_root/ui/player_choices/btn;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 
@@ -110,6 +116,8 @@ var qte_item_metadata: Dictionary = {
 var qte_all_keys = qte_item_metadata.keys();
 
 func _ready():
+  var player_choices_popup = player_choices_btn.get_popup();
+  player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   self.modulate.a = 0;
   ui.modulate.a = 0;
   action_counter_container.modulate.a = 0;
@@ -249,16 +257,6 @@ func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time:
   atk_path_follow_tween_out.tween_property(attacker.path_follow, "progress_ratio", 0, std_tween_time).set_trans(Tween.TRANS_CUBIC);
   return await atk_path_follow_tween_out.finished;
 
-func _on_attack_button_up():
-  if is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
-    round_happening = true;
-    var player_choices_tween_out = create_tween();
-    player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
-    is_player_turn = !is_player_turn;
-    parried = false;
-    qte_current_action_count = 0;
-    full_round(player, npc);
-
 func _init_bg_cloud_movements(clouds: Array[Sprite2D], start_x: float, end_x: float, total_move_secs: float, spacer: float):
   for cloud in clouds:
     cloud.position.x = start_x;
@@ -367,3 +365,17 @@ func destory_qte_btns(is_npc_turn):
   for qte_item in qte_items:
     ui.remove_child(qte_item.box);
   qte_items = [];
+
+func on_player_choices_menu_item_pressed(id):
+  match id:
+    PlayerChoicesMenuPopupItems.ATTACK:
+      if not round_happening and is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
+        round_happening = true;
+        var player_choices_tween_out = create_tween();
+        player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+        is_player_turn = !is_player_turn;
+        parried = false;
+        qte_current_action_count = 0;
+        full_round(player, npc);
+    PlayerChoicesMenuPopupItems.INVENTORY:
+        print("inventory")
