@@ -1,5 +1,7 @@
 extends Node
 
+var MAX_HEALTH: float = 7;
+
 enum Type {
   DUAL_HYBRID,
   TWO_HANDED_AXER,

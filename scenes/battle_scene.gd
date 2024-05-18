@@ -98,12 +98,16 @@ func _ready():
   ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   _init_bg();
-  var player_combat_unit_data_type = AppState.data["player"]["combat_unit_data_type"];
+  var player_data = AppState.data["player"];
+  var player_combat_unit_data_type = player_data["combat_unit_data_type"];
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
-  var npc_combat_unit_data_type = AppState.data["npc"]["combat_unit_data_type"];
+  var npc_data = AppState.data["npc"];
+  var npc_combat_unit_data_type = npc_data["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
   player.battle_char.update_sprite_texture(player.unit_data.sprite_path);
+  player.battle_char.health = player_data.get("health", CombatUnitData.MAX_HEALTH);
   npc.battle_char.update_sprite_texture(npc.unit_data.sprite_path);
+  npc.battle_char.health = npc_data.get("health", CombatUnitData.MAX_HEALTH);
   to_player(player);
   update_bust_texture(player);
   update_bust_texture(npc);
@@ -196,7 +200,7 @@ func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
-  combat_unit.health_bar.value = (combat_unit.battle_char.health / combat_unit.battle_char.MAX_HEALTH) * 100;
+  combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.MAX_HEALTH) * 100;
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
