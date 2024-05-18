@@ -9,5 +9,5 @@ func _on_test_button_up():
     else DisplayServer.WINDOW_MODE_WINDOWED
   );
   OptionsHelper.set_window_mode(window_mode);
-  AppState.insert_data('options', { 'window_mode': window_mode });
+  AppState.insert_data("options", { "window_mode": window_mode });
   AppState.save_session();
