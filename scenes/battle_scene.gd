@@ -60,12 +60,16 @@ class Background:
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 @onready var player_choices: BoxContainer = $ui_root/ui/player_choices;
 @onready var player_choices_btn: MenuButton = $ui_root/ui/player_choices/btn;
+@onready var player_inventory_grid: GridContainer = $ui_root/ui/player_inventory/panel/grid;
+@onready var player_inventory_panel: PanelContainer = $ui_root/ui/player_inventory/panel;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
+var player_inventory_panel_scale= 0.5;
+var player_inventory_size = 9;
 var round_happening = false;
 var parried = false;
 var player_init_position = Vector2(2, 0);
@@ -113,11 +117,17 @@ var qte_item_metadata: Dictionary = {
 
 @onready var player_info_controller = $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/controller;
 
+var paralyzed_icon = preload("res://art/my/items/paralyzed.png");
+var posion_icon = preload("res://art/my/items/posion.png");
+var strength_icon = preload("res://art/my/items/strength.png");
+var default_icon_size = 150;
+
 var qte_all_keys = qte_item_metadata.keys();
 
 func _ready():
   var player_choices_popup = player_choices_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
+  init_player_inventory();
   self.modulate.a = 0;
   ui.modulate.a = 0;
   action_counter_container.modulate.a = 0;
@@ -158,6 +168,22 @@ func _ready():
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
+
+func init_player_inventory():
+  player_inventory_panel.scale = Vector2(player_inventory_panel_scale, player_inventory_panel_scale);
+  for i in player_inventory_size - 1:
+    var panel = PanelContainer.new();
+    if i < 6:
+      var texture_rectangle = TextureRect.new();
+      texture_rectangle.texture = (
+        paralyzed_icon if i % 3 == 0
+        else posion_icon if i % 2 == 0
+        else strength_icon
+      );
+      panel.add_child(texture_rectangle);
+    else:
+      panel.custom_minimum_size = Vector2(default_icon_size * player_inventory_panel_scale, default_icon_size);
+    player_inventory_grid.add_child(panel);
 
 func to_player(player_: CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
