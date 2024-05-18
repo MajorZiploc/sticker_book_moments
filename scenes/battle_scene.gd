@@ -3,50 +3,12 @@ class_name BattleScene
 
 @onready var cam: Camera2D = $cam;
 
-class CombatUnit:
-  var battle_char: BattleChar;
-  var path_follow: PathFollow2D;
-  var path: Path2D;
-  var unit_data: CombatUnitData.Data;
-  var health_bar: TextureProgressBar;
-  var name: Label;
-  var bust: TextureRect;
-  var is_player: bool;
-  func _init(char_, path_follow_, path_, health_bar_, name_, bust_):
-    self.battle_char = char_;
-    self.path_follow = path_follow_;
-    self.path = path_;
-    self.health_bar = health_bar_;
-    self.name = name_;
-    self.bust = bust_;
-    self.is_player = false;
-
-enum PlayerChoicesMenuPopupItem {
-  ATTACK,
-  INVENTORY,
-}
-
-enum PlayerInventoryItemType {
-  PARALYZED,
-  POSION,
-  STRENGTH,
-}
-
-class Background:
-  var lg_clouds: Array[Sprite2D];
-  var md_clouds: Array[Sprite2D];
-  var sm_clouds: Array[Sprite2D];
-  func _init(lg_clouds_: Array[Sprite2D], md_clouds_: Array[Sprite2D], sm_clouds_: Array[Sprite2D]):
-    self.lg_clouds = lg_clouds_;
-    self.md_clouds = md_clouds_;
-    self.sm_clouds = sm_clouds_;
-
-@onready var background = Background.new(
+@onready var background = BattleSceneHelper.Background.new(
   [$bg_root/lg_cloud_2, $bg_root/lg_cloud],
   [$bg_root/md_cloud_2, $bg_root/md_cloud],
   [$bg_root/sm_cloud_2, $bg_root/sm_cloud],
 );
-@onready var player = CombatUnit.new(
+@onready var player = BattleSceneHelper.CombatUnit.new(
   $path_left/path_follow/battle_char,
   $path_left/path_follow,
   $path_left,
@@ -54,7 +16,7 @@ class Background:
   $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/name,
   $ui_root/ui/player_info/hbox/bust,
 );
-@onready var npc = CombatUnit.new(
+@onready var npc = BattleSceneHelper.CombatUnit.new(
   $path_right/path_follow/battle_char,
   $path_right/path_follow,
   $path_right,
@@ -92,33 +54,19 @@ var qte_min_y = 160;
 var qte_max_y = 540;
 var std_tween_time = 1;
 
-class QTEItem:
-  var key: String;
-  var box: BoxContainer;
-  var button: TextureButton;
-  func _init(key_, box_, button_):
-    self.key = key_;
-    self.box = box_;
-    self.button = button_;
-
-class QTEItemMetaData:
-  var normal: Texture;
-  func _init(normal_: Texture):
-    self.normal = normal_;
-
-var qte_items: Array[QTEItem] = [];
+var qte_items: Array[BattleSceneHelper.QTEItem] = [];
 
 var qte_item_metadata: Dictionary = {
-  "up": QTEItemMetaData.new(
+  "up": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/up/normal.png"),
   ),
-  "down": QTEItemMetaData.new(
+  "down": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/down/normal.png"),
   ),
-  "left": QTEItemMetaData.new(
+  "left": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/left/normal.png"),
   ),
-  "right": QTEItemMetaData.new(
+  "right": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/right/normal.png"),
   ),
 };
@@ -186,11 +134,11 @@ func init_player_inventory_items():
     var panel = PanelContainer.new();
     if i < 6:
       if i % 3 == 0:
-        player_inventory_item_types.append(PlayerInventoryItemType.PARALYZED);
+        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.PARALYZED);
       elif i % 2 == 0:
-        player_inventory_item_types.append(PlayerInventoryItemType.POSION);
+        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.POSION);
       else:
-        player_inventory_item_types.append(PlayerInventoryItemType.STRENGTH);
+        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.STRENGTH);
 
 func update_player_inventory():
   for n in player_inventory_grid.get_children():
@@ -202,9 +150,9 @@ func update_player_inventory():
     if i < 6 and player_inventory_item_types.size() > i:
       var button = TextureButton.new();
       button.button_up.connect(func(): _on_inventory_item_selected(i));
-      if player_inventory_item_types[i] == PlayerInventoryItemType.PARALYZED:
+      if player_inventory_item_types[i] == BattleSceneHelper.PlayerInventoryItemType.PARALYZED:
         button.texture_normal = paralyzed_icon;
-      elif player_inventory_item_types[i] == PlayerInventoryItemType.POSION:
+      elif player_inventory_item_types[i] == BattleSceneHelper.PlayerInventoryItemType.POSION:
         button.texture_normal = posion_icon;
       else:
         button.texture_normal = strength_icon;
@@ -221,7 +169,7 @@ func _on_inventory_item_selected(idx):
   var tween = create_tween();
   tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
 
-func to_player(player_: CombatUnit):
+func to_player(player_: BattleSceneHelper.CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
   player_info_controller.text = "player";
   player_.battle_char.to_player();
@@ -242,15 +190,15 @@ func qte_attempt(event: InputEvent):
   if qte_item and event.is_action_pressed(qte_item.key):
     qte_event_update();
 
-func update_bust_texture(combat_unit: CombatUnit):
+func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
   if texture and texture is Texture:
     combat_unit.bust.texture = texture;
 
-func _update_unit_health_bar(combat_unit: CombatUnit):
+func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
   combat_unit.health_bar.value = (combat_unit.battle_char.health / combat_unit.battle_char.MAX_HEALTH) * 100;
 
-func full_round(attacker: CombatUnit, defender: CombatUnit):
+func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
@@ -293,11 +241,11 @@ func full_round(attacker: CombatUnit, defender: CombatUnit):
   AppState.save_session();
   round_happening = false;
 
-func deal_damage_to(combat_unit: CombatUnit):
+func deal_damage_to(combat_unit: BattleSceneHelper.CombatUnit):
   combat_unit.battle_char.take_damage(1);
   _update_unit_health_bar(combat_unit);
 
-func attack_sequence(attacker: CombatUnit, defender: CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
+func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
   create_qte_items(is_npc_turn);
   attacker.battle_char.preatk();
   defender.battle_char.readied();
@@ -386,7 +334,7 @@ func create_qte_items(is_npc_turn):
 func _on_end_battle_scene():
   SceneSwitcher.change_scene("res://scenes/title_scene.tscn", {})
 
-func end_battle_scene(combat_unit: CombatUnit):
+func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   var box = BoxContainer.new();
   box.anchor_right = 0.5;
   box.anchor_left = 0.5;
@@ -420,7 +368,7 @@ func create_qte_item():
   box.modulate.a = 0;
   box.add_child(button);
   ui.add_child(box);
-  return QTEItem.new(key, box, button);
+  return BattleSceneHelper.QTEItem.new(key, box, button);
 
 func destory_qte_btns(is_npc_turn):
   if not is_npc_turn: return;
@@ -430,7 +378,7 @@ func destory_qte_btns(is_npc_turn):
 
 func on_player_choices_menu_item_pressed(id):
   match id:
-    PlayerChoicesMenuPopupItem.ATTACK:
+    BattleSceneHelper.PlayerChoicesMenuPopupItem.ATTACK:
       if not round_happening and is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
         round_happening = true;
         player_inventory_ui_root.modulate.a = 0;
@@ -440,6 +388,6 @@ func on_player_choices_menu_item_pressed(id):
         parried = false;
         qte_current_action_count = 0;
         full_round(player, npc);
-    PlayerChoicesMenuPopupItem.INVENTORY:
+    BattleSceneHelper.PlayerChoicesMenuPopupItem.INVENTORY:
         player_inventory_ui_root.modulate.a = 1;
         # TODO: end player turn and perform npc turn

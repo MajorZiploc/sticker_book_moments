@@ -25,6 +25,7 @@ SceneSwitcher="*res://utils/scene_switcher.gd"
 AppState="*res://app_state.gd"
 SceneHelper="*res://utils/scene_helper.gd"
 OptionsHelper="*res://utils/options_helper.gd"
+BattleSceneHelper="*res://utils/battle_scene_helper.gd"
 
 [display]
 
