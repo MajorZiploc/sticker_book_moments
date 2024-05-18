@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cww7mmd2jq7qu"]
+[gd_scene load_steps=2 format=3 uid="uid://yye6vwfk2wjc"]
 
-[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="1_ijwn7"]
+[ext_resource type="Script" path="res://scenes/options_menu.gd" id="1_mir21"]
 
-[node name="pause_menu" type="Node2D"]
-script = ExtResource("1_ijwn7")
+[node name="options_menu" type="Node2D"]
+script = ExtResource("1_mir21")
 
 [node name="ui_root" type="CanvasLayer" parent="."]
 
@@ -42,7 +42,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = "Pause Menu"
+text = "Options"
 horizontal_alignment = 1
 
 [node name="vbox" type="VBoxContainer" parent="ui_root/ui"]
@@ -57,20 +57,14 @@ layout_mode = 2
 theme_type_variation = &"ButtonMedium"
 text = "back"
 
-[node name="options" type="Button" parent="ui_root/ui/vbox"]
+[node name="test" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
 theme_type_variation = &"ButtonMedium"
-text = "options"
-
-[node name="quit" type="Button" parent="ui_root/ui/vbox"]
-layout_mode = 2
-theme_type_variation = &"ButtonMedium"
-text = "quit"
+text = "fullscreen toggle"
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/vbox/back" to="." method="_on_back_button_up"]
-[connection signal="button_up" from="ui_root/ui/vbox/options" to="." method="_on_options_button_up"]
-[connection signal="button_up" from="ui_root/ui/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="ui_root/ui/vbox/test" to="." method="_on_test_button_up"]

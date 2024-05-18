@@ -14,6 +14,10 @@ func get_param(name_):
     return _params[name_];
   return null;
 
+# In the newly opened scene, you can get all the parameters
+func get_params():
+  return _params;
+
 # Example usage:
 # In the calling scene
 # SceneSwitcher.change_scene("map_viewer.tscn", {"location": selected_location})
