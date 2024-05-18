@@ -21,9 +21,15 @@ class CombatUnit:
     self.bust = bust_;
     self.is_player = false;
 
-enum PlayerChoicesMenuPopupItems {
+enum PlayerChoicesMenuPopupItem {
   ATTACK,
   INVENTORY,
+}
+
+enum PlayerInventoryItemType {
+  PARALYZED,
+  POSION,
+  STRENGTH,
 }
 
 class Background:
@@ -62,6 +68,7 @@ class Background:
 @onready var player_choices_btn: MenuButton = $ui_root/ui/player_choices/btn;
 @onready var player_inventory_grid: GridContainer = $ui_root/ui/player_inventory/panel/grid;
 @onready var player_inventory_panel: PanelContainer = $ui_root/ui/player_inventory/panel;
+@onready var player_inventory_ui_root: Control = $ui_root/ui/player_inventory;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 
@@ -70,6 +77,7 @@ class Background:
 
 var player_inventory_panel_scale= 0.5;
 var player_inventory_size = 9;
+var player_inventory_item_types = [];
 var round_happening = false;
 var parried = false;
 var player_init_position = Vector2(2, 0);
@@ -127,7 +135,9 @@ var qte_all_keys = qte_item_metadata.keys();
 func _ready():
   var player_choices_popup = player_choices_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
-  init_player_inventory();
+  player_inventory_ui_root.modulate.a = 0;
+  init_player_inventory_items();
+  update_player_inventory();
   self.modulate.a = 0;
   ui.modulate.a = 0;
   action_counter_container.modulate.a = 0;
@@ -169,21 +179,47 @@ func _ready():
   _update_unit_health_bar(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
-func init_player_inventory():
+func init_player_inventory_items():
   player_inventory_panel.scale = Vector2(player_inventory_panel_scale, player_inventory_panel_scale);
+  # TODO: move inventory items out into AppState.data
   for i in player_inventory_size - 1:
     var panel = PanelContainer.new();
     if i < 6:
-      var texture_rectangle = TextureRect.new();
-      texture_rectangle.texture = (
-        paralyzed_icon if i % 3 == 0
-        else posion_icon if i % 2 == 0
-        else strength_icon
-      );
-      panel.add_child(texture_rectangle);
+      if i % 3 == 0:
+        player_inventory_item_types.append(PlayerInventoryItemType.PARALYZED);
+      elif i % 2 == 0:
+        player_inventory_item_types.append(PlayerInventoryItemType.POSION);
+      else:
+        player_inventory_item_types.append(PlayerInventoryItemType.STRENGTH);
+
+func update_player_inventory():
+  for n in player_inventory_grid.get_children():
+    player_inventory_grid.remove_child(n);
+  player_inventory_panel.scale = Vector2(player_inventory_panel_scale, player_inventory_panel_scale);
+  # TODO: move inventory items out into AppState.data
+  for i in player_inventory_size - 1:
+    var panel = PanelContainer.new();
+    if i < 6 and player_inventory_item_types.size() > i:
+      var button = TextureButton.new();
+      button.button_up.connect(func(): _on_inventory_item_selected(i));
+      if player_inventory_item_types[i] == PlayerInventoryItemType.PARALYZED:
+        button.texture_normal = paralyzed_icon;
+      elif player_inventory_item_types[i] == PlayerInventoryItemType.POSION:
+        button.texture_normal = posion_icon;
+      else:
+        button.texture_normal = strength_icon;
+      panel.add_child(button);
     else:
-      panel.custom_minimum_size = Vector2(default_icon_size * player_inventory_panel_scale, default_icon_size);
+      panel.custom_minimum_size = Vector2(default_icon_size, default_icon_size);
     player_inventory_grid.add_child(panel);
+    
+func _on_inventory_item_selected(idx):
+  # TODO: apply the debuff or buff to the player or npc depending
+  var item_type = player_inventory_item_types.pop_at(idx);
+  print(item_type);
+  update_player_inventory();
+  var tween = create_tween();
+  tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
 
 func to_player(player_: CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
@@ -394,14 +430,16 @@ func destory_qte_btns(is_npc_turn):
 
 func on_player_choices_menu_item_pressed(id):
   match id:
-    PlayerChoicesMenuPopupItems.ATTACK:
+    PlayerChoicesMenuPopupItem.ATTACK:
       if not round_happening and is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
         round_happening = true;
+        player_inventory_ui_root.modulate.a = 0;
         var player_choices_tween_out = create_tween();
         player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
         is_player_turn = !is_player_turn;
         parried = false;
         qte_current_action_count = 0;
         full_round(player, npc);
-    PlayerChoicesMenuPopupItems.INVENTORY:
-        print("inventory")
+    PlayerChoicesMenuPopupItem.INVENTORY:
+        player_inventory_ui_root.modulate.a = 1;
+        # TODO: end player turn and perform npc turn
