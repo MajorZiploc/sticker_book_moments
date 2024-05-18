@@ -6,6 +6,7 @@ func _on_play_btn_button_up():
 
 func _ready():
   AppState.load_data(AppState.current_data_file_name);
+  OptionsHelper.set_options();
 
 func _input(event: InputEvent):
   SceneHelper.process_input(event);

@@ -24,6 +24,7 @@ CombatUnitData="*res://utils/combat_unit_data.gd"
 SceneSwitcher="*res://utils/scene_switcher.gd"
 AppState="*res://app_state.gd"
 SceneHelper="*res://utils/scene_helper.gd"
+OptionsHelper="*res://utils/options_helper.gd"
 
 [display]
 
