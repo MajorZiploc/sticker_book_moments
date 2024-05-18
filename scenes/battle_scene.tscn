@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=19 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
 [ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
 [ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
+[ext_resource type="Texture2D" uid="uid://cw3p0r02olwim" path="res://art/my/ui/panel_sticker_small.png" id="11_hlfxx"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -22,6 +23,22 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1036.36, 4.54541, 0, 0, 0, 0, 631.818, -109.091, 0, 0, 0, 0, 363.636, -122.727)
 }
 point_count = 3
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t6pr2"]
+texture = ExtResource("11_hlfxx")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fwim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qgvl"]
+bg_color = Color(0.972549, 0.32549, 0.580392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3t7be"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cjo0"]
 
 [node name="battle_scene" type="Node2D"]
 position = Vector2(564, 334)
@@ -166,7 +183,7 @@ layout_mode = 2
 texture = ExtResource("4_aqxti")
 expand_mode = 2
 
-[node name="choice" type="VBoxContainer" parent="ui_root/ui"]
+[node name="attack" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -182,7 +199,7 @@ grow_vertical = 0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(150, 20)
 
-[node name="attack" type="Button" parent="ui_root/ui/choice"]
+[node name="btn" type="Button" parent="ui_root/ui/attack"]
 layout_mode = 2
 text = "Attack"
 
@@ -211,8 +228,33 @@ offset_bottom = 627.0
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 
+[node name="menu" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 553.0
+offset_right = 177.0
+offset_bottom = 638.0
+
+[node name="btn" type="MenuButton" parent="ui_root/ui/menu"]
+layout_mode = 2
+theme_type_variation = &"FlatMenuButton"
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_t6pr2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1fwim")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5qgvl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3t7be")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7cjo0")
+text = "Action"
+flat = false
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "Attack"
+popup/item_0/id = 0
+popup/item_1/text = "Inventory"
+popup/item_1/id = 1
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
 
-[connection signal="button_up" from="ui_root/ui/choice/attack" to="." method="_on_attack_button_up"]
+[connection signal="button_up" from="ui_root/ui/attack/btn" to="." method="_on_attack_button_up"]

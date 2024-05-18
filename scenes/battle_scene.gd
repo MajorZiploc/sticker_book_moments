@@ -53,7 +53,7 @@ class Background:
 );
 @onready var ui: Control = $ui_root/ui;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
-@onready var player_choices: BoxContainer = $ui_root/ui/choice;
+@onready var player_choices: BoxContainer = $ui_root/ui/attack;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 

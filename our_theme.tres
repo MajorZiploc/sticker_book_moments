@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b755fr2pdu1kf"]
+[gd_resource type="Theme" load_steps=31 format=3 uid="uid://b755fr2pdu1kf"]
 
 [ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
 [ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
@@ -177,6 +177,13 @@ texture_margin_bottom = 10.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwg57"]
 texture = ExtResource("4_oa1fk")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iuqsk"]
+texture = ExtResource("3_1kfiv")
+texture_margin_left = 15.0
+texture_margin_top = 10.0
+texture_margin_right = 15.0
+texture_margin_bottom = 10.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhojr"]
 bg_color = Color(0.847059, 0.494118, 0.337255, 1)
 
@@ -224,6 +231,8 @@ PanelSmallSticker/base_type = &"PanelContainer"
 PanelSmallSticker/styles/panel = SubResource("StyleBoxTexture_rh7gh")
 PanelXSmallSticker/base_type = &"PanelContainer"
 PanelXSmallSticker/styles/panel = SubResource("StyleBoxTexture_kwg57")
+PopupMenu/font_sizes/font_size = 40
+PopupMenu/styles/panel = SubResource("StyleBoxTexture_iuqsk")
 ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/font_sizes/font_size = 20
 ProgressBar/styles/background = SubResource("StyleBoxFlat_hhojr")
