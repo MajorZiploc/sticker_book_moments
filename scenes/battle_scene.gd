@@ -168,7 +168,6 @@ func update_player_inventory():
 func _on_inventory_item_selected(idx):
   # TODO: apply the debuff or buff to the player or npc depending
   var item_type = player_inventory_item_types.pop_at(idx);
-  print(item_type);
   update_player_inventory();
   var tween = create_tween();
   tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
@@ -200,6 +199,7 @@ func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
+  AppState.insert_data("player" if combat_unit.is_player else "npc", { "health": combat_unit.battle_char.health });
   combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.MAX_HEALTH) * 100;
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
