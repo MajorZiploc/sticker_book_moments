@@ -1,6 +1,8 @@
 extends Node
 
-var MAX_HEALTH: float = 7;
+var default_max_health: float = 100;
+
+var default_damage: float = 15;
 
 enum Type {
   DUAL_HYBRID,
@@ -13,11 +15,15 @@ class Data:
   var bust_path: String;
   var name: String;
   var get_path_points;
-  func _init(sprite_path_, bust_path_, name_, get_path_points_):
+  var health_modifier: float;
+  var damage_modifier: float;
+  func _init(sprite_path_, bust_path_, name_, get_path_points_, health_modifier_, damage_modifier_):
     self.sprite_path = sprite_path_;
     self.bust_path = bust_path_;
     self.name = name_;
     self.get_path_points = get_path_points_;
+    self.health_modifier = health_modifier_;
+    self.damage_modifier = damage_modifier_;
 
 var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(
@@ -25,18 +31,24 @@ var entries: Dictionary = {
     "res://art/my/char/dual_hybrid_bust.png",
     "Raven Silverheart",
     get_basic_path_points,
+    1.1,
+    0.9,
   ),
   Type.TWO_HANDED_AXER: Data.new(
     "res://art/my/char/two_handed_axer.png",
     "res://art/my/char/two_handed_axer_bust.png",
     "Hilda Grimjaw",
     get_basic_path_points,
+    1.2,
+    0.8,
   ),
   Type.SPEARWOMAN: Data.new(
     "res://art/my/char/spearwoman.png",
     "res://art/my/char/spearwoman_bust.png",
     "Nova Windstriker",
     get_basic_path_points,
+    1,
+    1,
   ),
 }
 

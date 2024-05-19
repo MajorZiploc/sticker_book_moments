@@ -105,9 +105,9 @@ func _ready():
   var npc_combat_unit_data_type = npc_data["combat_unit_data_type"];
   npc.unit_data = CombatUnitData.entries[npc_combat_unit_data_type];
   player.battle_char.update_sprite_texture(player.unit_data.sprite_path);
-  player.battle_char.health = player_data.get("health", CombatUnitData.MAX_HEALTH);
+  player.battle_char.health = player_data.get("health", CombatUnitData.default_max_health * player.unit_data.health_modifier);
   npc.battle_char.update_sprite_texture(npc.unit_data.sprite_path);
-  npc.battle_char.health = npc_data.get("health", CombatUnitData.MAX_HEALTH);
+  npc.battle_char.health = npc_data.get("health", CombatUnitData.default_max_health * npc.unit_data.health_modifier);
   to_player(player);
   update_bust_texture(player);
   update_bust_texture(npc);
@@ -200,7 +200,7 @@ func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
 
 func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
   AppState.insert_data(Constants.player if combat_unit.is_player else Constants.npc, { "health": combat_unit.battle_char.health });
-  combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.MAX_HEALTH) * 100;
+  combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.default_max_health) * 100;
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
   await attack_sequence(attacker, defender, 1, false);
@@ -245,9 +245,10 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
   AppState.save_session();
   round_happening = false;
 
-func deal_damage_to(combat_unit: BattleSceneHelper.CombatUnit):
-  combat_unit.battle_char.take_damage(1);
-  _update_unit_health_bar(combat_unit);
+func deal_damage(damage_dealer: BattleSceneHelper.CombatUnit, damage_taker: BattleSceneHelper.CombatUnit):
+  print(CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier);
+  damage_taker.battle_char.take_damage(CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier);
+  _update_unit_health_bar(damage_taker);
 
 func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
   create_qte_items(is_npc_turn);
@@ -258,10 +259,12 @@ func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSce
   await atk_path_follow_tween.finished;
   attacker.battle_char.postatk();
   var damage_taker = defender;
+  var damage_dealer = attacker;
   if is_npc_turn and parried:
     damage_taker = attacker;
+    damage_dealer = defender;
     defender.battle_char.postatk();
-  deal_damage_to(damage_taker);
+  deal_damage(damage_dealer, damage_taker);
   destory_qte_btns(is_npc_turn);
   # HACK: to let the postatk frame show for a second
   await get_tree().create_timer(1).timeout;

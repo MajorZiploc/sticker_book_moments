@@ -3,7 +3,7 @@ class_name BattleChar
 
 @onready var sprite: Sprite2D = $sprite;
 
-var health: float = CombatUnitData.MAX_HEALTH:
+var health: float = CombatUnitData.default_max_health:
   set(value):
     health = value;
     

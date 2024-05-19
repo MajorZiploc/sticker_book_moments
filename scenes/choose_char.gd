@@ -9,7 +9,7 @@ func _input(event: InputEvent):
   SceneHelper.process_input(event);
 
 func on_char_selected(key: CombatUnitData.Type):
-  AppState.insert_data(Constants.player, {"combat_unit_data_type": key, "health": CombatUnitData.MAX_HEALTH});
+  AppState.insert_data(Constants.player, {"combat_unit_data_type": key, "health": CombatUnitData.default_max_health});
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
 

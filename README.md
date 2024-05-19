@@ -5,8 +5,6 @@
 ### general
 
 - finish inventory flow - also need to add side tabes like on feature/buff-and-debuff-draw for buffs and debuffs
-- rework health system to be different per class
-- Add damage system (different per class)
 - update settings page with touch/buttons/both setting for qte
 
 - track if a run was occurring, then pick up where the player left off
