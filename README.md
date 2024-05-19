@@ -13,7 +13,7 @@
 - make inventory items stackable
 - save inventory and mods to AppState.data
 - limit number of mods on a combat_unit to 4
-- limit mods: only 1 of each type of mod can be applied to a combat_unit at a time
+- make inventory closable
 
 ### general
 

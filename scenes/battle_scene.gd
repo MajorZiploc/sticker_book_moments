@@ -205,15 +205,40 @@ func update_player_inventory():
     else:
       panel.custom_minimum_size = Vector2(default_icon_size, default_icon_size);
     player_inventory_grid.add_child(panel);
-    
+
 func _on_inventory_item_selected(idx):
-  var item_type = player_inventory_item_types.pop_at(idx);
+  var item_type = player_inventory_item_types[idx];
   var combat_unit = npc if BattleSceneHelper.is_debuff(item_type) else player;
-  combat_unit.mod_types.append(item_type);
-  update_combat_unit_mods(combat_unit);
-  update_player_inventory();
-  var tween = create_tween();
-  tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+  if combat_unit.mod_types.any(func(t): return t == item_type):
+    var box = BoxContainer.new();
+    var panel = PanelContainer.new();
+    panel.theme_type_variation = &"PanelSmallSticker";
+    box.position = Vector2(400, 587);
+    var label = Label.new();
+    label.theme_type_variation = &"HeaderSmall";
+    label.text = "Item already being applied!";
+    label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+    panel.add_child(label);
+    box.add_child(panel);
+    ui.add_child(box);
+    var invalid_item: TextureButton = player_inventory_grid.get_child(idx).get_child(0);
+    var ui_tween = create_tween();
+    var og_box_modulate = box.modulate;
+    for n in 2:
+      ui_tween.tween_property(invalid_item, "modulate", Color(15, 1, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
+      ui_tween.tween_property(invalid_item, "modulate", og_box_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
+    var tween = create_tween();
+    # HACK: to have box stay on screen for 3 seconds, the box modulate:a should already be 1
+    tween.tween_property(box, "modulate:a", 1, 3).set_trans(Tween.TRANS_EXPO);
+    tween.tween_property(box, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+    tween.tween_callback(func(): ui.remove_child(box)).set_delay(0.1);
+  else:
+    player_inventory_item_types.pop_at(idx);
+    combat_unit.mod_types.append(item_type);
+    update_combat_unit_mods(combat_unit);
+    update_player_inventory();
+    var tween = create_tween();
+    tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
 
 func to_player(player_: BattleSceneHelper.CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
