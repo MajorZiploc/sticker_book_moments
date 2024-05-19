@@ -52,21 +52,30 @@ var qte_max_x = 850;
 var qte_min_y = 160;
 var qte_max_y = 540;
 var std_tween_time = 1;
+var qte_mode = BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON;
 
 var qte_items: Array[BattleSceneHelper.QTEItem] = [];
 
 var qte_item_metadata: Dictionary = {
   "up": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/up/normal.png"),
+    [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
   "down": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/down/normal.png"),
+    [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
   "left": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/left/normal.png"),
+    [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
   "right": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/right/normal.png"),
+    [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
+  ),
+  "finger": BattleSceneHelper.QTEItemMetaData.new(
+    preload("res://art/my/ui/qte_btn/finger/normal.png"),
+    [BattleSceneHelper.QTEMode.TOUCH, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
 };
 
@@ -77,9 +86,10 @@ var posion_icon = preload("res://art/my/items/posion.png");
 var strength_icon = preload("res://art/my/items/strength.png");
 var default_icon_size = 150;
 
-var qte_all_keys = qte_item_metadata.keys();
+var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
+  qte_mode = AppState.data.get("options", {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
@@ -186,7 +196,7 @@ func _input(event: InputEvent):
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  if qte_item and event.is_action_pressed(qte_item.key):
+  if qte_item and qte_item.is_button_event and event.is_action_pressed(qte_item.key):
     qte_event_update();
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
@@ -325,6 +335,7 @@ func _on_qte_btn_pressed():
 
 func create_qte_items(is_npc_turn):
   if not is_npc_turn: return;
+  valid_qte_keys = qte_item_metadata.keys().filter(func(key): return qte_item_metadata[key].qte_modes.any(func(qm): return qm == qte_mode));
   for i in qte_total_actions:
     qte_items.append(create_qte_item());
   var qte_item = get_qte_item(qte_current_action_count);
@@ -360,18 +371,24 @@ func create_qte_item():
   var box = BoxContainer.new();
   var button = TextureButton.new();
   box.scale = Vector2(0.7, 0.7);
-  button.focus_entered.connect(_on_qte_btn_pressed);
+  var key = valid_qte_keys[rng.randf_range(0, valid_qte_keys.size() - 1)];
+  var is_button_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.BUTTON, key);
+  var is_touch_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.TOUCH, key);
+  if is_touch_event:
+    button.focus_entered.connect(_on_qte_btn_pressed);
   box.position = Vector2(
     rng.randf_range(qte_min_x, qte_max_x),
     rng.randf_range(qte_min_y, qte_max_y)
   );
-  var key = qte_all_keys[rng.randf_range(0, qte_all_keys.size() - 1)];
   button.texture_normal = qte_item_metadata[key].normal;
   button.disabled = true;
   box.modulate.a = 0;
   box.add_child(button);
   ui.add_child(box);
-  return BattleSceneHelper.QTEItem.new(key, box, button);
+  return BattleSceneHelper.QTEItem.new(key, box, button, is_button_event, is_touch_event);
+
+func is_qte_event_of_mode(qte_mode_, key):
+  return qte_item_metadata[key].qte_modes.any(func(qm): return qm == qte_mode_);
 
 func destory_qte_btns(is_npc_turn):
   if not is_npc_turn: return;

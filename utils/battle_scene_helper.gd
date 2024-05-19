@@ -18,7 +18,7 @@ class CombatUnit:
     self.bust = bust_;
     self.is_player = false;
 
-enum QTEType {
+enum QTEMode {
   TOUCH,
   BUTTON,
   TOUCH_AND_BUTTON,
@@ -48,12 +48,18 @@ class QTEItem:
   var key: String;
   var box: BoxContainer;
   var button: TextureButton;
-  func _init(key_, box_, button_):
+  var is_button_event: bool;
+  var is_touch_event: bool;
+  func _init(key_, box_, button_, is_button_event_, is_touch_event_):
     self.key = key_;
     self.box = box_;
     self.button = button_;
+    self.is_button_event = is_button_event_;
+    self.is_touch_event = is_touch_event_;
 
 class QTEItemMetaData:
   var normal: Texture;
-  func _init(normal_: Texture):
+  var qte_modes: Array;
+  func _init(normal_: Texture, qte_modes_):
     self.normal = normal_;
+    self.qte_modes = qte_modes_;

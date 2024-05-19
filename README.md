@@ -4,12 +4,12 @@
 
 ### battle_scene
 
-- Add a 'finger' icon and key to QTEItemMetaData only this key type should get the press event (use the QTEType data off of AppState.data for decisions)
+- Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
+- Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 
 ### general
 
 - finish inventory flow - also need to add side tabes like on feature/buff-and-debuff-draw for buffs and debuffs
-- update settings page with touch/buttons/both setting for qte
 - update settings page with control configuration for controller and keyboard
 
 - track if a run was occurring, then pick up where the player left off
