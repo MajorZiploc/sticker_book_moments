@@ -37,7 +37,6 @@ class_name BattleScene
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
-var player_inventory_panel_scale= 0.5;
 var player_inventory_size = 9;
 var player_inventory_item_types = [];
 var round_happening = false;
@@ -132,7 +131,6 @@ func _ready():
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
 func init_player_inventory_items():
-  player_inventory_panel.scale = Vector2(player_inventory_panel_scale, player_inventory_panel_scale);
   # TODO: move inventory items out into AppState.data
   for i in player_inventory_size - 1:
     var panel = PanelContainer.new();
@@ -147,7 +145,6 @@ func init_player_inventory_items():
 func update_player_inventory():
   for n in player_inventory_grid.get_children():
     player_inventory_grid.remove_child(n);
-  player_inventory_panel.scale = Vector2(player_inventory_panel_scale, player_inventory_panel_scale);
   # TODO: move inventory items out into AppState.data
   for i in player_inventory_size - 1:
     var panel = PanelContainer.new();
