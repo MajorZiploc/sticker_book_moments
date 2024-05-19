@@ -10,6 +10,10 @@ func is_web():
   # var os_name = OS.get_name();
   return OS.has_feature("web");
 
+func is_desktop():
+  # var os_name = OS.get_name();
+  return ["macos", "pc"].any(func(tag): OS.has_feature(tag));
+
 # default feature_tags list: (from: https://docs.godotengine.org/en/stable/tutorials/export/feature_tags.html)
 # android
 # bsd
