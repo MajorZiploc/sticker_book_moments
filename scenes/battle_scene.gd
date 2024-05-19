@@ -133,7 +133,6 @@ func _ready():
 func init_player_inventory_items():
   # TODO: move inventory items out into AppState.data
   for i in player_inventory_size - 1:
-    var panel = PanelContainer.new();
     if i < 6:
       if i % 3 == 0:
         player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.PARALYZED);
