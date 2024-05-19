@@ -5,12 +5,14 @@
 ### battle_scene
 
 - Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
+- BUG: finger event has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 
 ### general
 
 - finish inventory flow - also need to add side tabes like on feature/buff-and-debuff-draw for buffs and debuffs
 - update settings page with control configuration for controller and keyboard
+- update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
 - track if a run was occurring, then pick up where the player left off
 

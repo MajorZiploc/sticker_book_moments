@@ -371,7 +371,14 @@ func create_qte_item():
   var box = BoxContainer.new();
   var button = TextureButton.new();
   box.scale = Vector2(0.7, 0.7);
-  var key = valid_qte_keys[rng.randf_range(0, valid_qte_keys.size() - 1)];
+  var event_type = qte_mode;
+  if qte_mode == BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON:
+    event_type = BattleSceneHelper.QTEMode.BUTTON;
+    var is_touch_event = (rng.randf_range(0, 1) * 100) > 50; # TODO add this to settings page
+    if is_touch_event:
+      event_type = BattleSceneHelper.QTEMode.TOUCH;
+  var event_qte_keys = valid_qte_keys.filter(func(key): return qte_item_metadata[key].qte_modes.any(func(qm): return qm == event_type));
+  var key = event_qte_keys[int(rng.randf_range(0, event_qte_keys.size() - 1))];
   var is_button_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.BUTTON, key);
   var is_touch_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.TOUCH, key);
   if is_touch_event:
