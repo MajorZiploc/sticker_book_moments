@@ -54,17 +54,14 @@ offset_bottom = 401.0
 
 [node name="back" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
-theme_type_variation = &"ButtonMedium"
 text = "back"
 
 [node name="options" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
-theme_type_variation = &"ButtonMedium"
 text = "options"
 
 [node name="quit" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
-theme_type_variation = &"ButtonMedium"
 text = "quit"
 
 [node name="cam" type="Camera2D" parent="."]

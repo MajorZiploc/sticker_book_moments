@@ -19,7 +19,6 @@ func create_char_choices():
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
     var button = Button.new();
-    button.theme_type_variation = &"ButtonMedium";
     button.focus_entered.connect(func(): on_char_selected(key));
     button.text = entry.name;
     box.add_child(button);

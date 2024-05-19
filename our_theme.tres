@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=35 format=3 uid="uid://b755fr2pdu1kf"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b755fr2pdu1kf"]
 
 [ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
 [ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
@@ -42,45 +42,6 @@ texture_margin_left = 15.0
 texture_margin_top = 10.0
 texture_margin_right = 15.0
 texture_margin_bottom = 10.0
-modulate_color = Color(0.8, 0.8, 0.8, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htoqo"]
-texture = ExtResource("1_47dse")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-modulate_color = Color(1, 1, 1, 0.7)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tctvh"]
-texture = ExtResource("1_47dse")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-modulate_color = Color(0.9, 0.9, 0.9, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sppww"]
-texture = ExtResource("1_47dse")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-modulate_color = Color(0.9, 0.9, 0.9, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fwthj"]
-texture = ExtResource("1_47dse")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5lo13"]
-texture = ExtResource("1_47dse")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
 modulate_color = Color(0.8, 0.8, 0.8, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ikx1g"]
@@ -219,26 +180,18 @@ texture_margin_bottom = 10.0
 bg_color = Color(0.847059, 0.494118, 0.337255, 1)
 
 [resource]
-Button/font_sizes/font_size = 20
+Button/font_sizes/font_size = 40
 Button/styles/disabled = SubResource("StyleBoxTexture_uhqe4")
 Button/styles/focus = SubResource("StyleBoxTexture_thhg4")
 Button/styles/hover = SubResource("StyleBoxTexture_ydr44")
 Button/styles/normal = SubResource("StyleBoxTexture_lxfxg")
 Button/styles/pressed = SubResource("StyleBoxTexture_ffv3v")
-ButtonLarge/base_type = &"Button"
 ButtonLarge/font_sizes/font_size = 70
-ButtonLarge/styles/disabled = SubResource("StyleBoxTexture_htoqo")
-ButtonLarge/styles/focus = SubResource("StyleBoxTexture_tctvh")
-ButtonLarge/styles/hover = SubResource("StyleBoxTexture_sppww")
-ButtonLarge/styles/normal = SubResource("StyleBoxTexture_fwthj")
-ButtonLarge/styles/pressed = SubResource("StyleBoxTexture_5lo13")
-ButtonMedium/base_type = &"Button"
-ButtonMedium/font_sizes/font_size = 40
-ButtonMedium/styles/disabled = SubResource("StyleBoxTexture_ikx1g")
-ButtonMedium/styles/focus = SubResource("StyleBoxTexture_gxl7i")
-ButtonMedium/styles/hover = SubResource("StyleBoxTexture_st18e")
-ButtonMedium/styles/normal = SubResource("StyleBoxTexture_7bw55")
-ButtonMedium/styles/pressed = SubResource("StyleBoxTexture_xhut6")
+ButtonLarge/styles/disabled = SubResource("StyleBoxTexture_ikx1g")
+ButtonLarge/styles/focus = SubResource("StyleBoxTexture_gxl7i")
+ButtonLarge/styles/hover = SubResource("StyleBoxTexture_st18e")
+ButtonLarge/styles/normal = SubResource("StyleBoxTexture_7bw55")
+ButtonLarge/styles/pressed = SubResource("StyleBoxTexture_xhut6")
 ButtonXSmall/base_type = &"Button"
 ButtonXSmall/styles/disabled = SubResource("StyleBoxTexture_w880r")
 ButtonXSmall/styles/focus = SubResource("StyleBoxTexture_cr758")

@@ -54,12 +54,10 @@ offset_bottom = 401.0
 
 [node name="back" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
-theme_type_variation = &"ButtonMedium"
 text = "back"
 
 [node name="fullscreen_toggle" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
-theme_type_variation = &"ButtonMedium"
 text = "fullscreen toggle"
 
 [node name="qte_type" type="OptionButton" parent="ui_root/ui/vbox"]
