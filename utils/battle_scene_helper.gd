@@ -21,6 +21,7 @@ class CombatUnit:
 enum QTEType {
   TOUCH,
   BUTTON,
+  TOUCH_AND_BUTTON,
 }
 
 enum PlayerChoicesMenuPopupItem {
