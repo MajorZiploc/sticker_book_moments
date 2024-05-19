@@ -12,10 +12,12 @@
 ### general
 
 - finish inventory flow - also need to add side tabes like on feature/buff-and-debuff-draw for buffs and debuffs
+- make inventory items stackable
+- limit number of effects on a combat_unit to 5
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
-- track if a run was occurring, then pick up where the player left off
+- On launch of game: track if a run was occurring, then pick up where the player left off
 
 - diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here
 - Add controller support (and tab support) on ui
