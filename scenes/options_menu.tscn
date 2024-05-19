@@ -57,7 +57,7 @@ layout_mode = 2
 theme_type_variation = &"ButtonMedium"
 text = "back"
 
-[node name="test" type="Button" parent="ui_root/ui/vbox"]
+[node name="fullscreen_toggle" type="Button" parent="ui_root/ui/vbox"]
 layout_mode = 2
 theme_type_variation = &"ButtonMedium"
 text = "fullscreen toggle"
@@ -67,4 +67,4 @@ position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/vbox/back" to="." method="_on_back_button_up"]
-[connection signal="button_up" from="ui_root/ui/vbox/test" to="." method="_on_test_button_up"]
+[connection signal="button_up" from="ui_root/ui/vbox/fullscreen_toggle" to="." method="_on_fullscreen_toggle_button_up"]
