@@ -9,7 +9,9 @@ class CombatUnit:
   var name: Label;
   var bust: TextureRect;
   var is_player: bool;
-  func _init(char_, path_follow_, path_, health_bar_, name_, bust_):
+  var mod_types: Array;
+  var mod_draw: VBoxContainer;
+  func _init(char_, path_follow_, path_, health_bar_, name_, bust_, mod_types_, mod_draw_):
     self.battle_char = char_;
     self.path_follow = path_follow_;
     self.path = path_;
@@ -17,6 +19,8 @@ class CombatUnit:
     self.name = name_;
     self.bust = bust_;
     self.is_player = false;
+    self.mod_types = mod_types_;
+    self.mod_draw = mod_draw_;
 
 enum QTEMode {
   TOUCH,
@@ -34,6 +38,10 @@ enum PlayerInventoryItemType {
   POSION,
   STRENGTH,
 }
+var debuff_types = [PlayerInventoryItemType.PARALYZED, PlayerInventoryItemType.POSION];
+
+func is_debuff(inventory_item_type):
+  return debuff_types.any(func(t): return t == inventory_item_type);
 
 class Background:
   var lg_clouds: Array[Sprite2D];

@@ -11,9 +11,12 @@
 
 ### general
 
-- finish inventory flow - also need to add side tabes like on feature/buff-and-debuff-draw for buffs and debuffs
+- make using an item from the inventory consume the players turn
+- make mod items have effects
 - make inventory items stackable
-- limit number of effects on a combat_unit to 5
+- save inventory and mods to AppState.data
+- limit number of mods on a combat_unit to 4
+- limit mods: only 1 of each type of mod can be applied to a combat_unit at a time
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 

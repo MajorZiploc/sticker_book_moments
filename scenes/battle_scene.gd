@@ -15,6 +15,8 @@ class_name BattleScene
   $ui_root/ui/player_info/hbox/combat_unit_info/vbox/healthbar,
   $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/name,
   $ui_root/ui/player_info/hbox/bust,
+  [],
+  $ui_root/ui/player_mod_draw,
 );
 @onready var npc = BattleSceneHelper.CombatUnit.new(
   $path_right/path_follow/battle_char,
@@ -23,6 +25,8 @@ class_name BattleScene
   $ui_root/ui/npc_info/hbox/combat_unit_info/vbox/healthbar,
   $ui_root/ui/npc_info/hbox/combat_unit_info/vbox/panel/vbox/name,
   $ui_root/ui/npc_info/hbox/bust,
+  [],
+  $ui_root/ui/npc_mod_draw,
 );
 @onready var ui: Control = $ui_root/ui;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
@@ -138,6 +142,10 @@ func _ready():
   npc.name.text = npc.unit_data.name;
   _update_unit_health_bar(player);
   _update_unit_health_bar(npc);
+  init_combat_unit_mods(player);
+  init_combat_unit_mods(npc);
+  update_combat_unit_mods(player);
+  update_combat_unit_mods(npc);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
 func init_player_inventory_items():
@@ -150,6 +158,33 @@ func init_player_inventory_items():
         player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.POSION);
       else:
         player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.STRENGTH);
+
+func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
+  # TODO: move mods out into AppState.data
+  return;
+  # rest is stub for testing
+  for i in 5:
+    if i % 3 == 0:
+      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.PARALYZED);
+    elif i % 2 == 0:
+      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.POSION);
+    else:
+      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.STRENGTH);
+
+func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
+  for n in combat_unit.mod_draw.get_children():
+    combat_unit.mod_draw.remove_child(n);
+  for i in combat_unit.mod_types.size():
+    var box = BoxContainer.new();
+    var mod = TextureRect.new();
+    if combat_unit.mod_types[i] == BattleSceneHelper.PlayerInventoryItemType.PARALYZED:
+      mod.texture = paralyzed_icon;
+    elif combat_unit.mod_types[i] == BattleSceneHelper.PlayerInventoryItemType.POSION:
+      mod.texture = posion_icon;
+    else:
+      mod.texture = strength_icon;
+    box.add_child(mod);
+    combat_unit.mod_draw.add_child(box);
 
 func update_player_inventory():
   for n in player_inventory_grid.get_children():
@@ -172,8 +207,10 @@ func update_player_inventory():
     player_inventory_grid.add_child(panel);
     
 func _on_inventory_item_selected(idx):
-  # TODO: apply the debuff or buff to the player or npc depending
   var item_type = player_inventory_item_types.pop_at(idx);
+  var combat_unit = npc if BattleSceneHelper.is_debuff(item_type) else player;
+  combat_unit.mod_types.append(item_type);
+  update_combat_unit_mods(combat_unit);
   update_player_inventory();
   var tween = create_tween();
   tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
@@ -252,7 +289,6 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
   round_happening = false;
 
 func deal_damage(damage_dealer: BattleSceneHelper.CombatUnit, damage_taker: BattleSceneHelper.CombatUnit):
-  print(CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier);
   damage_taker.battle_char.take_damage(CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier);
   _update_unit_health_bar(damage_taker);
 
