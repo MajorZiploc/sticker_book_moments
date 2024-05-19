@@ -8,15 +8,17 @@
 - BUG: finger event has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - Add a number hit splat on damage taking - will remove the need to explain class differences and what items do
-
-### general
-
 - make using an item from the inventory consume the players turn
 - make mod items have effects
 - make inventory items stackable
 - save inventory and mods to AppState.data
 - limit number of mods on a combat_unit to 4
 - limit mods: only 1 of each type of mod can be applied to a combat_unit at a time
+
+### general
+
+- update pause_menu to be combined with options_menu in tabs
+- update pause_menu to be a ui component that is overlayed on any scene with opacity down - this reduces the number of assets i have to make and removes the problems with switching scenes
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
