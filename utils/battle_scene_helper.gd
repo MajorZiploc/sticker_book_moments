@@ -18,6 +18,11 @@ class CombatUnit:
     self.bust = bust_;
     self.is_player = false;
 
+enum QTEType {
+  TOUCH,
+  BUTTON,
+}
+
 enum PlayerChoicesMenuPopupItem {
   ATTACK,
   INVENTORY,
