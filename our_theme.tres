@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b755fr2pdu1kf"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://b755fr2pdu1kf"]
 
 [ext_resource type="Texture2D" uid="uid://dgdh5tjrid1tx" path="res://art/my/ui/panel_sticker_large.png" id="1_47dse"]
 [ext_resource type="Texture2D" uid="uid://bcu8f8c7d303k" path="res://art/my/ui/panel_sticker_medium.png" id="2_nqhew"]
@@ -83,37 +83,6 @@ texture_margin_right = 20.0
 texture_margin_bottom = 15.0
 modulate_color = Color(0.8, 0.8, 0.8, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w880r"]
-texture = ExtResource("4_oa1fk")
-texture_margin_left = 13.0
-texture_margin_top = 8.0
-texture_margin_right = 13.0
-texture_margin_bottom = 8.0
-modulate_color = Color(1, 1, 1, 0.7)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cr758"]
-texture = ExtResource("4_oa1fk")
-texture_margin_left = 13.0
-texture_margin_top = 8.0
-texture_margin_right = 13.0
-texture_margin_bottom = 8.0
-modulate_color = Color(0.9, 0.9, 0.9, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yo488"]
-texture = ExtResource("4_oa1fk")
-texture_margin_left = 13.0
-texture_margin_top = 8.0
-texture_margin_right = 13.0
-texture_margin_bottom = 8.0
-modulate_color = Color(0.9, 0.9, 0.9, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mypvk"]
-texture = ExtResource("4_oa1fk")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2qsks"]
-texture = ExtResource("4_oa1fk")
-modulate_color = Color(0.9, 0.9, 0.9, 1)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ur7u2"]
 texture = ExtResource("3_1kfiv")
 texture_margin_left = 15.0
@@ -192,25 +161,17 @@ ButtonLarge/styles/focus = SubResource("StyleBoxTexture_gxl7i")
 ButtonLarge/styles/hover = SubResource("StyleBoxTexture_st18e")
 ButtonLarge/styles/normal = SubResource("StyleBoxTexture_7bw55")
 ButtonLarge/styles/pressed = SubResource("StyleBoxTexture_xhut6")
-ButtonXSmall/base_type = &"Button"
-ButtonXSmall/styles/disabled = SubResource("StyleBoxTexture_w880r")
-ButtonXSmall/styles/focus = SubResource("StyleBoxTexture_cr758")
-ButtonXSmall/styles/hover = SubResource("StyleBoxTexture_yo488")
-ButtonXSmall/styles/normal = SubResource("StyleBoxTexture_mypvk")
-ButtonXSmall/styles/pressed = SubResource("StyleBoxTexture_2qsks")
-CheckButton/font_sizes/font_size = 20
+CheckButton/font_sizes/font_size = 40
 HeaderLarge/font_sizes/font_size = 70
 HeaderMedium/font_sizes/font_size = 40
 HeaderSmall/font_sizes/font_size = 24
 HeaderXLarge/base_type = &"Label"
 HeaderXLarge/font_sizes/font_size = 100
 Label/font_sizes/font_size = 20
-MenuButton/font_sizes/font_size = 40
 MenuButton/styles/disabled = SubResource("StyleBoxTexture_ur7u2")
 MenuButton/styles/focus = SubResource("StyleBoxTexture_i0yv8")
 MenuButton/styles/hover = SubResource("StyleBoxTexture_q3bty")
 MenuButton/styles/normal = SubResource("StyleBoxTexture_kwtl3")
-OptionButton/font_sizes/font_size = 40
 PanelLargeSticker/base_type = &"PanelContainer"
 PanelLargeSticker/styles/panel = SubResource("StyleBoxTexture_3sabn")
 PanelMediumSticker/base_type = &"PanelContainer"
