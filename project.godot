@@ -27,6 +27,7 @@ SceneHelper="*res://utils/scene_helper.gd"
 OptionsHelper="*res://utils/options_helper.gd"
 BattleSceneHelper="*res://utils/battle_scene_helper.gd"
 Constants="*res://utils/constants.gd"
+OSHelper="*res://utils/os_helper.gd"
 
 [display]
 
