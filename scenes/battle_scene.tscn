@@ -238,17 +238,18 @@ columns = 3
 
 [node name="player_mod_draw" type="VBoxContainer" parent="ui_root/ui"]
 layout_mode = 0
-offset_top = 153.0
-offset_right = 40.0
-offset_bottom = 193.0
+offset_left = 50.0
+offset_top = 200.0
+offset_right = 90.0
+offset_bottom = 240.0
 scale = Vector2(0.5, 0.5)
 
 [node name="npc_mod_draw" type="VBoxContainer" parent="ui_root/ui"]
 layout_mode = 0
-offset_left = 1014.0
-offset_top = 153.0
-offset_right = 1054.0
-offset_bottom = 193.0
+offset_left = 1050.0
+offset_top = 200.0
+offset_right = 1090.0
+offset_bottom = 240.0
 scale = Vector2(0.5, 0.5)
 
 [node name="cam" type="Camera2D" parent="."]

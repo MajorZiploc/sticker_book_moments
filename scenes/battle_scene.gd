@@ -188,7 +188,7 @@ func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.mod_draw.remove_child(n);
   for i in combat_unit.mod_types.size():
     var box = BoxContainer.new();
-    var mod = TextureRect.new();
+    var mod = Sprite2D.new();
     mod.texture = mod_item_metadata[combat_unit.mod_types[i]].texture;
     box.add_child(mod);
     combat_unit.mod_draw.add_child(box);
