@@ -33,16 +33,6 @@ enum PlayerChoicesMenuPopupItem {
   INVENTORY,
 }
 
-enum PlayerInventoryItemType {
-  PARALYZED,
-  POSION,
-  STRENGTH,
-}
-var debuff_types = [PlayerInventoryItemType.PARALYZED, PlayerInventoryItemType.POSION];
-
-func is_debuff(inventory_item_type):
-  return debuff_types.any(func(t): return t == inventory_item_type);
-
 class Background:
   var lg_clouds: Array[Sprite2D];
   var md_clouds: Array[Sprite2D];
@@ -71,3 +61,16 @@ class QTEItemMetaData:
   func _init(normal_: Texture, qte_modes_):
     self.normal = normal_;
     self.qte_modes = qte_modes_;
+
+enum ModItemType {
+  PARALYZED,
+  POSION,
+  STRENGTH,
+}
+
+class ModItemMetaData:
+  var texture: Texture;
+  var is_debuff: bool;
+  func _init(texture_: Texture, is_debuff_: bool):
+    self.texture = texture_;
+    self.is_debuff = is_debuff_;

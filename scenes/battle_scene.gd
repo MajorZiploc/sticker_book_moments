@@ -85,10 +85,22 @@ var qte_item_metadata: Dictionary = {
 
 @onready var player_info_controller = $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/controller;
 
-var paralyzed_icon = preload("res://art/my/items/paralyzed.png");
-var posion_icon = preload("res://art/my/items/posion.png");
-var strength_icon = preload("res://art/my/items/strength.png");
-var default_icon_size = 150;
+var mod_item_metadata: Dictionary = {
+  BattleSceneHelper.ModItemType.PARALYZED: BattleSceneHelper.ModItemMetaData.new(
+    preload("res://art/my/items/paralyzed.png"),
+    true,
+  ),
+  BattleSceneHelper.ModItemType.POSION: BattleSceneHelper.ModItemMetaData.new(
+    preload("res://art/my/items/posion.png"),
+    true,
+  ),
+  BattleSceneHelper.ModItemType.STRENGTH: BattleSceneHelper.ModItemMetaData.new(
+    preload("res://art/my/items/strength.png"),
+    false,
+  ),
+};
+
+var default_inventory_item_size = 150;
 
 var valid_qte_keys = qte_item_metadata.keys();
 
@@ -153,11 +165,11 @@ func init_player_inventory_items():
   for i in player_inventory_size - 1:
     if i < 6:
       if i % 3 == 0:
-        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.PARALYZED);
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.PARALYZED);
       elif i % 2 == 0:
-        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.POSION);
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.POSION);
       else:
-        player_inventory_item_types.append(BattleSceneHelper.PlayerInventoryItemType.STRENGTH);
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.STRENGTH);
 
 func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   # TODO: move mods out into AppState.data
@@ -165,11 +177,11 @@ func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   # rest is stub for testing
   for i in 5:
     if i % 3 == 0:
-      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.PARALYZED);
+      combat_unit.mod_types.append(BattleSceneHelper.ModItemType.PARALYZED);
     elif i % 2 == 0:
-      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.POSION);
+      combat_unit.mod_types.append(BattleSceneHelper.ModItemType.POSION);
     else:
-      combat_unit.mod_types.append(BattleSceneHelper.PlayerInventoryItemType.STRENGTH);
+      combat_unit.mod_types.append(BattleSceneHelper.ModItemType.STRENGTH);
 
 func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   for n in combat_unit.mod_draw.get_children():
@@ -177,12 +189,7 @@ func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   for i in combat_unit.mod_types.size():
     var box = BoxContainer.new();
     var mod = TextureRect.new();
-    if combat_unit.mod_types[i] == BattleSceneHelper.PlayerInventoryItemType.PARALYZED:
-      mod.texture = paralyzed_icon;
-    elif combat_unit.mod_types[i] == BattleSceneHelper.PlayerInventoryItemType.POSION:
-      mod.texture = posion_icon;
-    else:
-      mod.texture = strength_icon;
+    mod.texture = mod_item_metadata[combat_unit.mod_types[i]].texture;
     box.add_child(mod);
     combat_unit.mod_draw.add_child(box);
 
@@ -195,20 +202,15 @@ func update_player_inventory():
     if i < 6 and player_inventory_item_types.size() > i:
       var button = TextureButton.new();
       button.button_up.connect(func(): _on_inventory_item_selected(i));
-      if player_inventory_item_types[i] == BattleSceneHelper.PlayerInventoryItemType.PARALYZED:
-        button.texture_normal = paralyzed_icon;
-      elif player_inventory_item_types[i] == BattleSceneHelper.PlayerInventoryItemType.POSION:
-        button.texture_normal = posion_icon;
-      else:
-        button.texture_normal = strength_icon;
+      button.texture_normal = mod_item_metadata[player_inventory_item_types[i]].texture;
       panel.add_child(button);
     else:
-      panel.custom_minimum_size = Vector2(default_icon_size, default_icon_size);
+      panel.custom_minimum_size = Vector2(default_inventory_item_size, default_inventory_item_size);
     player_inventory_grid.add_child(panel);
 
 func _on_inventory_item_selected(idx):
   var item_type = player_inventory_item_types[idx];
-  var combat_unit = npc if BattleSceneHelper.is_debuff(item_type) else player;
+  var combat_unit = npc if mod_item_metadata[item_type].is_debuff else player;
   if combat_unit.mod_types.any(func(t): return t == item_type):
     var box = BoxContainer.new();
     var panel = PanelContainer.new();
