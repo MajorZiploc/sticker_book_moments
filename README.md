@@ -5,9 +5,9 @@
 ### battle_scene
 
 - Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
-- BUG: finger event has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
+- BUG: finger event not registered on finger icon sometimes: has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
-- Add a number hit splat on damage taking - will remove the need to explain class differences and what items do
+- Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
 - make using an item from the inventory consume the players turn
 - make mod items have effects
 - make inventory items stackable
