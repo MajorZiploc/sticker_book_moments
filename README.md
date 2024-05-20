@@ -9,7 +9,7 @@
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
 - make using an item from the inventory consume the players turn
-- make mod items have effects
+- make mod items that are applied visually display that they are being applied - could be over the character or tween the char - or for now: easier to tween the icon being used
 - make inventory items stackable
 - save inventory and mods to AppState.data
 - limit number of mods on a combat_unit to 4

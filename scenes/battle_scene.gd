@@ -272,8 +272,36 @@ func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
   AppState.insert_data(Constants.player if combat_unit.is_player else Constants.npc, { "health": combat_unit.battle_char.health });
   combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.default_max_health) * 100;
 
+func paralyzed_check(combat_unit: BattleSceneHelper.CombatUnit):
+  var should_hit = true;
+  var is_paralyzed = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.PARALYZED);
+  if is_paralyzed:
+    # 70% chance of hitting
+    should_hit = (rng.randf_range(0, 1) * 100) > 30;
+  if not should_hit:
+    print('TODO: indicate that combat_unit is paralyzed with some tweening and flash the paralyzed icon above the combat_unit');
+  return should_hit;
+
+func posion_check(combat_unit: BattleSceneHelper.CombatUnit):
+  var is_posioned = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.POSION);
+  if is_posioned:
+    # deal 10% of combat_unit health in damage
+    deal_damage(combat_unit.unit_data.health_modifier * CombatUnitData.default_max_health * 0.10, combat_unit);
+    print('TODO: make combat_unit flash green instead of red and flash the posion icon above the combat_unit');
+
+func strength_check(combat_unit: BattleSceneHelper.CombatUnit):
+  # NOTE: this applies for attacks and parries
+  var damage_mod = 1.0;
+  var has_strength = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.STRENGTH);
+  if has_strength:
+    # deal 10% bonus attack if attack successful
+    damage_mod = 1.1;
+    print('TODO: make combat_unit tween in some way and flash the strength icon above the combat_unit');
+  return damage_mod;
+
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
-  await attack_sequence(attacker, defender, 1, false);
+  var should_hit = paralyzed_check(attacker);
+  if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
   var did_battle_end = defender.battle_char.health <= 0;
@@ -294,7 +322,8 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 1, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
     await get_tree().create_timer(0.5).timeout;
-    await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
+    should_hit = paralyzed_check(defender);
+    if should_hit: await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
     var player_choices_tween_time = std_tween_time;
     var player_choices_tween = create_tween();
     player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
@@ -313,10 +342,12 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
   if did_battle_end:
     end_battle_scene(winner);
   AppState.save_session();
+  posion_check(attacker);
+  posion_check(defender);
   round_happening = false;
 
-func deal_damage(damage_dealer: BattleSceneHelper.CombatUnit, damage_taker: BattleSceneHelper.CombatUnit):
-  damage_taker.battle_char.take_damage(CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier);
+func deal_damage(amount: float, damage_taker: BattleSceneHelper.CombatUnit):
+  damage_taker.battle_char.take_damage(amount);
   _update_unit_health_bar(damage_taker);
 
 func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, total_atk_time: float, is_npc_turn: bool, atk_trans: Tween.TransitionType = Tween.TRANS_EXPO):
@@ -333,7 +364,8 @@ func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSce
     damage_taker = attacker;
     damage_dealer = defender;
     defender.battle_char.postatk();
-  deal_damage(damage_dealer, damage_taker);
+  var strength_modifier = strength_check(damage_dealer);
+  deal_damage(strength_modifier * CombatUnitData.default_damage * damage_dealer.unit_data.damage_modifier, damage_taker);
   destory_qte_btns(is_npc_turn);
   # HACK: to let the postatk frame show for a second
   await get_tree().create_timer(1).timeout;
