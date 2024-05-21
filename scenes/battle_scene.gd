@@ -266,8 +266,16 @@ func _input(event: InputEvent):
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  if qte_item and qte_item.is_button_event and event.is_action_pressed(qte_item.key):
+  if qte_item.is_button_event and event.is_action_pressed(qte_item.key):
     qte_event_update();
+  if qte_item.is_touch_event and event.is_action_pressed(qte_item.key):
+    var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
+    # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
+    var sprite_position = qte_item.sprite.global_position - (rect_size / 2.0);
+    var sprite_rect = Rect2(sprite_position, rect_size);
+    # NOTE: event.position sometimes has to be one of these: [make_input_local(event).position, to_local(event.position)]
+    if sprite_rect.has_point(event.position):
+      qte_event_update();
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -436,24 +444,19 @@ func qte_event_update():
 func hide_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  qte_item.button.disabled = true;
   var qte_tween = create_tween().set_parallel(true);
-  qte_tween.tween_property(qte_item.button, "modulate", Color(0.8, 0.8, 0.8), 0.2).set_trans(Tween.TRANS_LINEAR);
-  qte_tween.tween_property(qte_item.box, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
+  qte_tween.tween_property(qte_item.sprite, "modulate", Color(0.8, 0.8, 0.8), 0.2).set_trans(Tween.TRANS_LINEAR);
+  qte_tween.tween_property(qte_item.sprite, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func show_qte_item():
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  qte_item.button.disabled = false;
   var qte_box_tween = create_tween();
-  qte_box_tween.tween_property(qte_item.box, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
+  qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func get_qte_item(index):
   if index >= qte_items.size(): return;
   return qte_items[index];
-
-func _on_qte_btn_pressed():
-  qte_event_update();
 
 func create_qte_items(is_npc_turn):
   if not is_npc_turn: return;
@@ -462,10 +465,8 @@ func create_qte_items(is_npc_turn):
     qte_items.append(create_qte_item());
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  qte_item.box.visible = true;
   var qte_box_tween = create_tween();
-  qte_box_tween.tween_property(qte_item.box, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
-  qte_item.button.disabled = false;
+  qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func _on_end_battle_scene():
   SceneSwitcher.change_scene("res://scenes/title_scene.tscn", {})
@@ -490,9 +491,8 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   ui.add_child(box);
 
 func create_qte_item():
-  var box = BoxContainer.new();
-  var button = TextureButton.new();
-  box.scale = Vector2(0.7, 0.7);
+  var sprite: Sprite2D = Sprite2D.new();
+  sprite.scale = Vector2(0.7, 0.7);
   var event_type = qte_mode;
   if qte_mode == BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON:
     event_type = BattleSceneHelper.QTEMode.BUTTON;
@@ -503,18 +503,14 @@ func create_qte_item():
   var key = event_qte_keys[int(rng.randf_range(0, event_qte_keys.size() - 1))];
   var is_button_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.BUTTON, key);
   var is_touch_event = is_qte_event_of_mode(BattleSceneHelper.QTEMode.TOUCH, key);
-  if is_touch_event:
-    button.focus_entered.connect(_on_qte_btn_pressed);
-  box.position = Vector2(
+  sprite.position = Vector2(
     rng.randf_range(qte_min_x, qte_max_x),
     rng.randf_range(qte_min_y, qte_max_y)
   );
-  button.texture_normal = qte_item_metadata[key].normal;
-  button.disabled = true;
-  box.modulate.a = 0;
-  box.add_child(button);
-  ui.add_child(box);
-  return BattleSceneHelper.QTEItem.new(key, box, button, is_button_event, is_touch_event);
+  sprite.texture = qte_item_metadata[key].normal;
+  sprite.modulate.a = 0;
+  ui.add_child(sprite);
+  return BattleSceneHelper.QTEItem.new(key, sprite, is_button_event, is_touch_event);
 
 func is_qte_event_of_mode(qte_mode_, key):
   return qte_item_metadata[key].qte_modes.any(func(qm): return qm == qte_mode_);
@@ -522,7 +518,7 @@ func is_qte_event_of_mode(qte_mode_, key):
 func destory_qte_btns(is_npc_turn):
   if not is_npc_turn: return;
   for qte_item in qte_items:
-    ui.remove_child(qte_item.box);
+    ui.remove_child(qte_item.sprite);
   qte_items = [];
 
 func perform_full_round_state():
