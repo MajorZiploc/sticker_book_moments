@@ -43,8 +43,8 @@ func _ready():
 func _init_idle_tweens():
   var scale_tween = create_tween();
   var og_scale = sprite.scale;
-  scale_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 1).set_trans(scale_tween.TRANS_EXPO);
-  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(scale_tween.TRANS_EXPO);
+  scale_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(Tween.TRANS_EXPO);
   scale_tween.set_loops(-1);
   var rotation_tween = create_tween();
   var og_rotation = sprite.rotation_degrees;
