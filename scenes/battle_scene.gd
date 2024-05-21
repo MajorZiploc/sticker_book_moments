@@ -550,16 +550,12 @@ func _on_close_inventory_btn_button_up():
   show_player_choices_action_btn();
 
 func show_player_choices_inventory_close_btn():
-  remove_player_choices();
-  player_choices.add_child(player_choices_close_btn);
+  player_choices_action_btn.visible = false;
+  player_choices_close_btn.visible = true;
 
 func show_player_choices_action_btn():
-  remove_player_choices();
-  player_choices.add_child(player_choices_action_btn);
-
-func remove_player_choices():
-  player_choices.remove_child(player_choices_action_btn);
-  player_choices.remove_child(player_choices_close_btn);
+  player_choices_action_btn.visible = true;
+  player_choices_close_btn.visible = false;
 
 func toggle_disabled_player_choices(b: bool):
   player_choices_action_btn.disabled = b;
