@@ -1,6 +1,7 @@
-extends Node2D
+extends Control
+class_name PauseMenuComponent
 
-@onready var qte_type_option_btn: OptionButton = $ui_root/ui/tabs/options/vbox/qte_type;
+@onready var qte_type_option_btn: OptionButton = $tabs/options/vbox/qte_type/selector;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();
@@ -8,7 +9,7 @@ func _ready():
   qte_type_option_btn.selected = AppState.data.get("options", {}).get("qte_mode", -1);
 
 func _on_back_button_up():
-  SceneSwitcher.change_scene("res://scenes/pause_menu.tscn", SceneSwitcher.get_params());
+  self.visible = false;
 
 func _on_fullscreen_toggle_button_up():
   var window_mode = (

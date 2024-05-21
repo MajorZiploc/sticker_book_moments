@@ -23,8 +23,8 @@
 
 ### general
 
-- update pause_menu to be combined with options_menu in tabs
-- update pause_menu to be a ui component that is overlayed on any scene with opacity down - this reduces the number of assets i have to make and removes the problems with switching scenes
+- DOING: update pause_menu to be combined with options_menu in tabs
+- DOING: update pause_menu to be a ui component that is overlayed on any scene with opacity down - this reduces the number of assets i have to make and removes the problems with switching scenes
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
