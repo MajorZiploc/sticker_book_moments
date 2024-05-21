@@ -245,8 +245,7 @@ func _on_inventory_item_selected(idx):
     combat_unit.mod_types.append(item_type);
     update_combat_unit_mods(combat_unit);
     update_player_inventory();
-    var tween = create_tween();
-    tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+    perform_full_round_state();
     full_round(player, npc, true);
 
 func to_player(player_: BattleSceneHelper.CombatUnit):
@@ -526,18 +525,22 @@ func destory_qte_btns(is_npc_turn):
     ui.remove_child(qte_item.box);
   qte_items = [];
 
+func perform_full_round_state():
+  var tween = create_tween();
+  tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+  toggle_disabled_player_choices(true);
+  round_happening = true;
+  var player_choices_tween_out = create_tween();
+  player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+  is_player_turn = !is_player_turn;
+  parried = false;
+  qte_current_action_count = 0;
+
 func on_player_choices_menu_item_pressed(id):
   match id:
     BattleSceneHelper.PlayerChoicesMenuPopupItem.ATTACK:
       if not round_happening and is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
-        toggle_disabled_player_choices(true);
-        round_happening = true;
-        player_inventory_ui_root.modulate.a = 0;
-        var player_choices_tween_out = create_tween();
-        player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
-        is_player_turn = !is_player_turn;
-        parried = false;
-        qte_current_action_count = 0;
+        perform_full_round_state();
         full_round(player, npc);
     BattleSceneHelper.PlayerChoicesMenuPopupItem.INVENTORY:
         show_player_choices_inventory_close_btn();
