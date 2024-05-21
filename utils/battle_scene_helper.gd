@@ -44,14 +44,12 @@ class Background:
 
 class QTEItem:
   var key: String;
-  var box: BoxContainer;
-  var button: TextureButton;
+  var sprite: Sprite2D;
   var is_button_event: bool;
   var is_touch_event: bool;
-  func _init(key_, box_, button_, is_button_event_, is_touch_event_):
+  func _init(key_, sprite_, is_button_event_, is_touch_event_):
     self.key = key_;
-    self.box = box_;
-    self.button = button_;
+    self.sprite = sprite_;
     self.is_button_event = is_button_event_;
     self.is_touch_event = is_touch_event_;
 
