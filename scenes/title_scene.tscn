@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c76wd8iwrix3h"]
+[gd_scene load_steps=4 format=3 uid="uid://c76wd8iwrix3h"]
 
 [ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
+[ext_resource type="Texture2D" uid="uid://dgwb5nqn5anfr" path="res://art/my/ui/qte_btn/finger/normal.png" id="2_apx1t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2h6od"]
+radius = 80.0
 
 [node name="title_scene" type="Node2D"]
 script = ExtResource("1_fopmr")
@@ -76,4 +80,17 @@ text = "Play"
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+position = Vector2(332, 459)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+texture = ExtResource("2_apx1t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("CircleShape2D_2h6od")
+
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
+[connection signal="input_event" from="AnimatableBody2D" to="." method="_on_animatable_body_2d_input_event"]
+[connection signal="mouse_entered" from="AnimatableBody2D" to="." method="_on_animatable_body_2d_mouse_entered"]
+[connection signal="mouse_shape_entered" from="AnimatableBody2D" to="." method="_on_animatable_body_2d_mouse_shape_entered"]
