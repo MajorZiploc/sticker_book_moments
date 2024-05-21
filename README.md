@@ -9,9 +9,10 @@
 
 ### battle_scene
 
+- Change QTE buttons into sprites; if touch event, add area that when clicked inside of, triggers a successful event
+- Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
 - BUG: clicking randomly and fast on spots that dont have the qte_btn touch still trigger it to hide and show next
 - BUG: finger event not registered on finger icon sometimes: has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
-- Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - make inventory items stackable
 
