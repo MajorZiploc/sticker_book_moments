@@ -14,4 +14,3 @@ func _ready():
   
 func _input(event: InputEvent):
   pause_menu = SceneHelper.toggle_pause_menu(event, ui, pause_menu);
-  print(pause_menu)

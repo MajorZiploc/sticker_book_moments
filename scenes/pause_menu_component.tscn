@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://cmk2mjnrpn73e"]
+[gd_scene load_steps=2 format=3 uid="uid://cmk2mjnrpn73e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4btj"]
+bg_color = Color(0.0352941, 0.0392157, 0.0784314, 1)
 
 [node name="pause_menu_component" type="Control"]
 layout_mode = 3
@@ -7,6 +10,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="background_panel" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(1400, 900)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -450.0
+offset_right = 700.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d4btj")
 
 [node name="title_card" type="Control" parent="."]
 layout_mode = 2
@@ -33,12 +53,14 @@ text = "Pause Menu"
 horizontal_alignment = 1
 
 [node name="tabs" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-offset_left = 24.0
-offset_top = 133.0
-offset_right = 383.0
-offset_bottom = 429.0
+offset_left = 309.0
+offset_top = 142.0
+offset_right = 809.0
+offset_bottom = 642.0
 grow_horizontal = 2
+current_tab = 1
 clip_tabs = false
 all_tabs_in_front = true
 
@@ -47,13 +69,24 @@ layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="tabs/general"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="spacer2" type="Control" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="back" type="Button" parent="tabs/general/vbox"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "back"
+
+[node name="spacer" type="Control" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="quit" type="Button" parent="tabs/general/vbox"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "quit"
 
 [node name="options" type="BoxContainer" parent="tabs"]
@@ -63,11 +96,39 @@ layout_mode = 2
 [node name="vbox" type="VBoxContainer" parent="tabs/options"]
 layout_mode = 2
 
-[node name="fullscreen_toggle" type="Button" parent="tabs/options/vbox"]
+[node name="fullscreen_toggle" type="HBoxContainer" parent="tabs/options/vbox"]
 layout_mode = 2
+
+[node name="label" type="Label" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "screen mode: "
+
+[node name="spacer" type="Control" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="box" type="BoxContainer" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+
+[node name="toggle" type="Button" parent="tabs/options/vbox/fullscreen_toggle/box"]
+layout_mode = 2
+size_flags_horizontal = 8
 text = "fullscreen toggle"
 
-[node name="qte_type" type="OptionButton" parent="tabs/options/vbox"]
+[node name="qte_type" type="HBoxContainer" parent="tabs/options/vbox"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="tabs/options/vbox/qte_type"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "quick time event: "
+
+[node name="spacer" type="Control" parent="tabs/options/vbox/qte_type"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="selector" type="OptionButton" parent="tabs/options/vbox/qte_type"]
 layout_mode = 2
 item_count = 3
 selected = 0
