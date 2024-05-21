@@ -42,6 +42,8 @@ class_name BattleScene
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
+var pause_menu = null;
+
 var player_inventory_size = 9;
 var player_inventory_item_types = [];
 var round_happening = false;
@@ -261,7 +263,8 @@ func _input(event: InputEvent):
   if round_happening:
     qte_attempt(event);
     return;
-  SceneHelper.process_input(event);
+  pause_menu = SceneHelper.toggle_pause_menu(event, ui, pause_menu);
+  if pause_menu: return;
 
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
