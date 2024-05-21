@@ -234,7 +234,8 @@ func _on_inventory_item_selected(idx):
       ui_tween.tween_property(invalid_item, "modulate", Color(15, 1, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
       ui_tween.tween_property(invalid_item, "modulate", og_box_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
     var tween = create_tween();
-    # HACK: to have box stay on screen for 3 seconds, the box modulate:a should already be 1
+    # HACK: to have box stay on screen for 3 seconds
+    box.modulate.a = 1;
     tween.tween_property(box, "modulate:a", 1, 3).set_trans(Tween.TRANS_EXPO);
     tween.tween_property(box, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
     tween.tween_callback(func(): ui.remove_child(box)).set_delay(0.1);
