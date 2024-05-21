@@ -16,58 +16,79 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="title_card" type="Control" parent="ui_root/ui"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -316.0
-offset_top = -238.0
-offset_right = -276.0
-offset_bottom = -198.0
+layout_mode = 2
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 83.0
+offset_right = 178.0
+offset_bottom = 174.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="panel" type="PanelContainer" parent="ui_root/ui/title_card"]
 layout_mode = 0
-offset_left = -164.0
-offset_right = 774.0
-offset_bottom = 167.0
-theme_type_variation = &"PanelLargeSticker"
+offset_left = -99.0
+offset_top = -78.0
+offset_right = 901.0
+offset_bottom = 48.0
+theme_type_variation = &"PanelMediumSticker"
 
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui/title_card/panel"]
+[node name="title" type="Label" parent="ui_root/ui/title_card/panel"]
 layout_mode = 2
-
-[node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
-layout_mode = 2
-theme_type_variation = &"HeaderXLarge"
+theme_type_variation = &"HeaderLarge"
 text = "Pause Menu"
 horizontal_alignment = 1
 
-[node name="vbox" type="VBoxContainer" parent="ui_root/ui"]
-layout_mode = 0
-offset_left = 486.0
-offset_top = 316.0
-offset_right = 598.0
-offset_bottom = 401.0
+[node name="tabs" type="TabContainer" parent="ui_root/ui"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 133.0
+offset_right = 383.0
+offset_bottom = 429.0
+grow_horizontal = 2
+clip_tabs = false
+all_tabs_in_front = true
 
-[node name="back" type="Button" parent="ui_root/ui/vbox"]
+[node name="general" type="BoxContainer" parent="ui_root/ui/tabs"]
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/tabs/general"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="ui_root/ui/tabs/general/vbox"]
 layout_mode = 2
 text = "back"
 
-[node name="options" type="Button" parent="ui_root/ui/vbox"]
-layout_mode = 2
-text = "options"
-
-[node name="quit" type="Button" parent="ui_root/ui/vbox"]
+[node name="quit" type="Button" parent="ui_root/ui/tabs/general/vbox"]
 layout_mode = 2
 text = "quit"
+
+[node name="options" type="BoxContainer" parent="ui_root/ui/tabs"]
+visible = false
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/tabs/options"]
+layout_mode = 2
+
+[node name="fullscreen_toggle" type="Button" parent="ui_root/ui/tabs/options/vbox"]
+layout_mode = 2
+text = "fullscreen toggle"
+
+[node name="qte_type" type="OptionButton" parent="ui_root/ui/tabs/options/vbox"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Touch"
+popup/item_0/id = 0
+popup/item_1/text = "Button"
+popup/item_1/id = 1
+popup/item_2/text = "Touch and Button"
+popup/item_2/id = 2
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
-[connection signal="button_up" from="ui_root/ui/vbox/back" to="." method="_on_back_button_up"]
-[connection signal="button_up" from="ui_root/ui/vbox/options" to="." method="_on_options_button_up"]
-[connection signal="button_up" from="ui_root/ui/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="ui_root/ui/tabs/general/vbox/back" to="." method="_on_back_button_up"]
+[connection signal="button_up" from="ui_root/ui/tabs/general/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="ui_root/ui/tabs/options/vbox/fullscreen_toggle" to="." method="_on_fullscreen_toggle_button_up"]

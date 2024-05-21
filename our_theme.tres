@@ -187,6 +187,7 @@ ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/font_sizes/font_size = 20
 ProgressBar/styles/background = SubResource("StyleBoxFlat_hhojr")
 TabBar/font_sizes/font_size = 40
+TabContainer/font_sizes/font_size = 40
 TextEdit/font_sizes/font_size = 30
 Tree/font_sizes/font_size = 40
 Tree/font_sizes/title_button_font_size = 44
