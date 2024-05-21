@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c76wd8iwrix3h"]
+[gd_scene load_steps=2 format=3 uid="uid://c76wd8iwrix3h"]
 
 [ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
-[ext_resource type="Texture2D" uid="uid://dgwb5nqn5anfr" path="res://art/my/ui/qte_btn/finger/normal.png" id="2_apx1t"]
 
 [node name="title_scene" type="Node2D"]
 script = ExtResource("1_fopmr")
@@ -76,9 +75,5 @@ text = "Play"
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(332, 459)
-texture = ExtResource("2_apx1t")
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
