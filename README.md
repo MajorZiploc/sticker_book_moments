@@ -9,7 +9,6 @@
 - BUG: finger event not registered on finger icon sometimes: has a bug on second finger if you key buttons instead - might be resolved if with the more strict event work
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
-- make using an item from the inventory consume the players turn
 - make mod items that are applied visually display a tween on the combat_unit
 - make inventory items stackable
 - save inventory and mods to AppState.data

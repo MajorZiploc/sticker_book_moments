@@ -247,6 +247,7 @@ func _on_inventory_item_selected(idx):
     update_player_inventory();
     var tween = create_tween();
     tween.tween_property(player_inventory_ui_root, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+    full_round(player, npc, true);
 
 func to_player(player_: BattleSceneHelper.CombatUnit):
   player_info_controller.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
@@ -325,8 +326,8 @@ func tween_used_mod_draw_item(mod: Sprite2D):
   rotation_tween.tween_property(mod, "rotation_degrees", 5.4, 0.2).set_trans(Tween.TRANS_SPRING);
   rotation_tween.set_loops(2);
 
-func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
-  var should_hit = paralyzed_check(attacker);
+func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
+  var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
   await get_tree().create_timer(0.5).timeout;
@@ -542,7 +543,6 @@ func on_player_choices_menu_item_pressed(id):
         show_player_choices_inventory_close_btn();
         player_inventory_ui_root.modulate.a = 1;
         update_player_inventory(false);
-        # TODO: end player turn and perform npc turn
 
 func _on_close_inventory_btn_button_up():
   player_inventory_ui_root.modulate.a = 0;
