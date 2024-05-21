@@ -42,7 +42,7 @@ class_name BattleScene
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
-var pause_menu = null;
+var pause_menu: Node = null;
 
 var player_inventory_size = 9;
 var player_inventory_item_types = [];

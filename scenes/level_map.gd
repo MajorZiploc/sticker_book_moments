@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var ui: Control = $ui_root/ui;
 
-var pause_menu = null;
+var pause_menu: Node = null;
 
 func _ready():
   create_char_choices();

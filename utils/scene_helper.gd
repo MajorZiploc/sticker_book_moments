@@ -1,6 +1,6 @@
 extends Node
 
-func toggle_pause_menu(event: InputEvent, parent: Node, pause_menu: Node):
+func toggle_pause_menu(event: InputEvent, parent: Node, pause_menu: Node) -> Node:
   if event.is_action_pressed("pause"):
     if pause_menu:
       parent.remove_child(pause_menu);

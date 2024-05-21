@@ -3,7 +3,7 @@ class_name TitleScene
 
 @onready var ui = $ui_root/ui;
 
-var pause_menu = null;
+var pause_menu: Node = null;
 
 func _on_play_btn_button_up():
   SceneSwitcher.change_scene("res://scenes/choose_char.tscn", {})
