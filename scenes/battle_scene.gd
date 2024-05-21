@@ -274,30 +274,51 @@ func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
 
 func paralyzed_check(combat_unit: BattleSceneHelper.CombatUnit):
   var should_hit = true;
-  var is_paralyzed = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.PARALYZED);
+  var idx = Lang.find_index(func(t): return t == BattleSceneHelper.ModItemType.PARALYZED, combat_unit.mod_types);
+  var is_paralyzed = idx >= 0;
   if is_paralyzed:
     # 70% chance of hitting
     should_hit = (rng.randf_range(0, 1) * 100) > 30;
   if not should_hit:
-    print('TODO: indicate that combat_unit is paralyzed with some tweening and flash the paralyzed icon above the combat_unit');
+    var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
+    tween_used_mod_draw_item(mod);
+    print('TODO: indicate that combat_unit is paralyzed with some tweening');
   return should_hit;
 
 func posion_check(combat_unit: BattleSceneHelper.CombatUnit):
-  var is_posioned = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.POSION);
+  var idx = Lang.find_index(func(t): return t == BattleSceneHelper.ModItemType.POSION, combat_unit.mod_types);
+  var is_posioned = idx >= 0;
   if is_posioned:
     # deal 10% of combat_unit health in damage
     deal_damage(combat_unit.unit_data.health_modifier * CombatUnitData.default_max_health * 0.10, combat_unit);
-    print('TODO: make combat_unit flash green instead of red and flash the posion icon above the combat_unit');
+    var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
+    tween_used_mod_draw_item(mod);
+    print('TODO: make combat_unit flash green instead of red');
 
 func strength_check(combat_unit: BattleSceneHelper.CombatUnit):
   # NOTE: this applies for attacks and parries
   var damage_mod = 1.0;
-  var has_strength = combat_unit.mod_types.any(func(t): return t == BattleSceneHelper.ModItemType.STRENGTH);
+  var idx = Lang.find_index(func(t): return t == BattleSceneHelper.ModItemType.STRENGTH, combat_unit.mod_types);
+  var has_strength = idx >= 0;
   if has_strength:
     # deal 10% bonus attack if attack successful
     damage_mod = 1.1;
-    print('TODO: make combat_unit tween in some way and flash the strength icon above the combat_unit');
+    var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
+    tween_used_mod_draw_item(mod);
+    print('TODO: make combat_unit tween in some way');
   return damage_mod;
+
+func tween_used_mod_draw_item(mod: Sprite2D):
+  var scale_tween = create_tween();
+  var og_scale = mod.scale;
+  scale_tween.tween_property(mod, "scale", Vector2(1.35, 1.35), 0.3).set_trans(Tween.TRANS_EXPO);
+  scale_tween.tween_property(mod, "scale", og_scale, 0.1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.set_loops(2);
+  var rotation_tween = create_tween();
+  var og_rotation = mod.rotation_degrees;
+  rotation_tween.tween_property(mod, "rotation_degrees", -5.4, 0.2).set_trans(Tween.TRANS_SPRING);
+  rotation_tween.tween_property(mod, "rotation_degrees", 5.4, 0.2).set_trans(Tween.TRANS_SPRING);
+  rotation_tween.set_loops(2);
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit):
   var should_hit = paralyzed_check(attacker);
