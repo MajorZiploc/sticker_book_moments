@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cmk2mjnrpn73e"]
+
+[node name="pause_menu_component" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title_card" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 83.0
+offset_right = 178.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="panel" type="PanelContainer" parent="title_card"]
+layout_mode = 0
+offset_left = -99.0
+offset_top = -78.0
+offset_right = 901.0
+offset_bottom = 48.0
+theme_type_variation = &"PanelMediumSticker"
+
+[node name="title" type="Label" parent="title_card/panel"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="tabs" type="TabContainer" parent="."]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 133.0
+offset_right = 383.0
+offset_bottom = 429.0
+grow_horizontal = 2
+clip_tabs = false
+all_tabs_in_front = true
+
+[node name="general" type="BoxContainer" parent="tabs"]
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="tabs/general"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="tabs/general/vbox"]
+layout_mode = 2
+text = "back"
+
+[node name="quit" type="Button" parent="tabs/general/vbox"]
+layout_mode = 2
+text = "quit"
+
+[node name="options" type="BoxContainer" parent="tabs"]
+visible = false
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="tabs/options"]
+layout_mode = 2
+
+[node name="fullscreen_toggle" type="Button" parent="tabs/options/vbox"]
+layout_mode = 2
+text = "fullscreen toggle"
+
+[node name="qte_type" type="OptionButton" parent="tabs/options/vbox"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Touch"
+popup/item_0/id = 0
+popup/item_1/text = "Button"
+popup/item_1/id = 1
+popup/item_2/text = "Touch and Button"
+popup/item_2/id = 2

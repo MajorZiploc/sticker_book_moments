@@ -1,4 +1,5 @@
 extends Node2D
+class_name PauseMenu
 
 @onready var qte_type_option_btn: OptionButton = $ui_root/ui/tabs/options/vbox/qte_type;
 
