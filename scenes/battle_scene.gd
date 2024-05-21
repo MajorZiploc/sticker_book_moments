@@ -320,7 +320,6 @@ func tween_used_mod_draw_item(mod: Sprite2D):
   scale_tween.tween_property(mod, "scale", og_scale, 0.1).set_trans(Tween.TRANS_EXPO);
   scale_tween.set_loops(2);
   var rotation_tween = create_tween();
-  var og_rotation = mod.rotation_degrees;
   rotation_tween.tween_property(mod, "rotation_degrees", -5.4, 0.2).set_trans(Tween.TRANS_SPRING);
   rotation_tween.tween_property(mod, "rotation_degrees", 5.4, 0.2).set_trans(Tween.TRANS_SPRING);
   rotation_tween.set_loops(2);
