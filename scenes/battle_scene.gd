@@ -78,7 +78,7 @@ var qte_item_metadata: Dictionary = {
     preload("res://art/my/ui/qte_btn/right/normal.png"),
     [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
-  "finger": BattleSceneHelper.QTEItemMetaData.new(
+  "tap": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/finger/normal.png"),
     [BattleSceneHelper.QTEMode.TOUCH, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
   ),
