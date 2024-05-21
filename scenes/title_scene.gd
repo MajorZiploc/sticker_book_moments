@@ -1,9 +1,7 @@
 extends Node2D
 class_name TitleScene
 
-@onready var x = $AnimatableBody2D;
-@onready var s = $AnimatableBody2D/Sprite2D;
-@onready var c: CollisionShape2D = $AnimatableBody2D/CollisionShape2D;
+@onready var s = $Sprite2D;
 # need this rect to be offset based on where the sprite is. as of nwo, it just tells me the size of the sprite
 
 func _on_play_btn_button_up():
@@ -12,39 +10,19 @@ func _on_play_btn_button_up():
 func _ready():
   AppState.load_data(AppState.current_data_file_name);
   OptionsHelper.set_options();
-  print(x.position);
   print(s.get_rect());
+  s.scale = Vector2(0.7, 0.7);
   
   
 func _input(event: InputEvent):
-  # if event is InputEventMouseButton and event.pressed and not event.is_echo() and event.button_index == MOUSE_BUTTON_LEFT:
-  # if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-  # if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-  # if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
   if event.is_action_pressed("tap"):
 
-    # Get the rect of the sprite (size)
-    var rect_size = s.get_rect().size
-
+    # Get the size of the sprite
+    var rect_size = s.get_texture().get_size() * s.scale
     # Get the global position of the sprite
-    var sprite_position = s.global_position - Vector2(80, 80)
-    # print('sprite_position')
-    # print(sprite_position)
-
+    var sprite_position = s.global_position - (Vector2(80, 80) * s.scale);
     # Create a new Rect2 using the sprite's position and size
     var sprite_rect = Rect2(sprite_position, rect_size)
-    
-        # # Get the size of the sprite
-    # var rect_size = s.get_texture().get_size() * s.scale
-    
-    # # Get the global position of the sprite
-    # var sprite_position = s.global_position - Vector2(80, 80);
-    
-    # # Calculate the offset based on the sprite's size and origin
-    # var offset = rect_size * (0.5 if s.centered else Vector2(0, 0))
-    
-    # # Create a new Rect2 using the sprite's position and size
-    # var sprite_rect = Rect2(sprite_position - offset, rect_size)
     
     # print('s.get_rect()')
     # print(s.get_rect())
@@ -61,22 +39,12 @@ func _input(event: InputEvent):
   SceneHelper.process_input(event);
 
 func _draw():
-  var rect_size = s.get_rect().size
+  # Get the size of the sprite
+  var rect_size = s.get_texture().get_size() * s.scale
   # Get the global position of the sprite
-  var sprite_position = s.global_position  - Vector2(80, 80)
+  var sprite_position = s.global_position - (Vector2(80, 80) * s.scale);
   # Create a new Rect2 using the sprite's position and size
   var sprite_rect = Rect2(sprite_position, rect_size)
-      # # Get the size of the sprite
-  # var rect_size = s.get_texture().get_size() * s.scale
-  
-  # # Get the global position of the sprite
-  # var sprite_position = s.global_position - Vector2(80, 80);
-  
-  # # Calculate the offset based on the sprite's size and origin
-  # var offset = rect_size * (0.5 if s.centered else Vector2(0, 0))
-  
-  # # Create a new Rect2 using the sprite's position and size
-  # var sprite_rect = Rect2(sprite_position - offset, rect_size)
   
   print('left press')
   print('s.get_rect()')
