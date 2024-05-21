@@ -20,7 +20,8 @@ func _input(event: InputEvent):
   # if event is InputEventMouseButton and event.pressed and not event.is_echo() and event.button_index == MOUSE_BUTTON_LEFT:
   # if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
   # if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+  # if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+  if event.is_action_pressed("tap"):
 
     # Get the rect of the sprite (size)
     var rect_size = s.get_rect().size
