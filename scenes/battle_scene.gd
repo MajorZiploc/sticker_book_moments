@@ -287,7 +287,7 @@ func paralyzed_check(combat_unit: BattleSceneHelper.CombatUnit):
   if not should_hit:
     var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
     tween_used_mod_draw_item(mod);
-    print('TODO: indicate that combat_unit is paralyzed with some tweening');
+    # TODO: indicate that combat_unit is paralyzed with some tweening
   return should_hit;
 
 func posion_check(combat_unit: BattleSceneHelper.CombatUnit):
@@ -298,7 +298,7 @@ func posion_check(combat_unit: BattleSceneHelper.CombatUnit):
     deal_damage(combat_unit.unit_data.health_modifier * CombatUnitData.default_max_health * 0.10, combat_unit);
     var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
     tween_used_mod_draw_item(mod);
-    print('TODO: make combat_unit flash green instead of red');
+    # TODO: make combat_unit flash green instead of red
 
 func strength_check(combat_unit: BattleSceneHelper.CombatUnit):
   # NOTE: this applies for attacks and parries
@@ -310,7 +310,7 @@ func strength_check(combat_unit: BattleSceneHelper.CombatUnit):
     damage_mod = 1.1;
     var mod: Sprite2D = combat_unit.mod_draw.get_child(idx).get_child(0);
     tween_used_mod_draw_item(mod);
-    print('TODO: make combat_unit tween in some way');
+    # TODO: make combat_unit tween in some way
   return damage_mod;
 
 func tween_used_mod_draw_item(mod: Sprite2D):
