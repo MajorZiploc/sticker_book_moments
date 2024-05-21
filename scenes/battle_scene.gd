@@ -31,7 +31,8 @@ class_name BattleScene
 @onready var ui: Control = $ui_root/ui;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 @onready var player_choices: BoxContainer = $ui_root/ui/player_choices;
-@onready var player_choices_btn: MenuButton = $ui_root/ui/player_choices/btn;
+@onready var player_choices_action_btn: MenuButton = $ui_root/ui/player_choices/btn;
+@onready var player_choices_close_btn: Button = $ui_root/ui/player_choices/close_inventory_btn;
 @onready var player_inventory_grid: GridContainer = $ui_root/ui/player_inventory/panel/grid;
 @onready var player_inventory_panel: PanelContainer = $ui_root/ui/player_inventory/panel;
 @onready var player_inventory_ui_root: Control = $ui_root/ui/player_inventory;
@@ -106,9 +107,10 @@ var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
   qte_mode = AppState.data.get("options", {}).get("qte_mode", qte_mode);
-  var player_choices_popup = player_choices_btn.get_popup();
+  var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
+  show_player_choices_action_btn();
   init_player_inventory_items();
   update_player_inventory();
   self.modulate.a = 0;
@@ -237,6 +239,7 @@ func _on_inventory_item_selected(idx):
     tween.tween_property(box, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
     tween.tween_callback(func(): ui.remove_child(box)).set_delay(0.1);
   else:
+    show_player_choices_action_btn();
     player_inventory_item_types.pop_at(idx);
     combat_unit.mod_types.append(item_type);
     update_combat_unit_mods(combat_unit);
@@ -350,6 +353,7 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     var player_choices_tween_time = std_tween_time;
     var player_choices_tween = create_tween();
     player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
+    toggle_disabled_player_choices(false);
     cam_tween = create_tween();
     cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
     progress_bar_tween = create_tween();
@@ -525,6 +529,7 @@ func on_player_choices_menu_item_pressed(id):
   match id:
     BattleSceneHelper.PlayerChoicesMenuPopupItem.ATTACK:
       if not round_happening and is_player_turn and player.path_follow.progress_ratio == 0 and npc.path_follow.progress_ratio == 0:
+        toggle_disabled_player_choices(true);
         round_happening = true;
         player_inventory_ui_root.modulate.a = 0;
         var player_choices_tween_out = create_tween();
@@ -534,6 +539,28 @@ func on_player_choices_menu_item_pressed(id):
         qte_current_action_count = 0;
         full_round(player, npc);
     BattleSceneHelper.PlayerChoicesMenuPopupItem.INVENTORY:
+        show_player_choices_inventory_close_btn();
         player_inventory_ui_root.modulate.a = 1;
         update_player_inventory(false);
         # TODO: end player turn and perform npc turn
+
+func _on_close_inventory_btn_button_up():
+  player_inventory_ui_root.modulate.a = 0;
+  update_player_inventory();
+  show_player_choices_action_btn();
+
+func show_player_choices_inventory_close_btn():
+  remove_player_choices();
+  player_choices.add_child(player_choices_close_btn);
+
+func show_player_choices_action_btn():
+  remove_player_choices();
+  player_choices.add_child(player_choices_action_btn);
+
+func remove_player_choices():
+  player_choices.remove_child(player_choices_action_btn);
+  player_choices.remove_child(player_choices_close_btn);
+
+func toggle_disabled_player_choices(b: bool):
+  player_choices_action_btn.disabled = b;
+  player_choices_close_btn.disabled = b;

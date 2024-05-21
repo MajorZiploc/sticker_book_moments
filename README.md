@@ -14,7 +14,7 @@
 - make inventory items stackable
 - save inventory and mods to AppState.data
 - limit number of mods on a combat_unit to 4
-- make inventory closable
+- instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components
 
 ### general
 

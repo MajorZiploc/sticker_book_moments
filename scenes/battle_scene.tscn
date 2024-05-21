@@ -211,6 +211,10 @@ popup/item_0/id = 0
 popup/item_1/text = "Inventory"
 popup/item_1/id = 1
 
+[node name="close_inventory_btn" type="Button" parent="ui_root/ui/player_choices"]
+layout_mode = 2
+text = "Close"
+
 [node name="player_inventory" type="Control" parent="ui_root/ui"]
 layout_mode = 1
 anchors_preset = 8
@@ -255,3 +259,5 @@ scale = Vector2(0.5, 0.5)
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
+
+[connection signal="button_up" from="ui_root/ui/player_choices/close_inventory_btn" to="." method="_on_close_inventory_btn_button_up"]
