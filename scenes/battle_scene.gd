@@ -193,7 +193,7 @@ func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
     box.add_child(mod);
     combat_unit.mod_draw.add_child(box);
 
-func update_player_inventory():
+func update_player_inventory(disabled: bool = true):
   for n in player_inventory_grid.get_children():
     player_inventory_grid.remove_child(n);
   # TODO: move inventory items out into AppState.data
@@ -201,6 +201,7 @@ func update_player_inventory():
     var panel = PanelContainer.new();
     if i < 6 and player_inventory_item_types.size() > i:
       var button = TextureButton.new();
+      button.disabled = disabled;
       button.button_up.connect(func(): _on_inventory_item_selected(i));
       button.texture_normal = mod_item_metadata[player_inventory_item_types[i]].texture;
       panel.add_child(button);
@@ -533,4 +534,5 @@ func on_player_choices_menu_item_pressed(id):
         full_round(player, npc);
     BattleSceneHelper.PlayerChoicesMenuPopupItem.INVENTORY:
         player_inventory_ui_root.modulate.a = 1;
+        update_player_inventory(false);
         # TODO: end player turn and perform npc turn
