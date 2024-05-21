@@ -100,7 +100,7 @@ var mod_item_metadata: Dictionary = {
   ),
 };
 
-var default_inventory_item_size = 150;
+var default_mod_item_size = 150;
 
 var valid_qte_keys = qte_item_metadata.keys();
 
@@ -188,6 +188,7 @@ func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.mod_draw.remove_child(n);
   for i in combat_unit.mod_types.size():
     var box = BoxContainer.new();
+    box.custom_minimum_size = Vector2(default_mod_item_size, default_mod_item_size);
     var mod = Sprite2D.new();
     mod.texture = mod_item_metadata[combat_unit.mod_types[i]].texture;
     box.add_child(mod);
@@ -206,7 +207,7 @@ func update_player_inventory(disabled: bool = true):
       button.texture_normal = mod_item_metadata[player_inventory_item_types[i]].texture;
       panel.add_child(button);
     else:
-      panel.custom_minimum_size = Vector2(default_inventory_item_size, default_inventory_item_size);
+      panel.custom_minimum_size = Vector2(default_mod_item_size, default_mod_item_size);
     player_inventory_grid.add_child(panel);
 
 func _on_inventory_item_selected(idx):
