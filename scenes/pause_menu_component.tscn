@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmk2mjnrpn73e"]
+[gd_scene load_steps=3 format=3 uid="uid://cmk2mjnrpn73e"]
+
+[ext_resource type="Script" path="res://scenes/pause_menu_component.gd" id="1_tgs80"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4btj"]
 bg_color = Color(0.0352941, 0.0392157, 0.0784314, 1)
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tgs80")
 
 [node name="background_panel" type="PanelContainer" parent="."]
 modulate = Color(1, 1, 1, 0.8)
@@ -65,6 +68,7 @@ clip_tabs = false
 all_tabs_in_front = true
 
 [node name="general" type="BoxContainer" parent="tabs"]
+visible = false
 layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="tabs/general"]
@@ -90,7 +94,6 @@ size_flags_vertical = 3
 text = "quit"
 
 [node name="options" type="BoxContainer" parent="tabs"]
-visible = false
 layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="tabs/options"]
@@ -138,3 +141,7 @@ popup/item_1/text = "Button"
 popup/item_1/id = 1
 popup/item_2/text = "Touch and Button"
 popup/item_2/id = 2
+
+[connection signal="button_up" from="tabs/general/vbox/back" to="." method="_on_back_button_up"]
+[connection signal="button_up" from="tabs/general/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="tabs/options/vbox/fullscreen_toggle/box/toggle" to="." method="_on_fullscreen_toggle_button_up"]
