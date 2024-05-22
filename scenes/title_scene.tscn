@@ -93,9 +93,17 @@ offset_bottom = 638.0
 text = "Options"
 metadata/_edit_use_anchors_ = true
 
+[node name="stats_btn" type="Button" parent="ui_root/ui"]
+offset_left = 1004.0
+offset_top = 561.0
+offset_right = 1127.0
+offset_bottom = 636.0
+text = "stats"
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
+[connection signal="button_up" from="ui_root/ui/stats_btn" to="." method="_on_stats_btn_button_up"]

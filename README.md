@@ -1,5 +1,7 @@
 # Sticker Book: Time Attack
 
+! replace "options" with Constants.options
+
 ## TODO:
 
 ### level_map
@@ -22,8 +24,6 @@
 - Consider: instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components - or do visible toggling
 
 ### general
-
-- show metrics in the thanks_for_playing_scene - a see through window that opens if player clicks the 'metrics' button
 
 - make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning
 

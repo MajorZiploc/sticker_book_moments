@@ -1,4 +1,5 @@
 extends Node2D
+class_name LevelMap
 
 @onready var ui: Control = $ui_root/ui;
 
@@ -63,4 +64,4 @@ func create_char_choices():
   ui.add_child(box);
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_pause_menu_btn(pause_menu);
+  SceneHelper.toggle_node(pause_menu);
