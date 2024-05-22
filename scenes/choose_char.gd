@@ -21,6 +21,10 @@ func on_char_selected(key: CombatUnitData.Type):
     "inventory_item_types": player_inventory_item_types,
     "mod_types": [],
   });
+  AppState.insert_data(Constants.game_state, {
+    "current_opponent_idx": 0,
+    "current_opponent_choice_keys": CombatUnitData.entries.keys(),
+  });
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
 
