@@ -1,13 +1,16 @@
 extends Node2D
 
-@onready var ui: CanvasLayer = $ui_root;
+@onready var ui: Control = $ui_root/ui;
 
 var pause_menu: Node;
 
 func _ready():
+  var scene_tween_time = Constants.std_tween_time;
+  SceneHelper.fade_in([self, ui], scene_tween_time);
   pause_menu = SceneHelper.make_pause_menu();
   create_char_choices();
   ui.add_child(pause_menu);
+  await get_tree().create_timer(scene_tween_time).timeout;
 
 func _input(event: InputEvent):
   var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);
@@ -20,6 +23,10 @@ func on_char_selected(key: CombatUnitData.Type):
     "health": CombatUnitData.default_max_health,
     "inventory_item_types": player_inventory_item_types,
     "mod_types": [],
+  });
+  AppState.insert_data(Constants.game_state, {
+    "current_opponent_idx": 0,
+    "current_opponent_choice_keys": CombatUnitData.entries.keys(),
   });
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})

@@ -115,16 +115,10 @@ func _ready():
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
   show_player_choices_action_btn();
-  self.modulate.a = 0;
-  ui.modulate.a = 0;
+  var scene_tween_time = Constants.std_tween_time;
+  SceneHelper.fade_in([self, ui], scene_tween_time);
   action_counter_container.modulate.a = 0;
   cam.zoom = std_cam_zoom;
-  var scene_tween_time = std_tween_time;
-  var scene_tween = create_tween();
-  scene_tween.tween_property(self, "modulate:a", 1, scene_tween_time).set_trans(Tween.TRANS_EXPO);
-  var ui_tween_time = std_tween_time;
-  var ui_tween = create_tween();
-  ui_tween.tween_property(ui, "modulate:a", 1, ui_tween_time).set_trans(Tween.TRANS_EXPO);
   npc_turn_ui.modulate.a = 0;
   _init_bg();
   var player_data = AppState.data[Constants.player];
@@ -165,7 +159,7 @@ func _ready():
   update_combat_unit_mods(player);
   update_combat_unit_mods(npc);
   ui.add_child(pause_menu);
-  await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
+  await get_tree().create_timer(scene_tween_time).timeout;
 
 func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   # TODO: move mods out into AppState.data
@@ -467,7 +461,16 @@ func create_qte_items(is_npc_turn):
   qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func _on_end_battle_scene():
-  SceneSwitcher.change_scene("res://scenes/title_scene.tscn", {})
+  var current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
+  var current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
+  # TODO: default to thanks_for_playing_scene
+  var next_scene = "res://scenes/title_scene.tscn";
+  if current_opponent_idx < current_opponent_choice_keys.size():
+    AppState.insert_data(Constants.game_state, {
+      "current_opponent_idx": current_opponent_idx + 1,
+    });
+    next_scene = "res://scenes/level_map.tscn";
+  SceneSwitcher.change_scene(next_scene, {})
 
 func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   var box = BoxContainer.new();
