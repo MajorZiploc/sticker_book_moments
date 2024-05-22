@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://du5vd741ul6fk"]
+[gd_scene load_steps=4 format=3 uid="uid://du5vd741ul6fk"]
 
 [ext_resource type="Script" path="res://scenes/thanks_for_playing.gd" id="1_3p82m"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="1_hrisg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ae0bx"]
+bg_color = Color(0.0352941, 0.0392157, 0.0784314, 1)
 
 [node name="thanks_for_playing" type="Node2D"]
 script = ExtResource("1_3p82m")
@@ -94,9 +97,153 @@ offset_bottom = 638.0
 text = "Options"
 metadata/_edit_use_anchors_ = true
 
+[node name="stats_btn" type="Button" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 1004.0
+offset_top = 561.0
+offset_right = 1127.0
+offset_bottom = 636.0
+text = "stats"
+
+[node name="background_panel" type="PanelContainer" parent="ui_root/ui"]
+modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(1400, 900)
+layout_mode = 2
+offset_left = -139.0
+offset_top = -101.0
+offset_right = 1261.0
+offset_bottom = 799.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae0bx")
+
+[node name="stats_panel" type="PanelContainer" parent="ui_root/ui"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = -115.0
+offset_right = 3.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="vbox" type="VBoxContainer" parent="ui_root/ui/stats_panel"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Stats"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+
+[node name="parries" type="HBoxContainer" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="ui_root/ui/stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "parries:"
+
+[node name="spacer" type="Control" parent="ui_root/ui/stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="ui_root/ui/stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="items_used" type="HBoxContainer" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="ui_root/ui/stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "items used:"
+
+[node name="spacer" type="Control" parent="ui_root/ui/stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="ui_root/ui/stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="battle_wins" type="HBoxContainer" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="ui_root/ui/stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "battles won:"
+
+[node name="spacer" type="Control" parent="ui_root/ui/stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="ui_root/ui/stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="battle_lost" type="HBoxContainer" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="ui_root/ui/stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "battles lost:"
+
+[node name="spacer" type="Control" parent="ui_root/ui/stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="ui_root/ui/stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="game_completions" type="HBoxContainer" parent="ui_root/ui/stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="ui_root/ui/stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "game completions:"
+
+[node name="spacer" type="Control" parent="ui_root/ui/stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="ui_root/ui/stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/back_to_title_screen/btn" to="." method="_on_back_to_title_screen_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
+[connection signal="button_up" from="ui_root/ui/stats_btn" to="." method="_on_stats_btn_button_up"]

@@ -24,3 +24,6 @@ func _on_back_to_title_screen_btn_button_up():
 
 func _on_options_btn_button_up():
   SceneHelper.toggle_pause_menu_btn(pause_menu);
+
+func _on_stats_btn_button_up():
+  pass # Replace with function body.
