@@ -582,4 +582,4 @@ func toggle_disabled_player_choices(b: bool):
   player_choices_close_btn.disabled = b;
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_pause_menu_btn(pause_menu);
+  SceneHelper.toggle_node(pause_menu);
