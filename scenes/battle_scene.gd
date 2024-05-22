@@ -277,7 +277,7 @@ func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
     combat_unit.bust.texture = texture;
 
 func _update_unit_health_bar(combat_unit: BattleSceneHelper.CombatUnit):
-  AppState.insert_data(Constants.player if combat_unit.is_player else Constants.npc, { "health": combat_unit.battle_char.health });
+  AppState.insert_data(Constants.player if combat_unit.is_player else Constants.npc, { "health": combat_unit.battle_char.health, "inventory_item_types": player_inventory_item_types if combat_unit.is_player else [], "mod_types": combat_unit.mod_types });
   combat_unit.health_bar.value = (combat_unit.battle_char.health / CombatUnitData.default_max_health) * 100;
 
 func paralyzed_check(combat_unit: BattleSceneHelper.CombatUnit):

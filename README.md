@@ -16,7 +16,6 @@
 - BUG: refactor health bar to be in 1 krita file - then rebalance the 4 quadrants - right now, it is off and gives the wrong impression in terms of damage - (maybe not flipping and using left to right instead will fix this) (flipping the hp bar does this)
 - Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
 - make mod items that are applied visually display a tween on the combat_unit
-- save inventory and mods to AppState.data
 
 - Needed if number of buffs or debuffs goes above 4: limit number of mods on a combat_unit to 4
 - Consider: instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components - or do visible toggling
