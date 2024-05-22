@@ -19,12 +19,11 @@
 - save inventory and mods to AppState.data
 
 - Needed if number of buffs or debuffs goes above 4: limit number of mods on a combat_unit to 4
-- instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components
+- Consider: instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components - or do visible toggling
 
 ### general
 
-- make pause menu accessible for mobile
-- diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here
+- diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
 
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
