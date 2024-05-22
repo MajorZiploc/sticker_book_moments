@@ -14,7 +14,12 @@ func _input(event: InputEvent):
   if visible: return;
 
 func on_char_selected(key: CombatUnitData.Type):
-  AppState.insert_data(Constants.npc, {"combat_unit_data_type": key, "health": CombatUnitData.default_max_health});
+  AppState.insert_data(Constants.npc, {
+    "combat_unit_data_type": key,
+    "health": CombatUnitData.default_max_health,
+    "inventory_item_types": [],
+    "mod_types": [],
+  });
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/battle_scene.tscn", {});
 
