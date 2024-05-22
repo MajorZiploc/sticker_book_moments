@@ -63,12 +63,10 @@ offset_top = 142.0
 offset_right = 809.0
 offset_bottom = 642.0
 grow_horizontal = 2
-current_tab = 1
 clip_tabs = false
 all_tabs_in_front = true
 
 [node name="general" type="BoxContainer" parent="tabs"]
-visible = false
 layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="tabs/general"]
@@ -94,6 +92,7 @@ size_flags_vertical = 3
 text = "quit"
 
 [node name="options" type="BoxContainer" parent="tabs"]
+visible = false
 layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="tabs/options"]

@@ -2,14 +2,16 @@ extends Node2D
 
 @onready var ui: Control = $ui_root/ui;
 
-var pause_menu: Node = null;
+var pause_menu: Node;
 
 func _ready():
+  pause_menu = SceneHelper.make_pause_menu();
+  ui.add_child(pause_menu);
   create_char_choices();
 
 func _input(event: InputEvent):
-  pause_menu = SceneHelper.toggle_pause_menu(event, ui, pause_menu);
-  if pause_menu: return;
+  visible = SceneHelper.toggle_pause_menu(event, pause_menu);
+  if visible: return;
 
 func on_char_selected(key: CombatUnitData.Type):
   AppState.insert_data(Constants.player, {"combat_unit_data_type": key, "health": CombatUnitData.default_max_health});

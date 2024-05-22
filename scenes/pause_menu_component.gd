@@ -9,7 +9,7 @@ func _ready():
   qte_type_option_btn.selected = AppState.data.get("options", {}).get("qte_mode", -1);
 
 func _on_back_button_up():
-  get_parent().remove_child(self);
+  self.visible = false;
 
 func _on_fullscreen_toggle_button_up():
   var window_mode = (

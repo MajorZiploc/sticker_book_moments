@@ -42,7 +42,7 @@ class_name BattleScene
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
 
-var pause_menu: Node = null;
+var pause_menu: Node;
 
 var player_inventory_size = 9;
 var player_inventory_item_types = [];
@@ -108,6 +108,8 @@ var default_mod_item_size = 150;
 var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
+  pause_menu = SceneHelper.make_pause_menu();
+  ui.add_child(pause_menu);
   qte_mode = AppState.data.get("options", {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
@@ -263,8 +265,8 @@ func _input(event: InputEvent):
   if round_happening:
     qte_attempt(event);
     return;
-  pause_menu = SceneHelper.toggle_pause_menu(event, ui, pause_menu);
-  if pause_menu: return;
+  visible = SceneHelper.toggle_pause_menu(event, pause_menu);
+  if visible: return;
 
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
