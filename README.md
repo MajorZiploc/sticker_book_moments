@@ -4,7 +4,7 @@
 
 ### level_map
 
-- add Thanks for Playing screen at end of level_map
+- add characters tweening in Thanks for Playing screen
 
 - create node system - 4-6 nodes per level_map - rand enemy per node
 
@@ -25,7 +25,7 @@
 
 - track metrics of things like - num of items used, battle_scene wins, battle_scene loses, num of successful parry, total damage dealt, total damage taken
 
-- show metrics in the thanks_for_playing_scene
+- show metrics in the thanks_for_playing_scene - a see through window that opens if player clicks the 'metrics' button
 
 - make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning
 
