@@ -17,3 +17,6 @@ func _ready():
 func _input(event: InputEvent):
   var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
   if visible: return;
+
+func _on_options_btn_button_up():
+  SceneHelper.toggle_pause_menu_btn(pause_menu);

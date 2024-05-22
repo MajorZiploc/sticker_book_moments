@@ -256,8 +256,17 @@ offset_right = 1090.0
 offset_bottom = 240.0
 scale = Vector2(0.5, 0.5)
 
+[node name="options_btn" type="Button" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 563.0
+offset_right = 196.0
+offset_bottom = 638.0
+text = "Options"
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/player_choices/close_inventory_btn" to="." method="_on_close_inventory_btn_button_up"]
+[connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]

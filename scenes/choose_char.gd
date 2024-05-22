@@ -28,3 +28,6 @@ func create_char_choices():
     button.text = entry.name;
     box.add_child(button);
   ui.add_child(box);
+
+func _on_options_btn_button_up():
+  SceneHelper.toggle_pause_menu_btn(pause_menu);

@@ -5,6 +5,11 @@ func make_pause_menu():
   pause_menu.visible = false;
   return pause_menu;
 
+func toggle_pause_menu_btn(pause_menu: Node) -> bool:
+  var visible = not pause_menu.visible;
+  pause_menu.visible = visible;
+  return visible;
+
 func toggle_pause_menu(event: InputEvent, pause_menu: Node) -> bool:
   var visible = false;
   if event.is_action_pressed("pause"):

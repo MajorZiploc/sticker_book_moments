@@ -31,6 +31,7 @@ class_name BattleScene
 @onready var ui: Control = $ui_root/ui;
 @onready var npc_turn_ui: PanelContainer = $ui_root/ui/npc_turn;
 @onready var player_choices: BoxContainer = $ui_root/ui/player_choices;
+@onready var player_options_btn: Button = $ui_root/ui/options_btn;
 @onready var player_choices_action_btn: MenuButton = $ui_root/ui/player_choices/btn;
 @onready var player_choices_close_btn: Button = $ui_root/ui/player_choices/close_inventory_btn;
 @onready var player_inventory_grid: GridContainer = $ui_root/ui/player_inventory/panel/grid;
@@ -366,12 +367,16 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     var player_choices_tween_time = std_tween_time;
     var player_choices_tween = create_tween();
     player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
+    player_options_btn.disabled = false;
+    var player_options_tween_out_time = std_tween_time;
+    var player_options_tween_out = create_tween();
+    player_options_tween_out.tween_property(player_options_btn, "modulate:a", 1, player_options_tween_out_time).set_trans(Tween.TRANS_EXPO);
     toggle_disabled_player_choices(false);
     cam_tween = create_tween();
     cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
     progress_bar_tween = create_tween();
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
-    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
+    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, player_choices_tween_time, player_options_tween_out_time)).timeout;
     action_counter_progress_bar.value = 0;
     did_battle_end = defender.battle_char.health <= 0;
     if did_battle_end:
@@ -533,6 +538,9 @@ func perform_full_round_state():
   round_happening = true;
   var player_choices_tween_out = create_tween();
   player_choices_tween_out.tween_property(player_choices, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
+  player_options_btn.disabled = true;
+  var player_options_tween_out = create_tween();
+  player_options_tween_out.tween_property(player_options_btn, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
   is_player_turn = !is_player_turn;
   parried = false;
   qte_current_action_count = 0;
@@ -564,3 +572,6 @@ func show_player_choices_action_btn():
 func toggle_disabled_player_choices(b: bool):
   player_choices_action_btn.disabled = b;
   player_choices_close_btn.disabled = b;
+
+func _on_options_btn_button_up():
+  SceneHelper.toggle_pause_menu_btn(pause_menu);

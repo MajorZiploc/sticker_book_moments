@@ -44,6 +44,16 @@ theme_type_variation = &"HeaderXLarge"
 text = "Level Map"
 horizontal_alignment = 1
 
+[node name="options_btn" type="Button" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 563.0
+offset_right = 196.0
+offset_bottom = 638.0
+text = "Options"
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
+
+[connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
