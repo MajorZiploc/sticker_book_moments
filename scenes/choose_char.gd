@@ -20,6 +20,8 @@ func on_char_selected(key: CombatUnitData.Type):
     "health": CombatUnitData.default_max_health,
     "inventory_item_types": player_inventory_item_types,
     "mod_types": [],
+    "current_opponent_idx": 0,
+    "current_opponent_choice_keys": CombatUnitData.entries.keys(),
   });
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})

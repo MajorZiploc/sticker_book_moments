@@ -50,7 +50,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="ui_root/ui/title_card/panel/vbox"]
 layout_mode = 2
 theme_type_variation = &"HeaderXLarge"
-text = "Level Map"
+text = "Opponent"
 horizontal_alignment = 1
 
 [node name="options_btn" type="Button" parent="ui_root/ui"]
