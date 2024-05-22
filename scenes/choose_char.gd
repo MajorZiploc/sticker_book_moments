@@ -10,8 +10,8 @@ func _ready():
   ui.add_child(pause_menu);
 
 func _input(event: InputEvent):
-  var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
-  if visible: return;
+  var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);
+  if visible_: return;
 
 func on_char_selected(key: CombatUnitData.Type):
   var player_inventory_item_types = init_player_inventory_items();

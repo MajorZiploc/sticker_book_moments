@@ -29,6 +29,7 @@
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
+- move option component into the tscn files (under $ui_root/overlay) rather than instantiate call but keep the instantiate fn call as an example
 - create save slots (3 slots)
 - on launch of game: track if a run was occurring, then pick up where the player left off
 

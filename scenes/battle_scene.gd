@@ -254,8 +254,8 @@ func _input(event: InputEvent):
   if round_happening:
     qte_attempt(event);
     return;
-  var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
-  if visible: return;
+  var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);
+  if visible_: return;
 
 func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
