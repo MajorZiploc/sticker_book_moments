@@ -1,0 +1,146 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmk2mjnrpn73e"]
+
+[ext_resource type="Script" path="res://scenes/pause_menu_component.gd" id="1_tgs80"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4btj"]
+bg_color = Color(0.0352941, 0.0392157, 0.0784314, 1)
+
+[node name="pause_menu_component" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tgs80")
+
+[node name="background_panel" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(1400, 900)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -450.0
+offset_right = 700.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d4btj")
+
+[node name="title_card" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 83.0
+offset_right = 178.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="panel" type="PanelContainer" parent="title_card"]
+layout_mode = 0
+offset_left = -99.0
+offset_top = -78.0
+offset_right = 901.0
+offset_bottom = 48.0
+theme_type_variation = &"PanelMediumSticker"
+
+[node name="title" type="Label" parent="title_card/panel"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="tabs" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+offset_left = 309.0
+offset_top = 142.0
+offset_right = 809.0
+offset_bottom = 642.0
+grow_horizontal = 2
+clip_tabs = false
+all_tabs_in_front = true
+
+[node name="general" type="BoxContainer" parent="tabs"]
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="tabs/general"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="spacer2" type="Control" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="back" type="Button" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "back"
+
+[node name="spacer" type="Control" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="quit" type="Button" parent="tabs/general/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "quit"
+
+[node name="options" type="BoxContainer" parent="tabs"]
+visible = false
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="tabs/options"]
+layout_mode = 2
+
+[node name="fullscreen_toggle" type="HBoxContainer" parent="tabs/options/vbox"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "screen mode: "
+
+[node name="spacer" type="Control" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="box" type="BoxContainer" parent="tabs/options/vbox/fullscreen_toggle"]
+layout_mode = 2
+
+[node name="toggle" type="Button" parent="tabs/options/vbox/fullscreen_toggle/box"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "fullscreen toggle"
+
+[node name="qte_type" type="HBoxContainer" parent="tabs/options/vbox"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="tabs/options/vbox/qte_type"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "quick time event: "
+
+[node name="spacer" type="Control" parent="tabs/options/vbox/qte_type"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="selector" type="OptionButton" parent="tabs/options/vbox/qte_type"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Touch"
+popup/item_0/id = 0
+popup/item_1/text = "Button"
+popup/item_1/id = 1
+popup/item_2/text = "Touch and Button"
+popup/item_2/id = 2
+
+[connection signal="button_up" from="tabs/general/vbox/back" to="." method="_on_back_button_up"]
+[connection signal="button_up" from="tabs/general/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="tabs/options/vbox/fullscreen_toggle/box/toggle" to="." method="_on_fullscreen_toggle_button_up"]
