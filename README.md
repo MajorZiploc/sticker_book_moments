@@ -23,15 +23,16 @@
 
 ### general
 
+- make pause menu accessible for mobile
+- diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here
+
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
 - create save slots (3 slots)
-- On launch of game: track if a run was occurring, then pick up where the player left off
+- on launch of game: track if a run was occurring, then pick up where the player left off
 
-- diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here
-- Add controller support (and tab support) on ui
-- make pause menu accessible for mobile
+- add controller support (and tab support) on ui
 - add music and sound effects
 - update settings page with sliders for music and sound effects
 
