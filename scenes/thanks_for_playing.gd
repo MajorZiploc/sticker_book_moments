@@ -6,8 +6,8 @@ var pause_menu: Node;
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  AppState.insert_data(Constants.game_state, {
-    "game_completion_count": AppState.data.get(Constants.game_state, {}).get("game_completion_count", 0) + 1,
+  AppState.insert_data(Constants.metrics, {
+    "game_completion_count": AppState.data.get(Constants.metrics, {}).get("game_completion_count", 0) + 1,
   });
   ui.add_child(pause_menu);
 
