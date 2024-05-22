@@ -148,9 +148,11 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="close_btn" type="Button" parent="."]
-layout_mode = 2
-offset_left = 296.0
-offset_top = 409.0
-offset_right = 766.0
-offset_bottom = 632.0
+layout_mode = 0
+offset_left = 468.0
+offset_top = 398.0
+offset_right = 595.0
+offset_bottom = 473.0
 text = "close"
+
+[connection signal="button_up" from="close_btn" to="." method="_on_close_btn_button_up"]

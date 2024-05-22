@@ -23,3 +23,6 @@ func _ready():
   battle_lost_value.text = str(battle_results.get("loses", 0));
   var game_completion = metrics.get("game_completion", {});
   game_completions_value.text = str(game_completion.get("count", 0));
+
+func _on_close_btn_button_up():
+  visible = false;

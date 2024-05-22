@@ -5,9 +5,14 @@ func make_pause_menu():
   pause_menu.visible = false;
   return pause_menu;
 
-func toggle_pause_menu_btn(pause_menu: Node) -> bool:
-  var visible = not pause_menu.visible;
-  pause_menu.visible = visible;
+func make_stats_page():
+  var stats_page = preload("res://scenes/stats_page.tscn").instantiate();
+  stats_page.visible = false;
+  return stats_page;
+
+func toggle_node(node: Node) -> bool:
+  var visible = not node.visible;
+  node.visible = visible;
   return visible;
 
 func toggle_pause_menu(event: InputEvent, pause_menu: Node) -> bool:

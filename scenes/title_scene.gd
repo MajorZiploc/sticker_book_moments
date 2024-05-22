@@ -23,4 +23,4 @@ func _input(event: InputEvent):
   if visible_: return;
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_pause_menu_btn(pause_menu);
+  SceneHelper.toggle_node(pause_menu);

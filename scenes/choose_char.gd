@@ -72,4 +72,4 @@ func init_player_inventory_items():
   return player_inventory_item_types;
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_pause_menu_btn(pause_menu);
+  SceneHelper.toggle_node(pause_menu);
