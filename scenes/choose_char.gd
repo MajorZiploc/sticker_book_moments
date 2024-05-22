@@ -20,6 +20,8 @@ func on_char_selected(key: CombatUnitData.Type):
     "health": CombatUnitData.default_max_health,
     "inventory_item_types": player_inventory_item_types,
     "mod_types": [],
+  });
+  AppState.insert_data(Constants.game_state, {
     "current_opponent_idx": 0,
     "current_opponent_choice_keys": CombatUnitData.entries.keys(),
   });

@@ -8,8 +8,8 @@ var current_opponent_choice_keys: Array = [];
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  current_opponent_idx = AppState.data.get(Constants.player, {}).get("current_opponent_idx", 0);
-  current_opponent_choice_keys = AppState.data.get(Constants.player, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
+  current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
+  current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
   create_char_choices();
   ui.add_child(pause_menu);
 
@@ -35,8 +35,6 @@ func create_char_choices():
   box.custom_minimum_size = Vector2(5000 * scale_scalar, 0);
   box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
   for idx in current_opponent_choice_keys.size():
-    print('idx');
-    print(idx);
     var key = current_opponent_choice_keys[idx];
     var disabled = current_opponent_idx != idx;
     var entry = CombatUnitData.entries[key];
