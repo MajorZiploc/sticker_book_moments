@@ -115,8 +115,6 @@ func _ready():
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
   show_player_choices_action_btn();
-  init_player_inventory_items();
-  update_player_inventory();
   self.modulate.a = 0;
   ui.modulate.a = 0;
   action_counter_container.modulate.a = 0;
@@ -130,6 +128,8 @@ func _ready():
   npc_turn_ui.modulate.a = 0;
   _init_bg();
   var player_data = AppState.data[Constants.player];
+  player_inventory_item_types = player_data["inventory_item_types"];
+  update_player_inventory();
   var player_combat_unit_data_type = player_data["combat_unit_data_type"];
   player.unit_data = CombatUnitData.entries[player_combat_unit_data_type];
   var npc_data = AppState.data[Constants.npc];
@@ -167,17 +167,6 @@ func _ready():
   ui.add_child(pause_menu);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
-func init_player_inventory_items():
-  # TODO: move inventory items out into AppState.data
-  for i in player_inventory_size - 1:
-    if i < 6:
-      if i % 3 == 0:
-        player_inventory_item_types.append(BattleSceneHelper.ModItemType.PARALYZED);
-      elif i % 2 == 0:
-        player_inventory_item_types.append(BattleSceneHelper.ModItemType.POSION);
-      else:
-        player_inventory_item_types.append(BattleSceneHelper.ModItemType.STRENGTH);
-
 func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
   # TODO: move mods out into AppState.data
   return;
@@ -204,8 +193,7 @@ func update_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
 func update_player_inventory(disabled: bool = true):
   for n in player_inventory_grid.get_children():
     player_inventory_grid.remove_child(n);
-  # TODO: move inventory items out into AppState.data
-  for i in player_inventory_size - 1:
+  for i in Constants.max_inventory_size - 1:
     var panel = PanelContainer.new();
     if i < 6 and player_inventory_item_types.size() > i:
       var button = TextureButton.new();

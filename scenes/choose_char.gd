@@ -14,7 +14,12 @@ func _input(event: InputEvent):
   if visible: return;
 
 func on_char_selected(key: CombatUnitData.Type):
-  AppState.insert_data(Constants.player, {"combat_unit_data_type": key, "health": CombatUnitData.default_max_health});
+  var player_inventory_item_types = init_player_inventory_items();
+  AppState.insert_data(Constants.player, {
+    "combat_unit_data_type": key,
+    "health": CombatUnitData.default_max_health,
+    "inventory_item_types": player_inventory_item_types,
+  });
   AppState.save_session();
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
 
@@ -28,6 +33,18 @@ func create_char_choices():
     button.text = entry.name;
     box.add_child(button);
   ui.add_child(box);
+
+func init_player_inventory_items():
+  var player_inventory_item_types = [];
+  for i in Constants.max_inventory_size - 1:
+    if i < 6:
+      if i % 3 == 0:
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.PARALYZED);
+      elif i % 2 == 0:
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.POSION);
+      else:
+        player_inventory_item_types.append(BattleSceneHelper.ModItemType.STRENGTH);
+  return player_inventory_item_types;
 
 func _on_options_btn_button_up():
   SceneHelper.toggle_pause_menu_btn(pause_menu);
