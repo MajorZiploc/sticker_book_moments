@@ -26,13 +26,27 @@ func on_char_selected(key: CombatUnitData.Type):
 
 func create_char_choices():
   var box = BoxContainer.new();
+  box.scale = Vector2(0.5, 0.5);
   box.position = Vector2(40, 300);
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
-    var button = Button.new();
+    var entry_box = VBoxContainer.new();
+    var button = TextureButton.new();
+    var panel = PanelContainer.new();
+    var label = Label.new();
+    button.texture_normal = load(entry.bust_path);
     button.focus_entered.connect(func(): on_char_selected(key));
-    button.text = entry.name;
-    box.add_child(button);
+    label.text = entry.name;
+    label.theme_type_variation = &"HeaderMedium";
+    panel.add_child(label);
+    entry_box.add_child(button);
+    entry_box.add_child(panel);
+    box.add_child(entry_box);
+    var spacer = Control.new();
+    # NOT WORKING. consider making tscn stubs of this UI before continuing code
+    spacer.size_flags_horizontal = Control.SIZE_EXPAND;
+    spacer.size_flags_vertical = Control.SIZE_EXPAND;
+    box.add_child(spacer);
   ui.add_child(box);
 
 func init_player_inventory_items():
