@@ -4,8 +4,9 @@
 
 ### level_map
 
-- create node system - 4-6 nodes per level_map - rand enemy per node
 - add Thanks for Playing screen at end of level_map
+
+- create node system - 4-6 nodes per level_map - rand enemy per node
 
 ### battle_scene
 
@@ -22,9 +23,9 @@
 
 ### general
 
-- NEXT: use character faces instead of names or buttons in various scenes
-
 - diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
+- add music and sound effects
+- update settings page with sliders for music and sound effects
 
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
@@ -34,8 +35,6 @@
 - on launch of game: track if a run was occurring, then pick up where the player left off
 
 - add controller support (and tab support) on ui
-- add music and sound effects
-- update settings page with sliders for music and sound effects
 
 - flesh out my theme for ui
 - figure out how to run the tweens in parallel rather than using the separate tweens and taking the max timeout to this wait for all of them to finish
