@@ -10,7 +10,7 @@ func _ready():
   create_char_choices();
 
 func _input(event: InputEvent):
-  visible = SceneHelper.toggle_pause_menu(event, pause_menu);
+  var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
   if visible: return;
 
 func on_char_selected(key: CombatUnitData.Type):

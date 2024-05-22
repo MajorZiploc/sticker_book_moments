@@ -15,5 +15,5 @@ func _ready():
   OptionsHelper.set_options();
   
 func _input(event: InputEvent):
-  visible = SceneHelper.toggle_pause_menu(event, pause_menu);
+  var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
   if visible: return;
