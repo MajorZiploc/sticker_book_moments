@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var ui: Control = $ui_root/ui;
+@onready var ui: CanvasLayer = $ui_root;
 
 var pause_menu: Node;
 
@@ -25,15 +25,19 @@ func on_char_selected(key: CombatUnitData.Type):
   SceneSwitcher.change_scene("res://scenes/level_map.tscn", {})
 
 func create_char_choices():
-  var box = BoxContainer.new();
-  box.scale = Vector2(0.5, 0.5);
+  var box = HBoxContainer.new();
+  var scale_scalar = 0.5
+  box.scale = Vector2(scale_scalar, scale_scalar);
   box.position = Vector2(40, 300);
+  box.custom_minimum_size = Vector2(5000 * scale_scalar, 0);
+  box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
     var entry_box = VBoxContainer.new();
     var button = TextureButton.new();
     var panel = PanelContainer.new();
     var label = Label.new();
+    entry_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     button.texture_normal = load(entry.bust_path);
     button.focus_entered.connect(func(): on_char_selected(key));
     label.text = entry.name;
@@ -43,9 +47,7 @@ func create_char_choices():
     entry_box.add_child(panel);
     box.add_child(entry_box);
     var spacer = Control.new();
-    # NOT WORKING. consider making tscn stubs of this UI before continuing code
-    spacer.size_flags_horizontal = Control.SIZE_EXPAND;
-    spacer.size_flags_vertical = Control.SIZE_EXPAND;
+    spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     box.add_child(spacer);
   ui.add_child(box);
 
