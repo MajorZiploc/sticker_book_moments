@@ -46,10 +46,11 @@ func create_char_choices():
     var button = TextureButton.new();
     var panel = PanelContainer.new();
     var label = Label.new();
+    label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
     entry_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     button.texture_normal = load(entry.bust_path);
     if disabled:
-      entry_box.modulate = Color(0.2, 0.2, 0.2);
+      button.modulate = Color(0.2, 0.2, 0.2);
     else:
       button.focus_entered.connect(func(): on_char_selected(key));
     label.text = entry.name;

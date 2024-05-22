@@ -39,18 +39,33 @@ func create_char_choices():
   box.position = Vector2(40, 300);
   box.custom_minimum_size = Vector2(5000 * scale_scalar, 0);
   box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
+  var player_game_completion_count = AppState.data.get("game_completion", {}).get("count", 0);
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
+    var disabled = player_game_completion_count < entry.game_completion_count_required;
     var entry_box = VBoxContainer.new();
     var button = TextureButton.new();
+    var label_box = VBoxContainer.new();
     var panel = PanelContainer.new();
     var label = Label.new();
+    label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
     entry_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
+    label_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     button.texture_normal = load(entry.bust_path);
-    button.focus_entered.connect(func(): on_char_selected(key));
+    var info_label = null;
+    if disabled:
+      info_label = Label.new();
+      info_label.text = str(entry.game_completion_count_required) + " game completions" ;
+      info_label.theme_type_variation = &"HeaderMedium";
+      info_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+      button.modulate = Color(0.2, 0.2, 0.2);
+    else:
+      button.focus_entered.connect(func(): on_char_selected(key));
     label.text = entry.name;
     label.theme_type_variation = &"HeaderMedium";
-    panel.add_child(label);
+    label_box.add_child(label);
+    if info_label: label_box.add_child(info_label);
+    panel.add_child(label_box);
     entry_box.add_child(button);
     entry_box.add_child(panel);
     box.add_child(entry_box);

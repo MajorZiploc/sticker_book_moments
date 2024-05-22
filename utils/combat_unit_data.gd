@@ -17,13 +17,15 @@ class Data:
   var get_path_points;
   var health_modifier: float;
   var damage_modifier: float;
-  func _init(sprite_path_, bust_path_, name_, get_path_points_, health_modifier_, damage_modifier_):
+  var game_completion_count_required: int;
+  func _init(sprite_path_, bust_path_, name_, get_path_points_, health_modifier_, damage_modifier_, game_completion_count_required_):
     self.sprite_path = sprite_path_;
     self.bust_path = bust_path_;
     self.name = name_;
     self.get_path_points = get_path_points_;
     self.health_modifier = health_modifier_;
     self.damage_modifier = damage_modifier_;
+    self.game_completion_count_required = game_completion_count_required_;
 
 var entries: Dictionary = {
   Type.DUAL_HYBRID: Data.new(
@@ -33,6 +35,7 @@ var entries: Dictionary = {
     get_basic_path_points,
     1.1,
     0.9,
+    0,
   ),
   Type.TWO_HANDED_AXER: Data.new(
     "res://art/my/char/two_handed_axer.png",
@@ -41,6 +44,7 @@ var entries: Dictionary = {
     get_basic_path_points,
     1.2,
     0.8,
+    1,
   ),
   Type.SPEARWOMAN: Data.new(
     "res://art/my/char/spearwoman.png",
@@ -49,6 +53,7 @@ var entries: Dictionary = {
     get_basic_path_points,
     1,
     1,
+    2,
   ),
 }
 

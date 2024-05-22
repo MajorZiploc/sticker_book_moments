@@ -4,13 +4,13 @@
 
 ### level_map
 
-- add characters tweening in Thanks for Playing screen
+- MVP: add characters tweening in Thanks for Playing screen
 
 - create node system - 4-6 nodes per level_map - rand enemy per node
 
 ### battle_scene
 
-- Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
+- MVP: Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - make inventory items stackable
 
@@ -23,9 +23,8 @@
 
 ### general
 
-- make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning
-
-- diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
+- MVP: mainly need on screen buttons for button qte events for mobile - OSHelper.is_mobile() will help here
+- diff ui flavors for controller vs keyboard and mouse vs mobile
 - add music and sound effects
 - update settings page with sliders for music and sound effects
 
