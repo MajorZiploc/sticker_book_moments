@@ -23,8 +23,6 @@
 
 ### general
 
-- track metrics of things like - num of items used, battle_scene wins, battle_scene loses, num of successful parry, total damage dealt, total damage taken
-
 - show metrics in the thanks_for_playing_scene - a see through window that opens if player clicks the 'metrics' button
 
 - make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning

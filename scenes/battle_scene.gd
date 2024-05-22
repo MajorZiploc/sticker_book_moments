@@ -233,6 +233,11 @@ func _on_inventory_item_selected(idx):
     update_combat_unit_mods(combat_unit);
     update_player_inventory();
     perform_full_round_state();
+    var used_items = AppState.data.get(Constants.metrics, {}).get("used_items", {});
+    used_items[item_type] = used_items.get(item_type, 0) + 1;
+    AppState.insert_data(Constants.metrics, {
+      "used_items": used_items,
+    });
     full_round(player, npc, true);
 
 func to_player(player_: BattleSceneHelper.CombatUnit):
@@ -388,6 +393,11 @@ func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSce
   var damage_taker = defender;
   var damage_dealer = attacker;
   if is_npc_turn and parried:
+    var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+    parries["perfect"] = parries.get("perfect", 0) + 1;
+    AppState.insert_data(Constants.metrics, {
+      "parries": parries,
+    });
     damage_taker = attacker;
     damage_dealer = defender;
     defender.battle_char.postatk();
@@ -478,18 +488,25 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   box.anchor_left = 0.5;
   box.anchor_bottom = 0.5;
   box.anchor_top = 0.5;
-  box.grow_horizontal = 2
-  box.grow_vertical = 2
+  box.grow_horizontal = 2;
+  box.grow_vertical = 2;
   # box.layout_mode;
   # box.anchors_preset;
   var button = Button.new();
-  var result = "Loses" if not combat_unit.is_player else "Wins"
+  var result = "Loses" if not combat_unit.is_player else "Wins";
+  var battle_results = AppState.data.get(Constants.metrics, {}).get("battle_results", {});
+  var battle_results_key = "wins" if combat_unit.is_player else "loses";
+  battle_results[battle_results_key] = battle_results.get(battle_results_key, 0) + 1;
+  AppState.insert_data(Constants.metrics, {
+    "battle_results": battle_results,
+  });
   button.text = "Player " + result + "!";
   # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
   button.focus_entered.connect(_on_end_battle_scene);
   button.theme_type_variation = &"ButtonLarge";
   box.add_child(button);
   ui.add_child(box);
+  AppState.save_session();
 
 func create_qte_item():
   var sprite: Sprite2D = Sprite2D.new();
