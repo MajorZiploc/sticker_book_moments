@@ -92,7 +92,6 @@ offset_top = 563.0
 offset_right = 196.0
 offset_bottom = 638.0
 text = "Options"
-metadata/_edit_use_anchors_ = true
 
 [node name="stats_btn" type="Button" parent="ui_root/ui"]
 layout_mode = 0
