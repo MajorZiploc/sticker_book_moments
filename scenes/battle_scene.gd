@@ -110,7 +110,7 @@ var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  qte_mode = AppState.data.get("options", {}).get("qte_mode", qte_mode);
+  qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;

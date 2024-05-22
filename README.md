@@ -1,7 +1,5 @@
 # Sticker Book: Time Attack
 
-! replace "options" with Constants.options
-
 ## TODO:
 
 ### level_map
