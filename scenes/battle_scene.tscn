@@ -1,14 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=8 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
-[ext_resource type="Texture2D" uid="uid://bqda2v1osjqmn" path="res://art/my/bg/base/skybox/midday.png" id="3_iguue"]
+[ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_d7hhp"]
 [ext_resource type="Texture2D" uid="uid://dv43001dq4qm2" path="res://art/my/char/dual_wield_stub_bust.png" id="4_aqxti"]
-[ext_resource type="Texture2D" uid="uid://bwhv0ajbf6vlk" path="res://art/my/bg/obj/large/mountain.png" id="4_e8mo6"]
-[ext_resource type="Texture2D" uid="uid://gj6sfl74h844" path="res://art/my/bg/obj/large/clouds.png" id="4_t31yk"]
-[ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_tlgk2"]
-[ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="7_fq0pl"]
-[ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="8_lex5n"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -27,70 +22,7 @@ point_count = 3
 position = Vector2(564, 334)
 script = ExtResource("1_7ul4m")
 
-[node name="bg_root" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="skybox" type="TextureRect" parent="bg_root"]
-layout_mode = 0
-offset_left = -805.0
-offset_top = -1032.0
-offset_right = 1695.0
-offset_bottom = 468.0
-texture = ExtResource("3_iguue")
-
-[node name="sm_cloud" type="Sprite2D" parent="bg_root"]
-position = Vector2(288, -91)
-texture = ExtResource("7_fq0pl")
-hframes = 2
-
-[node name="sm_cloud_2" type="Sprite2D" parent="bg_root"]
-position = Vector2(119, -73)
-texture = ExtResource("7_fq0pl")
-hframes = 2
-frame = 1
-
-[node name="mountain" type="TextureRect" parent="bg_root"]
-layout_mode = 0
-offset_left = 36.0
-offset_top = -547.0
-offset_right = 1936.0
-offset_bottom = 253.0
-texture = ExtResource("4_e8mo6")
-
-[node name="floor" type="TextureRect" parent="bg_root"]
-layout_mode = 0
-offset_left = -807.0
-offset_top = -1085.0
-offset_right = 1693.0
-offset_bottom = 415.0
-texture = ExtResource("4_tlgk2")
-
-[node name="lg_cloud" type="Sprite2D" parent="bg_root"]
-position = Vector2(1604, -746)
-texture = ExtResource("4_t31yk")
-hframes = 2
-frame = 1
-
-[node name="lg_cloud_2" type="Sprite2D" parent="bg_root"]
-position = Vector2(-278, -762)
-texture = ExtResource("4_t31yk")
-hframes = 2
-
-[node name="md_cloud" type="Sprite2D" parent="bg_root"]
-position = Vector2(333, -308)
-texture = ExtResource("8_lex5n")
-hframes = 2
-
-[node name="md_cloud_2" type="Sprite2D" parent="bg_root"]
-position = Vector2(-542, -323)
-texture = ExtResource("8_lex5n")
-hframes = 2
-frame = 1
+[node name="bg_root" parent="." instance=ExtResource("2_d7hhp")]
 
 [node name="path_left" type="Path2D" parent="."]
 position = Vector2(-148.649, 0)

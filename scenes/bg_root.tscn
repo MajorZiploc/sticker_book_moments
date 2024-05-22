@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5hiemgtytg3"]
+
+[ext_resource type="Texture2D" uid="uid://bqda2v1osjqmn" path="res://art/my/bg/base/skybox/midday.png" id="1_46xmy"]
+[ext_resource type="Texture2D" uid="uid://cdp0fs15ybgbu" path="res://art/my/bg/obj/small/clouds.png" id="2_eqtff"]
+[ext_resource type="Texture2D" uid="uid://bwhv0ajbf6vlk" path="res://art/my/bg/obj/large/mountain.png" id="3_bbhxv"]
+[ext_resource type="Texture2D" uid="uid://b3py2ffexdgiw" path="res://art/my/bg/base/floor/rubble_field.png" id="4_jwgqw"]
+[ext_resource type="Texture2D" uid="uid://gj6sfl74h844" path="res://art/my/bg/obj/large/clouds.png" id="5_gcfow"]
+[ext_resource type="Texture2D" uid="uid://br8q5kors8idy" path="res://art/my/bg/obj/medium/clouds.png" id="6_k55s0"]
+
+[node name="bg_root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="skybox" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -805.0
+offset_top = -1032.0
+offset_right = 1695.0
+offset_bottom = 468.0
+texture = ExtResource("1_46xmy")
+
+[node name="sm_cloud" type="Sprite2D" parent="."]
+position = Vector2(288, -91)
+texture = ExtResource("2_eqtff")
+hframes = 2
+
+[node name="sm_cloud_2" type="Sprite2D" parent="."]
+position = Vector2(119, -73)
+texture = ExtResource("2_eqtff")
+hframes = 2
+frame = 1
+
+[node name="mountain" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -547.0
+offset_right = 1936.0
+offset_bottom = 253.0
+texture = ExtResource("3_bbhxv")
+
+[node name="floor" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -807.0
+offset_top = -1085.0
+offset_right = 1693.0
+offset_bottom = 415.0
+texture = ExtResource("4_jwgqw")
+
+[node name="lg_cloud" type="Sprite2D" parent="."]
+position = Vector2(1604, -746)
+texture = ExtResource("5_gcfow")
+hframes = 2
+frame = 1
+
+[node name="lg_cloud_2" type="Sprite2D" parent="."]
+position = Vector2(-278, -762)
+texture = ExtResource("5_gcfow")
+hframes = 2
+
+[node name="md_cloud" type="Sprite2D" parent="."]
+position = Vector2(333, -308)
+texture = ExtResource("6_k55s0")
+hframes = 2
+
+[node name="md_cloud_2" type="Sprite2D" parent="."]
+position = Vector2(-542, -323)
+texture = ExtResource("6_k55s0")
+hframes = 2
+frame = 1

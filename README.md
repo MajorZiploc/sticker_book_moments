@@ -22,6 +22,8 @@
 
 ### general
 
+- NEXT: use character faces instead of names or buttons in various scenes
+
 - diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
 
 - update settings page with control configuration for controller and keyboard
