@@ -10,9 +10,9 @@ func _on_play_btn_button_up():
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  ui.add_child(pause_menu);
   AppState.load_data(AppState.current_data_file_name);
   OptionsHelper.set_options();
+  ui.add_child(pause_menu);
   
 func _input(event: InputEvent):
   var visible = SceneHelper.toggle_pause_menu(event, pause_menu);

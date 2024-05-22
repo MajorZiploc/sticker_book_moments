@@ -109,7 +109,6 @@ var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  ui.add_child(pause_menu);
   qte_mode = AppState.data.get("options", {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
@@ -164,6 +163,7 @@ func _ready():
   init_combat_unit_mods(npc);
   update_combat_unit_mods(player);
   update_combat_unit_mods(npc);
+  ui.add_child(pause_menu);
   await get_tree().create_timer(max(scene_tween_time, ui_tween_time)).timeout;
 
 func init_player_inventory_items():

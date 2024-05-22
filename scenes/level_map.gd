@@ -6,8 +6,8 @@ var pause_menu: Node;
 
 func _ready():
   pause_menu = SceneHelper.make_pause_menu();
-  ui.add_child(pause_menu);
   create_char_choices();
+  ui.add_child(pause_menu);
 
 func _input(event: InputEvent):
   var visible = SceneHelper.toggle_pause_menu(event, pause_menu);
