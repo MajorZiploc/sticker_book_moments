@@ -49,7 +49,7 @@ func create_char_choices():
     entry_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     button.texture_normal = load(entry.bust_path);
     if disabled:
-      button.modulate = Color(0.8, 0.8, 0.8);
+      entry_box.modulate = Color(0.2, 0.2, 0.2);
     else:
       button.focus_entered.connect(func(): on_char_selected(key));
     label.text = entry.name;
