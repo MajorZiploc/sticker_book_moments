@@ -1,8 +1,8 @@
 extends Control
 class_name PauseMenuComponent
 
-@onready var qte_type_option_btn: OptionButton = $tabs/options/vbox/qte_type/selector;
-@onready var screen_mode_option_btn: OptionButton = $tabs/options/vbox/fullscreen_toggle/box/selector;
+@onready var qte_type_option_btn: OptionButton = $tabs/settings/vbox/qte_type/selector;
+@onready var screen_mode_option_btn: OptionButton = $tabs/settings/vbox/fullscreen_toggle/box/selector;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();

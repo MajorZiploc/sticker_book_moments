@@ -91,29 +91,29 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "quit"
 
-[node name="options" type="BoxContainer" parent="tabs"]
+[node name="settings" type="BoxContainer" parent="tabs"]
 visible = false
 layout_mode = 2
 
-[node name="vbox" type="VBoxContainer" parent="tabs/options"]
+[node name="vbox" type="VBoxContainer" parent="tabs/settings"]
 layout_mode = 2
 
-[node name="fullscreen_toggle" type="HBoxContainer" parent="tabs/options/vbox"]
+[node name="fullscreen_toggle" type="HBoxContainer" parent="tabs/settings/vbox"]
 layout_mode = 2
 
-[node name="label" type="Label" parent="tabs/options/vbox/fullscreen_toggle"]
+[node name="label" type="Label" parent="tabs/settings/vbox/fullscreen_toggle"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "screen mode:"
 
-[node name="spacer" type="Control" parent="tabs/options/vbox/fullscreen_toggle"]
+[node name="spacer" type="Control" parent="tabs/settings/vbox/fullscreen_toggle"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="box" type="BoxContainer" parent="tabs/options/vbox/fullscreen_toggle"]
+[node name="box" type="BoxContainer" parent="tabs/settings/vbox/fullscreen_toggle"]
 layout_mode = 2
 
-[node name="selector" type="OptionButton" parent="tabs/options/vbox/fullscreen_toggle/box"]
+[node name="selector" type="OptionButton" parent="tabs/settings/vbox/fullscreen_toggle/box"]
 layout_mode = 2
 item_count = 4
 selected = 1
@@ -127,19 +127,19 @@ popup/item_2/id = 2
 popup/item_3/text = "Fullscreen"
 popup/item_3/id = 3
 
-[node name="qte_type" type="HBoxContainer" parent="tabs/options/vbox"]
+[node name="qte_type" type="HBoxContainer" parent="tabs/settings/vbox"]
 layout_mode = 2
 
-[node name="label" type="Label" parent="tabs/options/vbox/qte_type"]
+[node name="label" type="Label" parent="tabs/settings/vbox/qte_type"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "quick time event: "
 
-[node name="spacer" type="Control" parent="tabs/options/vbox/qte_type"]
+[node name="spacer" type="Control" parent="tabs/settings/vbox/qte_type"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="selector" type="OptionButton" parent="tabs/options/vbox/qte_type"]
+[node name="selector" type="OptionButton" parent="tabs/settings/vbox/qte_type"]
 layout_mode = 2
 item_count = 3
 selected = 0
