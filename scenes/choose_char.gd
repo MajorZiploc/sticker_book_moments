@@ -1,4 +1,5 @@
 extends Node2D
+class_name ChooseChar
 
 @onready var ui: Control = $ui_root/ui;
 

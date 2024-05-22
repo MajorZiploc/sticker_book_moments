@@ -16,6 +16,7 @@ func _ready():
   OptionsHelper.set_options();
   ui.add_child(pause_menu);
   await get_tree().create_timer(scene_tween_time).timeout;
+  print(AppState.data);
   
 func _input(event: InputEvent):
   var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);

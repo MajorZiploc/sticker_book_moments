@@ -1,0 +1,156 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtc1qlg4vsign"]
+
+[ext_resource type="Script" path="res://scenes/stats_page.gd" id="1_51i3c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ae0bx"]
+bg_color = Color(0.0352941, 0.0392157, 0.0784314, 1)
+
+[node name="stats_page" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_51i3c")
+
+[node name="background_panel" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(1400, 900)
+layout_mode = 2
+offset_left = -139.0
+offset_top = -101.0
+offset_right = 1261.0
+offset_bottom = 799.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ae0bx")
+
+[node name="stats_panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 261.0
+offset_top = 115.0
+offset_right = 761.0
+offset_bottom = 358.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="vbox" type="VBoxContainer" parent="stats_panel"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="stats_panel/vbox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Stats"
+horizontal_alignment = 1
+
+[node name="divider" type="HSeparator" parent="stats_panel/vbox"]
+layout_mode = 2
+
+[node name="parries" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "parries:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="items_used" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "items used:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/items_used"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="battle_wins" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "battles won:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/battle_wins"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="battle_lost" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "battles lost:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/battle_lost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="game_completions" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "game completions:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/game_completions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="close_btn" type="Button" parent="."]
+layout_mode = 2
+offset_left = 296.0
+offset_top = 409.0
+offset_right = 766.0
+offset_bottom = 632.0
+text = "close"
