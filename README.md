@@ -23,6 +23,8 @@
 
 ### general
 
+- make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning
+
 - diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
 - add music and sound effects
 - update settings page with sliders for music and sound effects
