@@ -25,4 +25,5 @@ func on_qte_type_option_popup_pressed(qte_mode):
   AppState.save_session();
 
 func _on_quit_button_up():
-  get_tree().quit();
+  if OSHelper.is_web(): SceneSwitcher.change_scene("res://scenes/title_scene.tscn", {})
+  else: get_tree().quit();
