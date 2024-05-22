@@ -4,7 +4,7 @@ class_name ThanksForPlaying
 @onready var ui = $ui_root/ui;
 
 var pause_menu: Node;
-var stats_page: Node = null;
+var stats_page: Node;
 
 func _ready():
   stats_page = SceneHelper.make_stats_page();
