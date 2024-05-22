@@ -23,6 +23,10 @@
 
 ### general
 
+- track metrics of things like - num of items used, battle_scene wins, battle_scene loses, num of successful parry, total damage dealt, total damage taken
+
+- show metrics in the thanks_for_playing_scene
+
 - make choose_char characters unlockable by completing the game 1 time each - only have the first character usable in the beginning
 
 - diff ui flavors for controller vs keyboard and mouse vs mobile - OSHelper.is_mobile() will help here - mainly need on screen buttons for button qte events for mobile
