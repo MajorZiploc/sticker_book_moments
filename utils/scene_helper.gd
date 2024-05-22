@@ -16,3 +16,9 @@ func toggle_pause_menu(event: InputEvent, pause_menu: Node) -> bool:
     visible = not pause_menu.visible;
     pause_menu.visible = visible;
   return visible;
+
+func fade_in(nodes: Array[Node], tween_time):
+  for node in nodes:
+    var tween = create_tween();
+    node.modulate.a = 0;
+    tween.tween_property(node, "modulate:a", 1, tween_time).set_trans(Tween.TRANS_EXPO);
