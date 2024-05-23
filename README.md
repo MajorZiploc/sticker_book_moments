@@ -20,7 +20,6 @@
 
 ### general
 
-- MVP: default app_state based on platform in title_scene
 - Add color wheel selector for all colors on character
 
 - diff ui flavors for controller vs keyboard and mouse vs mobile
