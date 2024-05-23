@@ -544,7 +544,7 @@ func _on_end_battle_scene():
   SceneSwitcher.change_scene(next_scene, {})
 
 func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
-  var box = BoxContainer.new();
+  var box = VBoxContainer.new();
   box.anchor_right = 0.5;
   box.anchor_left = 0.5;
   box.anchor_bottom = 0.5;
@@ -553,6 +553,11 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   box.grow_vertical = 2;
   # box.layout_mode;
   # box.anchors_preset;
+  var label_panel = PanelContainer.new();
+  label_panel.theme_type_variation = &"PanelSmallSticker";
+  var label = Label.new();
+  label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+  label.theme_type_variation = &"HeaderLarge";
   var button = Button.new();
   var result = "Loses" if not combat_unit.is_player else "Wins";
   var battle_results = AppState.data.get(Constants.metrics, {}).get("battle_results", {});
@@ -561,10 +566,13 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   AppState.insert_data(Constants.metrics, {
     "battle_results": battle_results,
   });
-  button.text = "Player " + result + "!";
+  label.text = "Player " + result + "!";
+  button.text = "Continue";
   # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
   button.focus_entered.connect(_on_end_battle_scene);
   button.theme_type_variation = &"ButtonLarge";
+  label_panel.add_child(label);
+  box.add_child(label_panel);
   box.add_child(button);
   ui.add_child(box);
   AppState.save_session();
