@@ -212,38 +212,38 @@ offset_bottom = 40.0
 
 [node name="down" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
 layout_mode = 0
-offset_left = 81.0
-offset_top = 562.0
-offset_right = 241.0
-offset_bottom = 722.0
-scale = Vector2(0.5, 0.5)
+offset_left = 65.0
+offset_top = 582.0
+offset_right = 225.0
+offset_bottom = 742.0
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("6_tqanu")
 
 [node name="up" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 469.0
-offset_right = 240.0
-offset_bottom = 629.0
-scale = Vector2(0.5, 0.5)
+offset_left = 65.0
+offset_top = 501.0
+offset_right = 225.0
+offset_bottom = 661.0
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("7_qko18")
 
 [node name="left" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 516.0
+offset_top = 542.0
 offset_right = 169.0
-offset_bottom = 676.0
-scale = Vector2(0.5, 0.5)
+offset_bottom = 702.0
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("8_ec1dm")
 
 [node name="right" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 516.0
-offset_right = 317.0
-offset_bottom = 676.0
-scale = Vector2(0.5, 0.5)
+offset_left = 124.0
+offset_top = 543.0
+offset_right = 284.0
+offset_bottom = 703.0
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("8_gpuf6")
 
 [node name="cam" type="Camera2D" parent="."]
