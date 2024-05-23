@@ -2,7 +2,7 @@ extends Node2D
 class_name TitleScene
 
 @onready var ui = $ui_root/ui;
-@onready var mobile_checkbox = $ui_root/ui/mobile/checkbox;
+@onready var mobile_checkbox: CheckBox = $ui_root/ui/mobile/checkbox;
 
 var pause_menu: Node;
 var stats_page: Node;
@@ -37,5 +37,5 @@ func _on_stats_btn_button_up():
 
 func _on_mobile_checkbox_toggled(toggled_on: bool):
   OptionsHelper.set_is_mobile(toggled_on);
-  OptionsHelper.set_options();
+  OptionsHelper.set_qte_mode(BattleSceneHelper.QTEMode.TOUCH if toggled_on else BattleSceneHelper.QTEMode.BUTTON);
   AppState.save_session();

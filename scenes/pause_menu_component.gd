@@ -3,6 +3,7 @@ class_name PauseMenuComponent
 
 @onready var qte_type_option_btn: OptionButton = $tabs/settings/vbox/qte_type/selector;
 @onready var screen_mode_option_btn: OptionButton = $tabs/settings/vbox/fullscreen_toggle/box/selector;
+@onready var mobile_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();
@@ -11,6 +12,8 @@ func _ready():
   var screen_mode_option_popup = screen_mode_option_btn.get_popup();
   screen_mode_option_popup.connect("id_pressed", on_screen_mode_option_popup_pressed);
   screen_mode_option_btn.selected = AppState.data.get(Constants.options, {}).get("window_mode", -1);
+  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
+  mobile_checkbox.button_pressed = is_mobile;
 
 func _on_back_button_up():
   self.visible = false;
