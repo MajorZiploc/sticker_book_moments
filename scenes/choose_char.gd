@@ -59,7 +59,7 @@ func create_char_choices():
       info_label = Label.new();
       info_label.text = str(entry.game_completion_count_required) + " game completions" ;
       info_label.theme_type_variation = &"HeaderMedium";
-      info_label.set("theme_override_colors/font_color", Color(1.0, 0.0, 0.0, 1.0));
+      info_label.set("theme_override_colors/font_color", Color(1.0, 0.4, 0.4, 1.0));
       info_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
       button.modulate = Color(0.2, 0.2, 0.2);
     else:
