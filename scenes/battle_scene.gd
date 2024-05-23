@@ -62,6 +62,9 @@ var qte_min_y = 160;
 var qte_max_y = 540;
 var std_tween_time = 1;
 var qte_mode = BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON;
+var qte_area_position = Vector2(qte_min_x, qte_min_y);
+var qte_area_size = Vector2(qte_max_x - qte_min_x, qte_max_y - qte_min_y);
+var qte_area = Rect2(qte_area_position, qte_area_size);
 
 var qte_items: Array[BattleSceneHelper.QTEItem] = [];
 
@@ -275,8 +278,8 @@ func qte_attempt(event: InputEvent):
     # NOTE: event.position sometimes has to be one of these: [make_input_local(event).position, to_local(event.position)]
     if sprite_rect.has_point(event.position):
       qte_event_update();
-  elif qte_item.is_touch_event:
-    failed_parry = true;
+    elif qte_area.has_point(event.position):
+        failed_parry = true;
   if failed_parry:
     var tween = create_tween();
     var og_modulate = qte_item.sprite.modulate;
