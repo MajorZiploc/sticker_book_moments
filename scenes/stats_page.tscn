@@ -71,6 +71,25 @@ size_flags_horizontal = 3
 text = "0"
 horizontal_alignment = 2
 
+[node name="failed_parries" type="HBoxContainer" parent="stats_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="label" type="Label" parent="stats_panel/vbox/failed_parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "failed parries:"
+
+[node name="spacer" type="Control" parent="stats_panel/vbox/failed_parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="Label" parent="stats_panel/vbox/failed_parries"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
 [node name="items_used" type="HBoxContainer" parent="stats_panel/vbox"]
 layout_mode = 2
 size_flags_vertical = 3

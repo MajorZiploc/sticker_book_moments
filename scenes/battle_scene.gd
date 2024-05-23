@@ -285,6 +285,11 @@ func qte_attempt(event: InputEvent):
       tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
       tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
     hide_tween.tween_property(qte_item.sprite, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
+    var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+    parries["fail"] = parries.get("fail", 0) + 1;
+    AppState.insert_data(Constants.metrics, {
+      "parries": parries,
+    });
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);

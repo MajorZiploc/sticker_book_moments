@@ -6,6 +6,7 @@ class_name StatsPage
 @onready var battle_wins_value: Label = $stats_panel/vbox/battle_wins/value;
 @onready var battle_lost_value: Label = $stats_panel/vbox/battle_lost/value;
 @onready var game_completions_value: Label = $stats_panel/vbox/game_completions/value;
+@onready var failed_parries_value: Label = $stats_panel/vbox/failed_parries/value;
 
 func _ready():
   # AppState.load_data(AppState.current_data_file_name); # NOTE: REMOVE THIS LINE
@@ -18,6 +19,7 @@ func _ready():
   items_used_value.text = str(total_items_used);
   var parries = metrics.get("parries", {});
   parries_value.text = str(parries.get("perfect", 0));
+  failed_parries_value.text = str(parries.get("fail", 0));
   var battle_results = metrics.get("battle_results", {});
   battle_wins_value.text = str(battle_results.get("wins", 0));
   battle_lost_value.text = str(battle_results.get("loses", 0));
