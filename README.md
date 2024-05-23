@@ -11,7 +11,7 @@
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - make inventory items stackable
 
-- BUG: refactor health bar to be in 1 krita file - then rebalance the 4 quadrants - right now, it is off and gives the wrong impression in terms of damage - (maybe not flipping and using left to right instead will fix this) (flipping the hp bar does this)
+- BUG: refactor health bar to be in 1 krita file - then rebalance the 4 quadrants - right now, it is off and gives the wrong impression in terms of damage - (maybe use flipping instead of using left to right instead will fix this)
 - Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
 - make mod items that are applied visually display a tween on the combat_unit
 
