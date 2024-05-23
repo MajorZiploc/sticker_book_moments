@@ -66,3 +66,16 @@ func get_basic_path_points(player_position, npc_position) -> Array[Vector2]:
     player_position,
   ];
 
+func init_idle_tweens(sprite: Sprite2D, sprite_scalar: float = 1.0) -> Array[Tween]:
+  var scale_tween = create_tween();
+  var og_scale = sprite.scale;
+  scale_tween.tween_property(sprite, "scale", Vector2(1.05 * sprite_scalar, 1.05 * sprite_scalar), 1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.set_loops(-1);
+  var rotation_tween = create_tween();
+  var og_rotation = sprite.rotation_degrees;
+  rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.set_loops(-1);
+  return [scale_tween, rotation_tween];

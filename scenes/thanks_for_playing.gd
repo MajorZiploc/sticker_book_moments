@@ -35,7 +35,7 @@ func _ready():
     combat_unit.position = position;
     combat_unit.hframes = 2;
     combat_unit.vframes = 2;
-    _init_idle_tweens(combat_unit);
+    CombatUnitData.init_idle_tweens(combat_unit, sprite_scalar);
     # combat_unit.z_index = -1;
     combat_units.append(combat_unit);
     combat_units_box.add_child(combat_unit);
@@ -54,16 +54,3 @@ func _on_options_btn_button_up():
 
 func _on_stats_btn_button_up():
   SceneHelper.toggle_node(stats_page);
-
-func _init_idle_tweens(sprite: Sprite2D):
-  var scale_tween = create_tween();
-  var og_scale = sprite.scale;
-  scale_tween.tween_property(sprite, "scale", Vector2(1.05 * sprite_scalar, 1.05 * sprite_scalar), 1).set_trans(Tween.TRANS_EXPO);
-  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(Tween.TRANS_EXPO);
-  scale_tween.set_loops(-1);
-  var rotation_tween = create_tween();
-  var og_rotation = sprite.rotation_degrees;
-  rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.set_loops(-1);

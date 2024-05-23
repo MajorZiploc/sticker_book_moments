@@ -40,22 +40,11 @@ var frame_data_dict: Dictionary = {
 func _ready():
   _init_idle_tweens();
 
+
 func _init_idle_tweens():
-  var scale_tween = create_tween();
-  var og_scale = sprite.scale;
-  scale_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 1).set_trans(Tween.TRANS_EXPO);
-  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(Tween.TRANS_EXPO);
-  scale_tween.set_loops(-1);
-  var rotation_tween = create_tween();
-  var og_rotation = sprite.rotation_degrees;
-  rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.set_loops(-1);
-  scale_tween.stop();
-  rotation_tween.stop();
+  var tweens = CombatUnitData.init_idle_tweens(sprite);
   var frame_data: FrameData.Data = frame_data_dict[FrameType.IDLE];
-  frame_data.animate.tweens.append_array([scale_tween, rotation_tween]);
+  frame_data.animate.tweens.append_array(tweens);
 
 func play_frame_animation(frame_type_to_play: FrameType):
   for cur_frame_type in FrameType:
