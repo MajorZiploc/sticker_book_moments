@@ -40,6 +40,10 @@ class_name BattleScene
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
 @onready var qte_onscreen_btns: Control = $ui_root/ui/qte_onscreen_btns;
+@onready var qte_onscreen_btn_up: Control = $ui_root/ui/qte_onscreen_btns/up;
+@onready var qte_onscreen_btn_down: Control = $ui_root/ui/qte_onscreen_btns/down;
+@onready var qte_onscreen_btn_left: Control = $ui_root/ui/qte_onscreen_btns/left;
+@onready var qte_onscreen_btn_right: Control = $ui_root/ui/qte_onscreen_btns/right;
 
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
@@ -362,8 +366,7 @@ func tween_used_mod_draw_item(mod: Sprite2D):
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
   qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
-  # is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
-  is_mobile_directional = true;
+  is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
   var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
@@ -639,8 +642,11 @@ func toggle_disabled_player_choices(b: bool):
 func _on_options_btn_button_up():
   SceneHelper.toggle_node(pause_menu);
 
-func on_qte_dir_button_up(key: String):
-  # TODO: very short tween to show button was pressed
+func on_qte_dir_button_up(button: TextureButton, key: String):
+  var tween = create_tween();
+  var og_modulate = button.modulate;
+  tween.tween_property(button, "modulate", Color(0.7, 0.7, 0.7), 0.05).set_trans(Tween.TRANS_LINEAR);
+  tween.tween_property(button, "modulate", og_modulate, 0.05).set_trans(Tween.TRANS_LINEAR);
   if failed_parry: return;
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
@@ -651,13 +657,13 @@ func on_qte_dir_button_up(key: String):
     on_failed_parry(qte_item);
 
 func _on_qte_dir_right_button_up():
-  on_qte_dir_button_up("right");
+  on_qte_dir_button_up(qte_onscreen_btn_right, "right");
 
 func _on_qte_dir_left_button_up():
-  on_qte_dir_button_up("left");
+  on_qte_dir_button_up(qte_onscreen_btn_left, "left");
 
 func _on_qte_dir_up_button_up():
-  on_qte_dir_button_up("up");
+  on_qte_dir_button_up(qte_onscreen_btn_up, "up");
 
 func _on_qte_dir_down_button_up():
-  on_qte_dir_button_up("down");
+  on_qte_dir_button_up(qte_onscreen_btn_down, "down");
