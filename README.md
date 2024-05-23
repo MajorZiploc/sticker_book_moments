@@ -20,6 +20,9 @@
 
 ### general
 
+- MVP: reduce time per stage(opponent) by 0.5 seconds for each step to a min time of 3.5 seconds
+- MVP: add name or majorziploc on the title_scene
+- MVP: default app_state based on platform in title_scene
 - MVP: mainly need on screen buttons for button qte events for mobile - OSHelper.is_mobile() will help here - make sure it doesnt overlap the qte area
 - Add color wheel selector for all colors on character
 
