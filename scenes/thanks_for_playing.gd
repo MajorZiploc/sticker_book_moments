@@ -20,6 +20,7 @@ func _ready():
       "count": AppState.data.get(Constants.metrics, {}).get("game_completion", {}).get("count", 0) + 1,
     }
   });
+  AppState.save_session();
   ui.add_child(stats_page);
   ui.add_child(pause_menu);
   var position = Vector2(210, 470);
