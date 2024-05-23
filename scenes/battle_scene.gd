@@ -71,6 +71,7 @@ var qte_mode = BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON;
 var qte_area_position = Vector2(qte_min_x, qte_min_y);
 var qte_area = calc_qte_area();
 var is_mobile_directional = false;
+var current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
 
 func calc_qte_area():
   var qte_area_size = Vector2(qte_max_x - qte_min_x, qte_max_y - qte_min_y);
@@ -401,7 +402,7 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, mobile_dir_tween_time)).timeout;
     await get_tree().create_timer(0.5).timeout;
     should_hit = paralyzed_check(defender);
-    if should_hit: await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
+    if should_hit: await attack_sequence(defender, attacker, 5.0 - (0.5 * (current_opponent_idx - 1)), true, Tween.TRANS_LINEAR);
     var player_choices_tween_time = std_tween_time;
     var player_choices_tween = create_tween();
     player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);
@@ -529,7 +530,6 @@ func create_qte_items(is_npc_turn):
   qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func _on_end_battle_scene():
-  var current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
   var current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
   # TODO: default to thanks_for_playing_scene
   var next_scene = "res://scenes/title_scene.tscn";
