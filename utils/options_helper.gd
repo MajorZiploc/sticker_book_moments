@@ -10,3 +10,6 @@ func set_window_mode(window_mode):
 
 func set_qte_mode(qte_mode):
   AppState.insert_data(Constants.options, { "qte_mode": qte_mode });
+
+func set_is_mobile(is_mobile):
+  AppState.insert_data(Constants.options, { "is_mobile": is_mobile });
