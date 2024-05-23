@@ -37,4 +37,5 @@ func _on_stats_btn_button_up():
 
 func _on_mobile_checkbox_toggled(toggled_on: bool):
   OptionsHelper.set_is_mobile(toggled_on);
+  OptionsHelper.set_options();
   AppState.save_session();
