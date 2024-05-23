@@ -27,3 +27,8 @@ func on_screen_mode_option_popup_pressed(window_mode):
 func _on_quit_button_up():
   if OSHelper.is_web(): SceneSwitcher.change_scene("res://scenes/title_scene.tscn", {})
   else: get_tree().quit();
+
+func _on_mobile_checkbox_toggled(toggled_on: bool):
+  OptionsHelper.set_is_mobile(toggled_on);
+  print(toggled_on)
+  AppState.save_session();

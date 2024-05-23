@@ -150,5 +150,21 @@ popup/item_1/id = 1
 popup/item_2/text = "Touch and Button"
 popup/item_2/id = 2
 
+[node name="mobile" type="HBoxContainer" parent="tabs/settings/vbox"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="tabs/settings/vbox/mobile"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "mobile?"
+
+[node name="spacer" type="Control" parent="tabs/settings/vbox/mobile"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="checkbox" type="CheckBox" parent="tabs/settings/vbox/mobile"]
+layout_mode = 2
+
 [connection signal="button_up" from="tabs/general/vbox/back" to="." method="_on_back_button_up"]
 [connection signal="button_up" from="tabs/general/vbox/quit" to="." method="_on_quit_button_up"]
+[connection signal="toggled" from="tabs/settings/vbox/mobile/checkbox" to="." method="_on_mobile_checkbox_toggled"]
