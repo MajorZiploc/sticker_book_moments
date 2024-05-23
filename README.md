@@ -10,7 +10,6 @@
 
 ### battle_scene
 
-- MVP: Make the QTE event more strict; if a user fails a step in the QTE event; then they fail the event
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - make inventory items stackable
 

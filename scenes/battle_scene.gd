@@ -49,6 +49,7 @@ var player_inventory_size = 9;
 var player_inventory_item_types = [];
 var round_happening = false;
 var parried = false;
+var failed_parry = false;
 var player_init_position = Vector2(2, 0);
 var npc_init_position = Vector2(1020, 0);
 var attack_position_offset = Vector2(175, 0);
@@ -257,10 +258,15 @@ func _input(event: InputEvent):
   if visible_: return;
 
 func qte_attempt(event: InputEvent):
+  if failed_parry: return;
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
+  var was_qte_item_key_pressed = valid_qte_keys.any(func(key): return event.is_action_pressed(key));
+  if not was_qte_item_key_pressed: return;
   if qte_item.is_button_event and event.is_action_pressed(qte_item.key):
     qte_event_update();
+  elif qte_item.is_button_event:
+    failed_parry = true;
   if qte_item.is_touch_event and event.is_action_pressed(qte_item.key):
     var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
     # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
@@ -269,6 +275,16 @@ func qte_attempt(event: InputEvent):
     # NOTE: event.position sometimes has to be one of these: [make_input_local(event).position, to_local(event.position)]
     if sprite_rect.has_point(event.position):
       qte_event_update();
+  elif qte_item.is_touch_event:
+    failed_parry = true;
+  if failed_parry:
+    var tween = create_tween();
+    var hide_tween = create_tween();
+    var og_modulate = qte_item.sprite.modulate;
+    for n in 2:
+      tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
+      tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
+    hide_tween.tween_property(qte_item.sprite, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -392,7 +408,7 @@ func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSce
   attacker.battle_char.postatk();
   var damage_taker = defender;
   var damage_dealer = attacker;
-  if is_npc_turn and parried:
+  if is_npc_turn and parried and not failed_parry:
     var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
     parries["perfect"] = parries.get("perfect", 0) + 1;
     AppState.insert_data(Constants.metrics, {
@@ -451,6 +467,7 @@ func hide_qte_item():
   qte_tween.tween_property(qte_item.sprite, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func show_qte_item():
+  if failed_parry: return;
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   var qte_box_tween = create_tween();
@@ -551,6 +568,7 @@ func perform_full_round_state():
   player_options_tween_out.tween_property(player_options_btn, "modulate:a", 0, std_tween_time).set_trans(Tween.TRANS_EXPO);
   is_player_turn = !is_player_turn;
   parried = false;
+  failed_parry = false;
   qte_current_action_count = 0;
 
 func on_player_choices_menu_item_pressed(id):
