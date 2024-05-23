@@ -532,10 +532,10 @@ func create_qte_items(is_npc_turn):
   var qte_box_tween = create_tween();
   qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
-func _on_end_battle_scene():
+func _on_end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   var current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
-  var next_scene = "res://scenes/thanks_for_playing.tscn";
-  if current_opponent_idx < current_opponent_choice_keys.size() - 1:
+  var next_scene = "res://scenes/thanks_for_playing.tscn" if combat_unit.is_player else "res://scenes/title_scene.tscn";
+  if combat_unit.is_player and current_opponent_idx < current_opponent_choice_keys.size() - 1:
     AppState.insert_data(Constants.game_state, {
       "current_opponent_idx": current_opponent_idx + 1,
     });
@@ -566,9 +566,9 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
     "battle_results": battle_results,
   });
   label.text = "Player " + result + "!";
-  button.text = "Continue";
+  button.text = "Back to Title" if not combat_unit.is_player else "Continue";
   # button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
-  button.focus_entered.connect(_on_end_battle_scene);
+  button.focus_entered.connect(func(): _on_end_battle_scene(combat_unit));
   button.theme_type_variation = &"ButtonLarge";
   label_panel.add_child(label);
   box.add_child(label_panel);
