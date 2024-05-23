@@ -278,10 +278,11 @@ func qte_attempt(event: InputEvent):
   if not qte_item: return;
   var was_qte_item_key_pressed = valid_qte_keys.any(func(key): return event.is_action_pressed(key));
   if not was_qte_item_key_pressed: return;
-  if qte_item.is_button_event and event.is_action_pressed(qte_item.key):
-    qte_event_update();
-  elif qte_item.is_button_event:
-    failed_parry = true;
+  if not qte_onscreen_btns.visible and qte_item.is_button_event:
+    if event.is_action_pressed(qte_item.key):
+      qte_event_update();
+    else:
+      failed_parry = true;
   if qte_item.is_touch_event and event.is_action_pressed(qte_item.key):
     var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
     # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
@@ -650,7 +651,7 @@ func on_qte_dir_button_up(button: TextureButton, key: String):
   if failed_parry: return;
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
-  if qte_item.key == "right":
+  if qte_item.key == key:
     qte_event_update();
   else:
     failed_parry = true;
