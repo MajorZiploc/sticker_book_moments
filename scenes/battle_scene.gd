@@ -278,22 +278,26 @@ func qte_attempt(event: InputEvent):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   var was_qte_item_key_pressed = valid_qte_keys.any(func(key): return event.is_action_pressed(key));
+  var valid_directional_qte_keys = valid_qte_keys.filter(func(key): return key != "tap");
   if not was_qte_item_key_pressed: return;
   if not qte_onscreen_btns.visible and qte_item.is_button_event:
     if event.is_action_pressed(qte_item.key):
       qte_event_update();
     else:
       failed_parry = true;
-  if qte_item.is_touch_event and event.is_action_pressed(qte_item.key):
-    var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
-    # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
-    var sprite_position = qte_item.sprite.global_position - (rect_size / 2.0);
-    var sprite_rect = Rect2(sprite_position, rect_size);
-    # NOTE: event.position sometimes has to be one of these: [make_input_local(event).position, to_local(event.position)]
-    if sprite_rect.has_point(event.position):
-      qte_event_update();
-    elif qte_area.has_point(event.position):
+  if qte_item.is_touch_event:
+    if valid_directional_qte_keys.any(func(key): return event.is_action_pressed(key)):
         failed_parry = true;
+    elif event.is_action_pressed(qte_item.key):
+      var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
+      # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
+      var sprite_position = qte_item.sprite.global_position - (rect_size / 2.0);
+      var sprite_rect = Rect2(sprite_position, rect_size);
+      # NOTE: event.position sometimes has to be one of these: [make_input_local(event).position, to_local(event.position)]
+      if sprite_rect.has_point(event.position):
+        qte_event_update();
+      elif qte_area.has_point(event.position):
+          failed_parry = true;
   if failed_parry:
     on_failed_parry(qte_item);
 
