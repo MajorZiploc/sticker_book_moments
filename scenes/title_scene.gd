@@ -16,9 +16,9 @@ func _ready():
   stats_page = SceneHelper.make_stats_page();
   pause_menu = SceneHelper.make_pause_menu();
   AppState.load_data(AppState.current_data_file_name);
-  OptionsHelper.set_options();
   var is_mobile = OSHelper.is_mobile();
   OptionsHelper.set_is_mobile(is_mobile);
+  OptionsHelper.set_options();
   mobile_checkbox.button_pressed = is_mobile;
   ui.add_child(stats_page);
   ui.add_child(pause_menu);

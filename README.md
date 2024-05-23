@@ -20,6 +20,8 @@
 
 ### general
 
+- OSHelper.is_mobile() check doesnt seem to work on mobile browsers on itch.io. currently have a work around where user can select if on mobile in title_scene or options
+
 - Add color wheel selector for all colors on character
 
 - diff ui flavors for controller vs keyboard and mouse vs mobile

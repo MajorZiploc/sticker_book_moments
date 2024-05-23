@@ -372,7 +372,8 @@ func tween_used_mod_draw_item(mod: Sprite2D):
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
   qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
-  is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
+  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
+  is_mobile_directional = is_mobile && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
   var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;

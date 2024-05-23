@@ -2,7 +2,8 @@ extends Node
 
 func set_options():
   set_window_mode(AppState.data.get(Constants.options, {}).get("window_mode", DisplayServer.window_get_mode()));
-  set_qte_mode(AppState.data.get(Constants.options, {}).get("qte_mode", BattleSceneHelper.QTEMode.TOUCH if OSHelper.is_mobile() else BattleSceneHelper.QTEMode.BUTTON));
+  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
+  set_qte_mode(AppState.data.get(Constants.options, {}).get("qte_mode", BattleSceneHelper.QTEMode.TOUCH if is_mobile else BattleSceneHelper.QTEMode.BUTTON));
 
 func set_window_mode(window_mode):
   DisplayServer.window_set_mode(window_mode);
