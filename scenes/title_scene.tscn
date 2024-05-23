@@ -132,7 +132,7 @@ theme_type_variation = &"PanelSmallSticker"
 
 [node name="label" type="Label" parent="ui_root/ui/mobile/panel"]
 layout_mode = 2
-theme_type_variation = &"HeaderSmall"
+theme_type_variation = &"HeaderMedium"
 text = "mobile?"
 
 [node name="cam" type="Camera2D" parent="."]
