@@ -535,9 +535,8 @@ func create_qte_items(is_npc_turn):
 
 func _on_end_battle_scene():
   var current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
-  # TODO: default to thanks_for_playing_scene
-  var next_scene = "res://scenes/title_scene.tscn";
-  if current_opponent_idx < current_opponent_choice_keys.size():
+  var next_scene = "res://scenes/thanks_for_playing.tscn";
+  if current_opponent_idx < current_opponent_choice_keys.size() - 1:
     AppState.insert_data(Constants.game_state, {
       "current_opponent_idx": current_opponent_idx + 1,
     });
