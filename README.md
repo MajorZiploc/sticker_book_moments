@@ -21,6 +21,8 @@
 ### general
 
 - MVP: mainly need on screen buttons for button qte events for mobile - OSHelper.is_mobile() will help here - make sure it doesnt overlap the qte area
+- Add color wheel selector for all colors on character
+
 - diff ui flavors for controller vs keyboard and mouse vs mobile
 - add music and sound effects
 - update settings page with sliders for music and sound effects
