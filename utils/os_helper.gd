@@ -4,7 +4,7 @@ extends Node
 
 func is_mobile():
   # var os_name = OS.get_name();
-  return ["mobile", "web_android", "web_ios"].any(func(tag): OS.has_feature(tag));
+  return ["mobile", "web_android", "web_ios", "android", "ios"].any(func(tag): OS.has_feature(tag));
 
 func is_web():
   # var os_name = OS.get_name();
