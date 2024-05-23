@@ -289,17 +289,20 @@ func qte_attempt(event: InputEvent):
     elif qte_area.has_point(event.position):
         failed_parry = true;
   if failed_parry:
-    var tween = create_tween();
-    var og_modulate = qte_item.sprite.modulate;
-    for n in 2:
-      tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
-      tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
-    hide_qte_item(1.1);
-    var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
-    parries["fail"] = parries.get("fail", 0) + 1;
-    AppState.insert_data(Constants.metrics, {
-      "parries": parries,
-    });
+    on_failed_parry(qte_item);
+
+func on_failed_parry(qte_item: BattleSceneHelper.QTEItem):
+  var tween = create_tween();
+  var og_modulate = qte_item.sprite.modulate;
+  for n in 2:
+    tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
+    tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
+  hide_qte_item(1.1);
+  var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+  parries["fail"] = parries.get("fail", 0) + 1;
+  AppState.insert_data(Constants.metrics, {
+    "parries": parries,
+  });
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -359,7 +362,8 @@ func tween_used_mod_draw_item(mod: Sprite2D):
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
   qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
-  is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
+  # is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
+  is_mobile_directional = true;
   var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
@@ -634,3 +638,26 @@ func toggle_disabled_player_choices(b: bool):
 
 func _on_options_btn_button_up():
   SceneHelper.toggle_node(pause_menu);
+
+func on_qte_dir_button_up(key: String):
+  # TODO: very short tween to show button was pressed
+  if failed_parry: return;
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  if qte_item.key == "right":
+    qte_event_update();
+  else:
+    failed_parry = true;
+    on_failed_parry(qte_item);
+
+func _on_qte_dir_right_button_up():
+  on_qte_dir_button_up("right");
+
+func _on_qte_dir_left_button_up():
+  on_qte_dir_button_up("left");
+
+func _on_qte_dir_up_button_up():
+  on_qte_dir_button_up("up");
+
+func _on_qte_dir_down_button_up():
+  on_qte_dir_button_up("down");
