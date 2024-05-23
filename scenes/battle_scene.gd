@@ -279,12 +279,11 @@ func qte_attempt(event: InputEvent):
     failed_parry = true;
   if failed_parry:
     var tween = create_tween();
-    var hide_tween = create_tween();
     var og_modulate = qte_item.sprite.modulate;
     for n in 2:
       tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
       tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
-    hide_tween.tween_property(qte_item.sprite, "modulate:a", 0, 1).set_trans(Tween.TRANS_EXPO);
+    hide_qte_item(1.1);
     var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
     parries["fail"] = parries.get("fail", 0) + 1;
     AppState.insert_data(Constants.metrics, {
@@ -464,12 +463,12 @@ func qte_event_update():
     parried = qte_current_action_count == qte_total_actions;
     show_qte_item();
 
-func hide_qte_item():
+func hide_qte_item(tween_time: float = 0.5):
   var qte_item = get_qte_item(qte_current_action_count);
   if not qte_item: return;
   var qte_tween = create_tween().set_parallel(true);
   qte_tween.tween_property(qte_item.sprite, "modulate", Color(0.8, 0.8, 0.8), 0.2).set_trans(Tween.TRANS_LINEAR);
-  qte_tween.tween_property(qte_item.sprite, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_EXPO);
+  qte_tween.tween_property(qte_item.sprite, "modulate:a", 0, tween_time).set_trans(Tween.TRANS_EXPO);
 
 func show_qte_item():
   if failed_parry: return;
