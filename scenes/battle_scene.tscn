@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=12 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_d7hhp"]
 [ext_resource type="Texture2D" uid="uid://dv43001dq4qm2" path="res://art/my/char/dual_wield_stub_bust.png" id="4_aqxti"]
+[ext_resource type="Texture2D" uid="uid://bw1an5bue338b" path="res://art/my/ui/qte_btn/down/normal.png" id="6_tqanu"]
+[ext_resource type="Texture2D" uid="uid://w21ax7g26u6m" path="res://art/my/ui/qte_btn/up/normal.png" id="7_qko18"]
+[ext_resource type="Texture2D" uid="uid://cxdgxxj67q44r" path="res://art/my/ui/qte_btn/left/normal.png" id="8_ec1dm"]
+[ext_resource type="Texture2D" uid="uid://e8v7ym1vpess" path="res://art/my/ui/qte_btn/right/normal.png" id="8_gpuf6"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -196,9 +200,59 @@ offset_right = 196.0
 offset_bottom = 638.0
 text = "Options"
 
+[node name="qte_onscreen_directional_btns" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="qte_onscreen_btns" type="Control" parent="ui_root/ui"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="down" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 582.0
+offset_right = 225.0
+offset_bottom = 742.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("6_tqanu")
+
+[node name="up" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 501.0
+offset_right = 225.0
+offset_bottom = 661.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("7_qko18")
+
+[node name="left" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 542.0
+offset_right = 169.0
+offset_bottom = 702.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("8_ec1dm")
+
+[node name="right" type="TextureButton" parent="ui_root/ui/qte_onscreen_btns"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 543.0
+offset_right = 284.0
+offset_bottom = 703.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("8_gpuf6")
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_up" from="ui_root/ui/player_choices/close_inventory_btn" to="." method="_on_close_inventory_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
+[connection signal="button_up" from="ui_root/ui/qte_onscreen_btns/down" to="." method="_on_qte_dir_down_button_up"]
+[connection signal="button_up" from="ui_root/ui/qte_onscreen_btns/up" to="." method="_on_qte_dir_up_button_up"]
+[connection signal="button_up" from="ui_root/ui/qte_onscreen_btns/left" to="." method="_on_qte_dir_left_button_up"]
+[connection signal="button_up" from="ui_root/ui/qte_onscreen_btns/right" to="." method="_on_qte_dir_right_button_up"]

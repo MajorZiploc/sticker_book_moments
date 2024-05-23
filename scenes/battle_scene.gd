@@ -39,6 +39,11 @@ class_name BattleScene
 @onready var player_inventory_ui_root: Control = $ui_root/ui/player_inventory;
 @onready var action_counter_container: BoxContainer = $ui_root/ui/action_counter;
 @onready var action_counter_progress_bar: ProgressBar = $ui_root/ui/action_counter/progress_bar;
+@onready var qte_onscreen_btns: Control = $ui_root/ui/qte_onscreen_btns;
+@onready var qte_onscreen_btn_up: Control = $ui_root/ui/qte_onscreen_btns/up;
+@onready var qte_onscreen_btn_down: Control = $ui_root/ui/qte_onscreen_btns/down;
+@onready var qte_onscreen_btn_left: Control = $ui_root/ui/qte_onscreen_btns/left;
+@onready var qte_onscreen_btn_right: Control = $ui_root/ui/qte_onscreen_btns/right;
 
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
@@ -59,12 +64,17 @@ var qte_total_actions = 5;
 var qte_min_x = 100;
 var qte_max_x = 1000;
 var qte_min_y = 160;
-var qte_max_y = 540;
+var std_qte_max_y = 540;
+var qte_max_y = std_qte_max_y;
 var std_tween_time = 1;
 var qte_mode = BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON;
 var qte_area_position = Vector2(qte_min_x, qte_min_y);
-var qte_area_size = Vector2(qte_max_x - qte_min_x, qte_max_y - qte_min_y);
-var qte_area = Rect2(qte_area_position, qte_area_size);
+var qte_area = calc_qte_area();
+var is_mobile_directional = false;
+
+func calc_qte_area():
+  var qte_area_size = Vector2(qte_max_x - qte_min_x, qte_max_y - qte_min_y);
+  return Rect2(qte_area_position, qte_area_size);
 
 var qte_items: Array[BattleSceneHelper.QTEItem] = [];
 
@@ -118,6 +128,8 @@ func _ready():
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
+  qte_onscreen_btns.visible = false;
+  qte_onscreen_btns.modulate.a = 0;
   show_player_choices_action_btn();
   var scene_tween_time = Constants.std_tween_time;
   SceneHelper.fade_in([self, ui], scene_tween_time);
@@ -266,10 +278,11 @@ func qte_attempt(event: InputEvent):
   if not qte_item: return;
   var was_qte_item_key_pressed = valid_qte_keys.any(func(key): return event.is_action_pressed(key));
   if not was_qte_item_key_pressed: return;
-  if qte_item.is_button_event and event.is_action_pressed(qte_item.key):
-    qte_event_update();
-  elif qte_item.is_button_event:
-    failed_parry = true;
+  if not qte_onscreen_btns.visible and qte_item.is_button_event:
+    if event.is_action_pressed(qte_item.key):
+      qte_event_update();
+    else:
+      failed_parry = true;
   if qte_item.is_touch_event and event.is_action_pressed(qte_item.key):
     var rect_size = qte_item.sprite.get_texture().get_size() * qte_item.sprite.scale;
     # NOTE: assumes global_position is the center of the sprite rectangle. so we calculate the top left corner here
@@ -281,17 +294,20 @@ func qte_attempt(event: InputEvent):
     elif qte_area.has_point(event.position):
         failed_parry = true;
   if failed_parry:
-    var tween = create_tween();
-    var og_modulate = qte_item.sprite.modulate;
-    for n in 2:
-      tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
-      tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
-    hide_qte_item(1.1);
-    var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
-    parries["fail"] = parries.get("fail", 0) + 1;
-    AppState.insert_data(Constants.metrics, {
-      "parries": parries,
-    });
+    on_failed_parry(qte_item);
+
+func on_failed_parry(qte_item: BattleSceneHelper.QTEItem):
+  var tween = create_tween();
+  var og_modulate = qte_item.sprite.modulate;
+  for n in 2:
+    tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
+    tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
+  hide_qte_item(1.1);
+  var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+  parries["fail"] = parries.get("fail", 0) + 1;
+  AppState.insert_data(Constants.metrics, {
+    "parries": parries,
+  });
 
 func update_bust_texture(combat_unit: BattleSceneHelper.CombatUnit):
   var texture = load(combat_unit.unit_data.bust_path);
@@ -350,6 +366,8 @@ func tween_used_mod_draw_item(mod: Sprite2D):
   rotation_tween.set_loops(2);
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
+  qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
+  is_mobile_directional = OSHelper.is_mobile() && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
   var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
   is_player_turn = !is_player_turn;
@@ -367,10 +385,20 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     var npc_turn_ui_tween_out_time = std_tween_time;
     var npc_turn_ui_tween_out = create_tween();
     npc_turn_ui_tween_out.tween_property(npc_turn_ui, "modulate:a", 0, npc_turn_ui_tween_out_time).set_trans(Tween.TRANS_EXPO);
+    var mobile_dir_tween_time = 0;
+    if is_mobile_directional:
+      qte_max_y = 500;
+      qte_area = calc_qte_area();
+      qte_onscreen_btns.visible = true;
+      mobile_dir_tween_time = std_tween_time;
+      var mobile_dir_tween = create_tween();
+      mobile_dir_tween.tween_property(qte_onscreen_btns, "modulate:a", 1, mobile_dir_tween_time).set_trans(Tween.TRANS_EXPO);
+    else:
+      qte_max_y = std_qte_max_y;
     var progress_bar_tween_time = std_tween_time;
     var progress_bar_tween = create_tween();
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 1, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
-    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time)).timeout;
+    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, mobile_dir_tween_time)).timeout;
     await get_tree().create_timer(0.5).timeout;
     should_hit = paralyzed_check(defender);
     if should_hit: await attack_sequence(defender, attacker, 5, true, Tween.TRANS_LINEAR);
@@ -384,9 +412,15 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     toggle_disabled_player_choices(false);
     cam_tween = create_tween();
     cam_tween.tween_property(cam, "zoom", std_cam_zoom, cam_tween_time).set_trans(Tween.TRANS_EXPO);
+    if is_mobile_directional:
+      qte_onscreen_btns.visible = true;
+      mobile_dir_tween_time = std_tween_time;
+      var mobile_dir_tween = create_tween();
+      mobile_dir_tween.tween_property(qte_onscreen_btns, "modulate:a", 0, mobile_dir_tween_time).set_trans(Tween.TRANS_EXPO);
+      mobile_dir_tween.tween_callback(func(): qte_onscreen_btns.visible = false).set_delay(0.1);
     progress_bar_tween = create_tween();
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
-    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, player_choices_tween_time, player_options_tween_out_time)).timeout;
+    await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, player_choices_tween_time, player_options_tween_out_time, mobile_dir_tween_time)).timeout;
     action_counter_progress_bar.value = 0;
     did_battle_end = defender.battle_char.health <= 0;
     if did_battle_end:
@@ -608,3 +642,29 @@ func toggle_disabled_player_choices(b: bool):
 
 func _on_options_btn_button_up():
   SceneHelper.toggle_node(pause_menu);
+
+func on_qte_dir_button_up(button: TextureButton, key: String):
+  var tween = create_tween();
+  var og_modulate = button.modulate;
+  tween.tween_property(button, "modulate", Color(0.7, 0.7, 0.7), 0.05).set_trans(Tween.TRANS_LINEAR);
+  tween.tween_property(button, "modulate", og_modulate, 0.05).set_trans(Tween.TRANS_LINEAR);
+  if failed_parry: return;
+  var qte_item = get_qte_item(qte_current_action_count);
+  if not qte_item: return;
+  if qte_item.key == key:
+    qte_event_update();
+  else:
+    failed_parry = true;
+    on_failed_parry(qte_item);
+
+func _on_qte_dir_right_button_up():
+  on_qte_dir_button_up(qte_onscreen_btn_right, "right");
+
+func _on_qte_dir_left_button_up():
+  on_qte_dir_button_up(qte_onscreen_btn_left, "left");
+
+func _on_qte_dir_up_button_up():
+  on_qte_dir_button_up(qte_onscreen_btn_up, "up");
+
+func _on_qte_dir_down_button_up():
+  on_qte_dir_button_up(qte_onscreen_btn_down, "down");
