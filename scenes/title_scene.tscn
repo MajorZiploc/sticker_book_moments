@@ -101,6 +101,23 @@ offset_right = 1127.0
 offset_bottom = 636.0
 text = "stats"
 
+[node name="author" type="Control" parent="ui_root/ui"]
+anchors_preset = 0
+offset_left = 467.0
+offset_top = 578.0
+offset_right = 507.0
+offset_bottom = 618.0
+
+[node name="panel" type="PanelContainer" parent="ui_root/ui/author"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="label" type="Label" parent="ui_root/ui/author/panel"]
+layout_mode = 2
+text = "a majorziploc game"
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)

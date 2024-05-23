@@ -20,7 +20,6 @@
 
 ### general
 
-- MVP: add name or majorziploc on the title_scene
 - MVP: default app_state based on platform in title_scene
 - MVP: mainly need on screen buttons for button qte events for mobile - OSHelper.is_mobile() will help here - make sure it doesnt overlap the qte area
 - Add color wheel selector for all colors on character
