@@ -4,8 +4,6 @@
 
 ### level_map
 
-- MVP: add characters tweening in Thanks for Playing screen
-
 - create node system - 4-6 nodes per level_map - rand enemy per node
 
 ### battle_scene

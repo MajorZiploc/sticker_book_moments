@@ -26,6 +26,11 @@ offset_bottom = 470.0
 scale = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
+[node name="combat_units_box" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="title_card" type="Control" parent="ui_root/ui"]
 layout_mode = 1
 anchors_preset = 8

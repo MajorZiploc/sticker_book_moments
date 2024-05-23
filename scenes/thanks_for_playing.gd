@@ -2,9 +2,13 @@ extends Node2D
 class_name ThanksForPlaying
 
 @onready var ui = $ui_root/ui;
+@onready var combat_units_box = $ui_root/ui/combat_units_box;
 
 var pause_menu: Node;
 var stats_page: Node;
+var sprite_scalar = 0.5;
+
+var combat_units: Array[Node];
 
 func _ready():
   stats_page = SceneHelper.make_stats_page();
@@ -18,6 +22,24 @@ func _ready():
   });
   ui.add_child(stats_page);
   ui.add_child(pause_menu);
+  var position = Vector2(210, 470);
+  for key in CombatUnitData.entries.keys():
+    var entry = CombatUnitData.entries[key];
+    # TODO: figure out how to use the battle_char instead of a sprite
+    # var combat_unit = load("res://scenes/battle_char.tscn").instantiate();
+    # var combat_unit = load("res://scripts/battle_char.gd").new();
+    # var combat_unit = BattleChar.new();
+    var combat_unit = Sprite2D.new();
+    combat_unit.texture = load(entry.sprite_path);
+    combat_unit.scale = Vector2(sprite_scalar, sprite_scalar);
+    combat_unit.position = position;
+    combat_unit.hframes = 2;
+    combat_unit.vframes = 2;
+    _init_idle_tweens(combat_unit);
+    # combat_unit.z_index = -1;
+    combat_units.append(combat_unit);
+    combat_units_box.add_child(combat_unit);
+    position = position + Vector2(355, 0);
   await get_tree().create_timer(scene_tween_time).timeout;
 
 func _input(event: InputEvent):
@@ -32,3 +54,16 @@ func _on_options_btn_button_up():
 
 func _on_stats_btn_button_up():
   SceneHelper.toggle_node(stats_page);
+
+func _init_idle_tweens(sprite: Sprite2D):
+  var scale_tween = create_tween();
+  var og_scale = sprite.scale;
+  scale_tween.tween_property(sprite, "scale", Vector2(1.05 * sprite_scalar, 1.05 * sprite_scalar), 1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.tween_property(sprite, "scale", og_scale, 1).set_trans(Tween.TRANS_EXPO);
+  scale_tween.set_loops(-1);
+  var rotation_tween = create_tween();
+  var og_rotation = sprite.rotation_degrees;
+  rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
+  rotation_tween.set_loops(-1);
