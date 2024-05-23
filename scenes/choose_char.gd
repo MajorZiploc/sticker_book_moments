@@ -50,6 +50,7 @@ func create_char_choices():
     var label_box = VBoxContainer.new();
     var panel = PanelContainer.new();
     var label = Label.new();
+    panel.theme_type_variation = &"PanelSmallSticker";
     label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;
     entry_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
     label_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
