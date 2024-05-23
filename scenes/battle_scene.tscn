@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=12 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_d7hhp"]
 [ext_resource type="Texture2D" uid="uid://dv43001dq4qm2" path="res://art/my/char/dual_wield_stub_bust.png" id="4_aqxti"]
+[ext_resource type="Texture2D" uid="uid://bw1an5bue338b" path="res://art/my/ui/qte_btn/down/normal.png" id="6_tqanu"]
+[ext_resource type="Texture2D" uid="uid://w21ax7g26u6m" path="res://art/my/ui/qte_btn/up/normal.png" id="7_qko18"]
+[ext_resource type="Texture2D" uid="uid://cxdgxxj67q44r" path="res://art/my/ui/qte_btn/left/normal.png" id="8_ec1dm"]
+[ext_resource type="Texture2D" uid="uid://e8v7ym1vpess" path="res://art/my/ui/qte_btn/right/normal.png" id="8_gpuf6"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -195,6 +199,47 @@ offset_top = 563.0
 offset_right = 196.0
 offset_bottom = 638.0
 text = "Options"
+
+[node name="qte_onscreen_directional_btns" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="down" type="TextureButton" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 562.0
+offset_right = 241.0
+offset_bottom = 722.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("6_tqanu")
+
+[node name="up" type="TextureButton" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 469.0
+offset_right = 240.0
+offset_bottom = 629.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("7_qko18")
+
+[node name="left" type="TextureButton" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 516.0
+offset_right = 169.0
+offset_bottom = 676.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("8_ec1dm")
+
+[node name="right" type="TextureButton" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 516.0
+offset_right = 317.0
+offset_bottom = 676.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("8_gpuf6")
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
