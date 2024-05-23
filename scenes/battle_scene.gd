@@ -427,11 +427,10 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     progress_bar_tween.tween_property(action_counter_container, "modulate:a", 0, progress_bar_tween_time).set_trans(Tween.TRANS_EXPO);
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, player_choices_tween_time, player_options_tween_out_time, mobile_dir_tween_time)).timeout;
     action_counter_progress_bar.value = 0;
-    did_battle_end = defender.battle_char.health <= 0;
-    if did_battle_end:
+    did_battle_end = defender.battle_char.health <= 0 || attacker.battle_char.health <= 0;
+    if defender.battle_char.health <= 0:
       winner = attacker;
-    did_battle_end = attacker.battle_char.health <= 0;
-    if did_battle_end:
+    if attacker.battle_char.health <= 0:
       winner = defender;
   if did_battle_end:
     end_battle_scene(winner);
