@@ -15,7 +15,7 @@ func _ready():
   SceneHelper.fade_in([self, ui], scene_tween_time);
   stats_page = SceneHelper.make_stats_page();
   AppState.load_data(AppState.current_data_file_name);
-  var is_mobile = OSHelper.is_mobile();
+  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", OSHelper.is_mobile());
   OptionsHelper.set_is_mobile(is_mobile);
   OptionsHelper.set_options();
   mobile_checkbox.button_pressed = is_mobile;
