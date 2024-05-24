@@ -124,7 +124,6 @@ var default_mod_item_size = 150;
 var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
-  pause_menu = SceneHelper.make_pause_menu();
   qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
@@ -175,7 +174,6 @@ func _ready():
   init_combat_unit_mods(npc);
   update_combat_unit_mods(player);
   update_combat_unit_mods(npc);
-  ui.add_child(pause_menu);
   await get_tree().create_timer(scene_tween_time).timeout;
 
 func init_combat_unit_mods(combat_unit: BattleSceneHelper.CombatUnit):
@@ -270,8 +268,6 @@ func _input(event: InputEvent):
   if round_happening:
     qte_attempt(event);
     return;
-  var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);
-  if visible_: return;
 
 func qte_attempt(event: InputEvent):
   if failed_parry: return;
@@ -652,7 +648,12 @@ func toggle_disabled_player_choices(b: bool):
   player_choices_close_btn.disabled = b;
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_node(pause_menu);
+  if not pause_menu:
+    pause_menu = SceneHelper.make_pause_menu();
+    ui.add_child(pause_menu);
+  else:
+    ui.remove_child(pause_menu);
+    pause_menu = null;
 
 func on_qte_dir_button_up(button: TextureButton, key: String):
   var tween = create_tween();

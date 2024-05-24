@@ -16,7 +16,7 @@ func _ready():
   mobile_checkbox.button_pressed = is_mobile;
 
 func _on_back_button_up():
-  self.visible = false;
+  queue_free();
 
 func on_qte_type_option_popup_pressed(qte_mode):
   AppState.insert_data(Constants.options, { "qte_mode": qte_mode });

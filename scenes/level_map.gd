@@ -10,16 +10,10 @@ var current_opponent_choice_keys: Array = [];
 func _ready():
   var scene_tween_time = Constants.std_tween_time;
   SceneHelper.fade_in([self, ui], scene_tween_time);
-  pause_menu = SceneHelper.make_pause_menu();
   current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
   current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
   create_char_choices();
-  ui.add_child(pause_menu);
   await get_tree().create_timer(scene_tween_time).timeout;
-
-func _input(event: InputEvent):
-  var visible_ = SceneHelper.toggle_pause_menu(event, pause_menu);
-  if visible_: return;
 
 func on_char_selected(key: CombatUnitData.Type):
   AppState.insert_data(Constants.npc, {
@@ -66,4 +60,9 @@ func create_char_choices():
   ui.add_child(box);
 
 func _on_options_btn_button_up():
-  SceneHelper.toggle_node(pause_menu);
+  if not pause_menu:
+    pause_menu = SceneHelper.make_pause_menu();
+    ui.add_child(pause_menu);
+  else:
+    ui.remove_child(pause_menu);
+    pause_menu = null;
