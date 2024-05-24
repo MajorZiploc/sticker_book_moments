@@ -8,6 +8,8 @@
 
 ### battle_scene
 
+- NEXT: add a min time to the qte event of 3.5 seconds - right now it just goes down 0.5 seconds each round
+
 - Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
 - make inventory items stackable
 
