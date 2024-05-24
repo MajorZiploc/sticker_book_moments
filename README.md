@@ -15,6 +15,8 @@
 - Add a number hit splat (percentage based) on damage taking - will remove the need to explain class differences and what items do
 - make mod items that are applied visually display a tween on the combat_unit
 
+- Consider: using Osu style touch events where you have to swipe around in paths
+
 - Needed if number of buffs or debuffs goes above 4: limit number of mods on a combat_unit to 4
 - Consider: instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components - or do visible toggling
 
