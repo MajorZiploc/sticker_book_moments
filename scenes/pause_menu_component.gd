@@ -4,6 +4,7 @@ class_name PauseMenuComponent
 @onready var qte_type_option_btn: OptionButton = $tabs/settings/vbox/qte_type/selector;
 @onready var screen_mode_option_btn: OptionButton = $tabs/settings/vbox/fullscreen_toggle/box/selector;
 @onready var mobile_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
+@onready var music_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();
@@ -13,7 +14,9 @@ func _ready():
   screen_mode_option_popup.connect("id_pressed", on_screen_mode_option_popup_pressed);
   screen_mode_option_btn.selected = AppState.data.get(Constants.options, {}).get("window_mode", -1);
   var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
+  var music_on = AppState.data.get(Constants.options, {}).get("music", {}).get("bg", {}).get("on", true)
   mobile_checkbox.button_pressed = is_mobile;
+  music_checkbox.button_pressed = music_on;
 
 func _on_back_button_up():
   queue_free();
@@ -33,4 +36,9 @@ func _on_quit_button_up():
 
 func _on_mobile_checkbox_toggled(toggled_on: bool):
   OptionsHelper.set_is_mobile(toggled_on);
+  AppState.save_session();
+
+func _on_music_checkbox_toggled(toggled_on: bool):
+  OptionsHelper.set_music_on(toggled_on);
+  OptionsHelper.sync_music();
   AppState.save_session();
