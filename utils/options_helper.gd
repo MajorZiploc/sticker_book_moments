@@ -4,6 +4,8 @@ func set_options():
   set_window_mode(Lang.dict_get(AppState.data, [Constants.options, "window_mode"], DisplayServer.window_get_mode()));
   var is_mobile = Lang.dict_get(AppState.data, [Constants.options, "is_mobile"], false);
   set_qte_mode(Lang.dict_get(AppState.data, [Constants.options, "qte_mode"], BattleSceneHelper.QTEMode.TOUCH if is_mobile else BattleSceneHelper.QTEMode.BUTTON));
+  var difficulty = Lang.dict_get(AppState.data, [Constants.options, "difficulty"], BattleSceneHelper.DIFFICULTY.NORMAL);
+  AppState.insert_data(Constants.options, { "difficulty": difficulty });
   set_music_on(Lang.dict_get(AppState.data, [Constants.options, "music", "bg", "on"], true));
 
 func set_window_mode(window_mode):

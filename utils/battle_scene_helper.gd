@@ -28,6 +28,24 @@ enum QTEMode {
   TOUCH_AND_BUTTON,
 }
 
+var default_base_qte_time = 4.7;
+
+enum DIFFICULTY {
+  NORMAL,
+  HARD,
+  ELITE,
+}
+
+func get_qte_time(current_opponent_idx):
+  var difficulty = Lang.dict_get(AppState.data, [Constants.options, "difficulty"], DIFFICULTY.NORMAL);
+  var difficulty_offset = 0;
+  match difficulty:
+    DIFFICULTY.HARD:
+      difficulty_offset = 0.65;
+    DIFFICULTY.ELITE:
+      difficulty_offset = 1.2;
+  return default_base_qte_time - (0.5 * (current_opponent_idx - 1)) - difficulty_offset;
+
 enum PlayerChoicesMenuPopupItem {
   ATTACK,
   INVENTORY,

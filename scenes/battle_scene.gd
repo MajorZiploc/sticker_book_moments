@@ -406,7 +406,7 @@ func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHel
     await get_tree().create_timer(max(npc_turn_ui_tween_out_time, cam_tween_time, progress_bar_tween_time, mobile_dir_tween_time)).timeout;
     await get_tree().create_timer(0.5).timeout;
     should_hit = paralyzed_check(defender);
-    if should_hit: await attack_sequence(defender, attacker, 5.0 - (0.5 * (current_opponent_idx - 1)), true, Tween.TRANS_LINEAR);
+    if should_hit: await attack_sequence(defender, attacker, BattleSceneHelper.get_qte_time(current_opponent_idx), true, Tween.TRANS_LINEAR);
     var player_choices_tween_time = std_tween_time;
     var player_choices_tween = create_tween();
     player_choices_tween.tween_property(player_choices, "modulate:a", 1, player_choices_tween_time).set_trans(Tween.TRANS_EXPO);

@@ -3,18 +3,22 @@ class_name PauseMenuComponent
 
 @onready var qte_type_option_btn: OptionButton = $tabs/settings/vbox/qte_type/selector;
 @onready var screen_mode_option_btn: OptionButton = $tabs/settings/vbox/fullscreen_toggle/box/selector;
+@onready var difficulty_option_btn: OptionButton = $tabs/settings/vbox/difficulty/selector;
 @onready var mobile_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
 @onready var music_checkbox: CheckBox = $tabs/settings/vbox/music/checkbox;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();
   qte_type_option_popup.connect("id_pressed", on_qte_type_option_popup_pressed);
-  qte_type_option_btn.selected = AppState.data.get(Constants.options, {}).get("qte_mode", -1);
+  qte_type_option_btn.selected = Lang.dict_get(AppState.data, [Constants.options, "qte_mode"], -1);
+  var difficulty_option_popup = difficulty_option_btn.get_popup();
+  difficulty_option_popup.connect("id_pressed", on_difficulty_option_popup_pressed);
+  difficulty_option_btn.selected = Lang.dict_get(AppState.data, [Constants.options, "difficulty"], -1);
   var screen_mode_option_popup = screen_mode_option_btn.get_popup();
   screen_mode_option_popup.connect("id_pressed", on_screen_mode_option_popup_pressed);
-  screen_mode_option_btn.selected = AppState.data.get(Constants.options, {}).get("window_mode", -1);
-  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
-  var music_on = AppState.data.get(Constants.options, {}).get("music", {}).get("bg", {}).get("on", true)
+  screen_mode_option_btn.selected = Lang.dict_get(AppState.data, [Constants.options, "window_mode"], -1);
+  var is_mobile = Lang.dict_get(AppState.data, [Constants.options, "is_mobile"], false);
+  var music_on = Lang.dict_get(AppState.data, [Constants.options, "music", "bg", "on"], true);
   mobile_checkbox.button_pressed = is_mobile;
   music_checkbox.button_pressed = music_on;
   mobile_checkbox.connect("toggled", _on_mobile_checkbox_toggled);
@@ -22,6 +26,10 @@ func _ready():
 
 func _on_back_button_up():
   queue_free();
+
+func on_difficulty_option_popup_pressed(difficulty):
+  AppState.insert_data(Constants.options, { "difficulty": difficulty });
+  AppState.save_session();
 
 func on_qte_type_option_popup_pressed(qte_mode):
   AppState.insert_data(Constants.options, { "qte_mode": qte_mode });
