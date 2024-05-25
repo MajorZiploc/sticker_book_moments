@@ -136,6 +136,23 @@ layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "mobile?"
 
+[node name="music_on" type="BoxContainer" parent="ui_root/ui"]
+offset_left = 922.0
+offset_right = 1152.0
+offset_bottom = 75.0
+
+[node name="panel" type="PanelContainer" parent="ui_root/ui/music_on"]
+layout_mode = 2
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="label" type="Label" parent="ui_root/ui/music_on/panel"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "music?"
+
+[node name="checkbox" type="CheckBox" parent="ui_root/ui/music_on"]
+layout_mode = 2
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
@@ -143,9 +160,9 @@ zoom = Vector2(0.5, 0.5)
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_kywit")
 volume_db = -10.0
-autoplay = true
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/stats_btn" to="." method="_on_stats_btn_button_up"]
 [connection signal="toggled" from="ui_root/ui/mobile/checkbox" to="." method="_on_mobile_checkbox_toggled"]
+[connection signal="toggled" from="ui_root/ui/music_on/checkbox" to="." method="_on_music_checkbox_toggled"]
