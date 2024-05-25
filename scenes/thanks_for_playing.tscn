@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://du5vd741ul6fk"]
+[gd_scene load_steps=4 format=3 uid="uid://du5vd741ul6fk"]
 
 [ext_resource type="Script" path="res://scenes/thanks_for_playing.gd" id="1_3p82m"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="1_hrisg"]
+[ext_resource type="AudioStream" uid="uid://dei3s1c58nf03" path="res://art/assets/music/the_enchanged_land_fantasy_music_pack/Calm_Music_IV_Loop.wav" id="3_2atei"]
 
 [node name="thanks_for_playing" type="Node2D"]
 script = ExtResource("1_3p82m")
@@ -109,6 +110,10 @@ text = "stats"
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2atei")
+volume_db = -10.0
 
 [connection signal="button_up" from="ui_root/ui/back_to_title_screen/btn" to="." method="_on_back_to_title_screen_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]

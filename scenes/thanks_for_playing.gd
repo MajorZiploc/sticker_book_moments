@@ -3,6 +3,7 @@ class_name ThanksForPlaying
 
 @onready var ui = $ui_root/ui;
 @onready var combat_units_box = $ui_root/ui/combat_units_box;
+@onready var music: AudioStreamPlayer2D = $music;
 
 var pause_menu: Node;
 var stats_page: Node;
@@ -11,6 +12,8 @@ var sprite_scalar = 0.5;
 var combat_units: Array[Node];
 
 func _ready():
+  AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
+  OptionsHelper.sync_music();
   stats_page = SceneHelper.make_stats_page();
   var scene_tween_time = Constants.std_tween_time;
   SceneHelper.fade_in([self, ui], scene_tween_time);
