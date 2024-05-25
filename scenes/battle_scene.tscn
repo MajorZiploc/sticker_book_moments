@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgtbv2iq43kru"]
+[gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://w21ax7g26u6m" path="res://art/my/ui/qte_btn/up/normal.png" id="7_qko18"]
 [ext_resource type="Texture2D" uid="uid://cxdgxxj67q44r" path="res://art/my/ui/qte_btn/left/normal.png" id="8_ec1dm"]
 [ext_resource type="Texture2D" uid="uid://e8v7ym1vpess" path="res://art/my/ui/qte_btn/right/normal.png" id="8_gpuf6"]
+[ext_resource type="AudioStream" uid="uid://dsxtfk45jkm87" path="res://art/assets/music/the_enchanged_land_fantasy_music_pack/Fight_I_No_Drums_Loop.wav" id="10_ikgwb"]
 [ext_resource type="PackedScene" uid="uid://fwq33p5strsa" path="res://combat_unit_info.tscn" id="13_jnomy"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ljv2"]
@@ -249,6 +250,10 @@ texture_normal = ExtResource("8_gpuf6")
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(465, -282)
 zoom = Vector2(0.5, 0.5)
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ikgwb")
+volume_db = -10.0
 
 [connection signal="button_up" from="ui_root/ui/player_choices/close_inventory_btn" to="." method="_on_close_inventory_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]

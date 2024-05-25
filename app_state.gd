@@ -6,6 +6,8 @@ var current_data_file_name = data_file_name_1;
 
 var data = {};
 
+var dirty_data = {};
+
 func load_data(data_file):
   if FileAccess.file_exists(data_file["name"]):
     var file = FileAccess.open(data_file["name"], FileAccess.READ)
@@ -35,3 +37,8 @@ func insert_data(key, data_):
   data[key] = data.get(key, {});
   data[key].merge(data_, true);
   return data;
+
+func insert_dirty_data(key, data_):
+  dirty_data[key] = dirty_data.get(key, {});
+  dirty_data[key].merge(data_, true);
+  return dirty_data;

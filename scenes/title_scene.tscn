@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c76wd8iwrix3h"]
+[gd_scene load_steps=4 format=3 uid="uid://c76wd8iwrix3h"]
 
 [ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_aj1vx"]
+[ext_resource type="AudioStream" uid="uid://bupa8c651w15b" path="res://art/assets/music/the_enchanged_land_fantasy_music_pack/Calm_Music_I_Loop.wav" id="3_kywit"]
 
 [node name="title_scene" type="Node2D"]
 script = ExtResource("1_fopmr")
@@ -108,15 +109,27 @@ offset_top = 578.0
 offset_right = 507.0
 offset_bottom = 618.0
 
-[node name="panel" type="PanelContainer" parent="ui_root/ui/author"]
+[node name="gamedev" type="PanelContainer" parent="ui_root/ui/author"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = -74.0
+offset_right = 218.0
+offset_bottom = -26.0
 theme_type_variation = &"PanelSmallSticker"
 
-[node name="label" type="Label" parent="ui_root/ui/author/panel"]
+[node name="label" type="Label" parent="ui_root/ui/author/gamedev"]
 layout_mode = 2
 text = "a majorziploc game"
+
+[node name="music_composer" type="PanelContainer" parent="ui_root/ui/author"]
+layout_mode = 0
+offset_left = -62.0
+offset_right = 275.0
+offset_bottom = 48.0
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="label" type="Label" parent="ui_root/ui/author/music_composer"]
+layout_mode = 2
+text = "music by oliverkovacscomposer"
 
 [node name="mobile" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 0
@@ -135,11 +148,34 @@ layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "mobile?"
 
+[node name="music_on" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
+offset_left = 922.0
+offset_right = 1152.0
+offset_bottom = 75.0
+
+[node name="panel" type="PanelContainer" parent="ui_root/ui/music_on"]
+layout_mode = 2
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="label" type="Label" parent="ui_root/ui/music_on/panel"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "music?"
+
+[node name="checkbox" type="CheckBox" parent="ui_root/ui/music_on"]
+layout_mode = 2
+
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kywit")
+volume_db = -10.0
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/stats_btn" to="." method="_on_stats_btn_button_up"]
 [connection signal="toggled" from="ui_root/ui/mobile/checkbox" to="." method="_on_mobile_checkbox_toggled"]
+[connection signal="toggled" from="ui_root/ui/music_on/checkbox" to="." method="_on_music_checkbox_toggled"]
