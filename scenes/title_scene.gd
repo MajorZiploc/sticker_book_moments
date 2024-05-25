@@ -18,7 +18,6 @@ func _ready():
   stats_page = SceneHelper.make_stats_page();
   AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
   AppState.load_data(AppState.current_data_file_name);
-  print(AppState.data);
   var is_mobile = Lang.dict_get(AppState.data, [Constants.options, "is_mobile"], OSHelper.is_mobile());
   var music_on = Lang.dict_get(AppState.data, [Constants.options, "music", "bg", "on"], true);
   OptionsHelper.set_is_mobile(is_mobile);
