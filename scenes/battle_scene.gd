@@ -72,7 +72,7 @@ var qte_mode = BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON;
 var qte_area_position = Vector2(qte_min_x, qte_min_y);
 var qte_area = calc_qte_area();
 var is_mobile_directional = false;
-var current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
+var current_opponent_idx = Lang.dict_get(AppState.data, [Constants.game_state, "current_opponent_idx"], 0);
 
 func calc_qte_area():
   var qte_area_size = Vector2(qte_max_x - qte_min_x, qte_max_y - qte_min_y);
@@ -127,7 +127,7 @@ var valid_qte_keys = qte_item_metadata.keys();
 func _ready():
   AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
   OptionsHelper.sync_music();
-  qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
+  qte_mode = Lang.dict_get(AppState.data, [Constants.options, "qte_mode"], qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
   player_inventory_ui_root.modulate.a = 0;
@@ -251,7 +251,7 @@ func _on_inventory_item_selected(idx):
     update_combat_unit_mods(combat_unit);
     update_player_inventory();
     perform_full_round_state();
-    var used_items = AppState.data.get(Constants.metrics, {}).get("used_items", {});
+    var used_items = Lang.dict_get(AppState.data, [Constants.metrics, "used_items"], {});
     used_items[item_type] = used_items.get(item_type, 0) + 1;
     AppState.insert_data(Constants.metrics, {
       "used_items": used_items,
@@ -307,7 +307,7 @@ func on_failed_parry(qte_item: BattleSceneHelper.QTEItem):
     tween.tween_property(qte_item.sprite, "modulate", Color(15, 1, 1), 0.3).set_trans(Tween.TRANS_EXPO);
     tween.tween_property(qte_item.sprite, "modulate", og_modulate, 0.2).set_trans(Tween.TRANS_EXPO);
   hide_qte_item(1.1);
-  var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+  var parries = Lang.dict_get(AppState.data, [Constants.metrics, "parries"], {});
   parries["fail"] = parries.get("fail", 0) + 1;
   AppState.insert_data(Constants.metrics, {
     "parries": parries,
@@ -370,8 +370,8 @@ func tween_used_mod_draw_item(mod: Sprite2D):
   rotation_tween.set_loops(2);
 
 func full_round(attacker: BattleSceneHelper.CombatUnit, defender: BattleSceneHelper.CombatUnit, player_used_item: bool = false):
-  qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
-  var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", false);
+  qte_mode = Lang.dict_get(AppState.data, [Constants.options, "qte_mode"], qte_mode);
+  var is_mobile = Lang.dict_get(AppState.data, [Constants.options, "is_mobile"], false);
   is_mobile_directional = is_mobile && [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON].any(func(qm): return qm == qte_mode);
   var should_hit = not player_used_item and paralyzed_check(attacker);
   if should_hit: await attack_sequence(attacker, defender, 1, false);
@@ -454,7 +454,7 @@ func attack_sequence(attacker: BattleSceneHelper.CombatUnit, defender: BattleSce
   var damage_taker = defender;
   var damage_dealer = attacker;
   if is_npc_turn and parried and not failed_parry:
-    var parries = AppState.data.get(Constants.metrics, {}).get("parries", {});
+    var parries = Lang.dict_get(AppState.data, [Constants.metrics, "parries"], {});
     parries["perfect"] = parries.get("perfect", 0) + 1;
     AppState.insert_data(Constants.metrics, {
       "parries": parries,
@@ -533,7 +533,7 @@ func create_qte_items(is_npc_turn):
   qte_box_tween.tween_property(qte_item.sprite, "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO);
 
 func _on_end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
-  var current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
+  var current_opponent_choice_keys = Lang.dict_get(AppState.data, [Constants.game_state, "current_opponent_choice_keys"], CombatUnitData.entries.keys());
   var next_scene = "res://scenes/thanks_for_playing.tscn" if combat_unit.is_player else "res://scenes/title_scene.tscn";
   if combat_unit.is_player and current_opponent_idx < current_opponent_choice_keys.size() - 1:
     AppState.insert_data(Constants.game_state, {
@@ -559,7 +559,7 @@ func end_battle_scene(combat_unit: BattleSceneHelper.CombatUnit):
   label.theme_type_variation = &"HeaderLarge";
   var button = Button.new();
   var result = "Loses" if not combat_unit.is_player else "Wins";
-  var battle_results = AppState.data.get(Constants.metrics, {}).get("battle_results", {});
+  var battle_results = Lang.dict_get(AppState.data, [Constants.metrics, "battle_results"], {});
   var battle_results_key = "wins" if combat_unit.is_player else "loses";
   battle_results[battle_results_key] = battle_results.get(battle_results_key, 0) + 1;
   AppState.insert_data(Constants.metrics, {

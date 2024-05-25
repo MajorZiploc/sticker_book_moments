@@ -35,7 +35,7 @@ func create_char_choices():
   box.position = Vector2(40, 300);
   box.custom_minimum_size = Vector2(5000 * scale_scalar, 0);
   box.size_flags_horizontal = Control.SIZE_EXPAND_FILL;
-  var player_game_completion_count = AppState.data.get(Constants.metrics, {}).get("game_completion", {}).get("count", 0);
+  var player_game_completion_count = Lang.dict_get(AppState.data, [Constants.metrics, "game_completion", "count"], 0);
   for key in CombatUnitData.entries.keys():
     var entry = CombatUnitData.entries[key];
     var disabled = player_game_completion_count < entry.game_completion_count_required;

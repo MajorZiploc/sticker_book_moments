@@ -19,7 +19,7 @@ func _ready():
   SceneHelper.fade_in([self, ui], scene_tween_time);
   AppState.insert_data(Constants.metrics, {
     "game_completion": {
-      "count": AppState.data.get(Constants.metrics, {}).get("game_completion", {}).get("count", 0) + 1,
+      "count": Lang.dict_get(AppState.data, [Constants.metrics, "game_completion", "count"], 0) + 1,
     }
   });
   AppState.save_session();

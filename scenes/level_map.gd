@@ -10,8 +10,8 @@ var current_opponent_choice_keys: Array = [];
 func _ready():
   var scene_tween_time = Constants.std_tween_time;
   SceneHelper.fade_in([self, ui], scene_tween_time);
-  current_opponent_idx = AppState.data.get(Constants.game_state, {}).get("current_opponent_idx", 0);
-  current_opponent_choice_keys = AppState.data.get(Constants.game_state, {}).get("current_opponent_choice_keys", CombatUnitData.entries.keys());
+  current_opponent_idx = Lang.dict_get(AppState.data, [Constants.game_state, "current_opponent_idx"], 0);
+  current_opponent_choice_keys = Lang.dict_get(AppState.data, [Constants.game_state, "current_opponent_choice_keys"], CombatUnitData.entries.keys());
   create_char_choices();
   await get_tree().create_timer(scene_tween_time).timeout;
 
