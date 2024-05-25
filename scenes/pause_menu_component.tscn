@@ -182,5 +182,3 @@ layout_mode = 2
 
 [connection signal="button_up" from="tabs/general/vbox/back" to="." method="_on_back_button_up"]
 [connection signal="button_up" from="tabs/general/vbox/quit" to="." method="_on_quit_button_up"]
-[connection signal="toggled" from="tabs/settings/vbox/music/checkbox" to="." method="_on_music_checkbox_toggled"]
-[connection signal="toggled" from="tabs/settings/vbox/mobile/checkbox" to="." method="_on_mobile_checkbox_toggled"]

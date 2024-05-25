@@ -4,7 +4,7 @@ class_name PauseMenuComponent
 @onready var qte_type_option_btn: OptionButton = $tabs/settings/vbox/qte_type/selector;
 @onready var screen_mode_option_btn: OptionButton = $tabs/settings/vbox/fullscreen_toggle/box/selector;
 @onready var mobile_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
-@onready var music_checkbox: CheckBox = $tabs/settings/vbox/mobile/checkbox;
+@onready var music_checkbox: CheckBox = $tabs/settings/vbox/music/checkbox;
 
 func _ready():
   var qte_type_option_popup = qte_type_option_btn.get_popup();
@@ -17,6 +17,8 @@ func _ready():
   var music_on = AppState.data.get(Constants.options, {}).get("music", {}).get("bg", {}).get("on", true)
   mobile_checkbox.button_pressed = is_mobile;
   music_checkbox.button_pressed = music_on;
+  mobile_checkbox.connect("toggled", _on_mobile_checkbox_toggled);
+  music_checkbox.connect("toggled", _on_music_checkbox_toggled);
 
 func _on_back_button_up():
   queue_free();
