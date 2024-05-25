@@ -16,10 +16,11 @@ func _ready():
   var scene_tween_time = Constants.std_tween_time;
   SceneHelper.fade_in([self, ui], scene_tween_time);
   stats_page = SceneHelper.make_stats_page();
-  AppState.insert_dirty_data("music", { "bg": music });
+  AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
   AppState.load_data(AppState.current_data_file_name);
+  print(AppState.data);
   var is_mobile = AppState.data.get(Constants.options, {}).get("is_mobile", OSHelper.is_mobile());
-  var music_on = AppState.data.get(Constants.options, {}).get("music", {}).get("bg", true);
+  var music_on = AppState.data.get(Constants.options, {}).get("music", {}).get("bg", {}).get("on", true)
   OptionsHelper.set_is_mobile(is_mobile);
   OptionsHelper.set_options();
   OptionsHelper.sync_music();
