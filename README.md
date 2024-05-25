@@ -8,9 +8,9 @@
 
 ### battle_scene
 
-- NEXT: add a min time to the qte event of 3.5 seconds - right now it just goes down 0.5 seconds each round
+- NEXT: add a min time to the qte event of 3.5 seconds - right now it just goes down 0.5 seconds each round. consider how this affects the difficulty settings
 
-- Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected
+- Make the QTE event more granular; if a user completes 50% of event and doesnt give an invalid input; then 50% of damage is redirected for the parry
 - make inventory items stackable
 
 - BUG: refactor health bar to be in 1 krita file - then rebalance the 4 quadrants - right now, it is off and gives the wrong impression in terms of damage - (maybe use flipping instead of using left to right instead will fix this)
