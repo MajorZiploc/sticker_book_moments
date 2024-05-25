@@ -109,15 +109,26 @@ offset_top = 578.0
 offset_right = 507.0
 offset_bottom = 618.0
 
-[node name="panel" type="PanelContainer" parent="ui_root/ui/author"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="gamedev" type="PanelContainer" parent="ui_root/ui/author"]
+offset_top = -74.0
+offset_right = 218.0
+offset_bottom = -26.0
 theme_type_variation = &"PanelSmallSticker"
 
-[node name="label" type="Label" parent="ui_root/ui/author/panel"]
+[node name="label" type="Label" parent="ui_root/ui/author/gamedev"]
 layout_mode = 2
 text = "a majorziploc game"
+
+[node name="music_composer" type="PanelContainer" parent="ui_root/ui/author"]
+layout_mode = 0
+offset_left = -62.0
+offset_right = 275.0
+offset_bottom = 48.0
+theme_type_variation = &"PanelSmallSticker"
+
+[node name="label" type="Label" parent="ui_root/ui/author/music_composer"]
+layout_mode = 2
+text = "music by oliverkovacscomposer"
 
 [node name="mobile" type="BoxContainer" parent="ui_root/ui"]
 layout_mode = 0
