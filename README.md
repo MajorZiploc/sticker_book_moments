@@ -29,7 +29,7 @@
 - Add color wheel selector for all colors on character
 
 - diff ui flavors for controller vs keyboard and mouse vs mobile
-- add music and sound effects
+- add sound effects
 - update settings page with sliders for music and sound effects
 
 - update settings page with control configuration for controller and keyboard

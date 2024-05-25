@@ -44,6 +44,7 @@ class_name BattleScene
 @onready var qte_onscreen_btn_down: Control = $ui_root/ui/qte_onscreen_btns/down;
 @onready var qte_onscreen_btn_left: Control = $ui_root/ui/qte_onscreen_btns/left;
 @onready var qte_onscreen_btn_right: Control = $ui_root/ui/qte_onscreen_btns/right;
+@onready var music: AudioStreamPlayer2D = $music;
 
 @export var is_player_turn = true;
 @export var std_cam_zoom: Vector2 = Vector2(0.5, 0.5);
@@ -124,6 +125,8 @@ var default_mod_item_size = 150;
 var valid_qte_keys = qte_item_metadata.keys();
 
 func _ready():
+  AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
+  OptionsHelper.sync_music();
   qte_mode = AppState.data.get(Constants.options, {}).get("qte_mode", qte_mode);
   var player_choices_popup = player_choices_action_btn.get_popup();
   player_choices_popup.connect("id_pressed", on_player_choices_menu_item_pressed);
