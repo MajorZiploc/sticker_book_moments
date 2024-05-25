@@ -110,6 +110,7 @@ offset_right = 507.0
 offset_bottom = 618.0
 
 [node name="gamedev" type="PanelContainer" parent="ui_root/ui/author"]
+layout_mode = 0
 offset_top = -74.0
 offset_right = 218.0
 offset_bottom = -26.0
@@ -148,6 +149,7 @@ theme_type_variation = &"HeaderMedium"
 text = "mobile?"
 
 [node name="music_on" type="BoxContainer" parent="ui_root/ui"]
+layout_mode = 0
 offset_left = 922.0
 offset_right = 1152.0
 offset_bottom = 75.0
