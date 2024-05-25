@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c76wd8iwrix3h"]
+[gd_scene load_steps=4 format=3 uid="uid://c76wd8iwrix3h"]
 
 [ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_aj1vx"]
+[ext_resource type="AudioStream" uid="uid://bupa8c651w15b" path="res://art/assets/music/the_enchanged_land_fantasy_music_pack/Calm_Music_I_Loop.wav" id="3_kywit"]
 
 [node name="title_scene" type="Node2D"]
 script = ExtResource("1_fopmr")
@@ -138,6 +139,11 @@ text = "mobile?"
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(830, 361)
 zoom = Vector2(0.5, 0.5)
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kywit")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
