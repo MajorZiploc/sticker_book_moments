@@ -22,7 +22,7 @@
 
 ### general
 
-- improve option discoverability. on the thanks_for_playing scene, can add suggestions to the player to up the difficulty or change the quick time event type
+- NEXT: improve option discoverability. on the thanks_for_playing scene, can add suggestions to the player to up the difficulty or change the quick time event type
 
 - OSHelper.is_mobile() check doesnt seem to work on mobile browsers on itch.io. currently have a work around where user can select if on mobile in title_scene or options
 
