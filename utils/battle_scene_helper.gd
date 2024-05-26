@@ -31,18 +31,18 @@ enum QTEMode {
 var default_base_qte_time = 4.7;
 
 enum DIFFICULTY {
+  EASY,
   NORMAL,
   HARD,
-  ELITE,
 }
 
 func get_qte_time(current_opponent_idx):
   var difficulty = Lang.dict_get(AppState.data, [Constants.options, "difficulty"], DIFFICULTY.NORMAL);
   var difficulty_offset = 0;
   match difficulty:
-    DIFFICULTY.HARD:
+    DIFFICULTY.NORMAL:
       difficulty_offset = 0.65;
-    DIFFICULTY.ELITE:
+    DIFFICULTY.HARD:
       difficulty_offset = 1.2;
   return max(default_base_qte_time - (0.5 * (current_opponent_idx - 1)) - difficulty_offset, 3.0);
 
