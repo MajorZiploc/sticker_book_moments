@@ -20,6 +20,8 @@
 - Needed if number of buffs or debuffs goes above 4: limit number of mods on a combat_unit to 4
 - Consider: instead of modulate and disable prop adjustments - consider add_child and remove_child pattern on ui components - or do visible toggling
 
+- Consider: use the parry mechanic on the player turn aswell - to where the player has to complete the quick time event to do full damage - or basically inverting the rules, but the player still plays the event
+
 ### general
 
 - NEXT: improve option discoverability. on the thanks_for_playing scene, can add suggestions to the player to up the difficulty or change the quick time event type
