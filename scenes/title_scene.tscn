@@ -172,7 +172,6 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_kywit")
-volume_db = -10.0
 
 [connection signal="button_up" from="ui_root/ui/play/btn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="ui_root/ui/options_btn" to="." method="_on_options_btn_button_up"]
