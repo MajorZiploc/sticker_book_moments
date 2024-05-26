@@ -44,7 +44,7 @@ func get_qte_time(current_opponent_idx):
       difficulty_offset = 0.65;
     DIFFICULTY.ELITE:
       difficulty_offset = 1.2;
-  return default_base_qte_time - (0.5 * (current_opponent_idx - 1)) - difficulty_offset;
+  return max(default_base_qte_time - (0.5 * (current_opponent_idx - 1)) - difficulty_offset, 3.0);
 
 enum PlayerChoicesMenuPopupItem {
   ATTACK,
