@@ -19,7 +19,8 @@ func _ready():
   AppState.insert_dirty_data("music", { "bg": { "audio_stream_player_2d": music } });
   AppState.load_data(AppState.current_data_file_name);
   var is_mobile = Lang.dict_get(AppState.data, [Constants.options, "is_mobile"], OSHelper.is_mobile());
-  var music_on = Lang.dict_get(AppState.data, [Constants.options, "music", "bg", "on"], true);
+  var music_on = Lang.dict_get(AppState.data, [Constants.options, "music", "bg", "on"], not is_mobile);
+  OptionsHelper.set_music_on(music_on);
   OptionsHelper.set_is_mobile(is_mobile);
   OptionsHelper.set_options();
   OptionsHelper.sync_music();
