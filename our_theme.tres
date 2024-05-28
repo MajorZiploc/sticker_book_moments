@@ -173,6 +173,7 @@ MenuButton/styles/disabled = SubResource("StyleBoxTexture_ur7u2")
 MenuButton/styles/focus = SubResource("StyleBoxTexture_i0yv8")
 MenuButton/styles/hover = SubResource("StyleBoxTexture_q3bty")
 MenuButton/styles/normal = SubResource("StyleBoxTexture_kwtl3")
+OptionButton/constants/arrow_margin = 10
 PanelLargeSticker/base_type = &"PanelContainer"
 PanelLargeSticker/styles/panel = SubResource("StyleBoxTexture_3sabn")
 PanelMediumSticker/base_type = &"PanelContainer"
