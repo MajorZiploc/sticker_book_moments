@@ -30,19 +30,16 @@
 
 - NEXT: improve option discoverability. on the thanks_for_playing scene, can add suggestions to the player to up the difficulty or change the quick time event type
 - Add a 'Back to Title Screen' button in the options when not on web
+- add sound effects
 - Fix audio stuttering on mobile browsers
 
-- OSHelper.is_mobile() check doesnt seem to work on mobile browsers on itch.io. currently have a work around where user can select if on mobile in title_scene or options
-
-- Add color wheel selector for all colors on character
-
 - diff ui flavors for controller vs keyboard and mouse vs mobile
-- add sound effects
 - update settings page with sliders for music and sound effects
 
 - update settings page with control configuration for controller and keyboard
 - update settings page with touch to button slider to determine likelyhood of 1 event versus the other
 
+- Add color wheel selector for all colors on character
 - move option component into the tscn files (under $ui_root/overlay) rather than instantiate call but keep the instantiate fn call as an example
 - create save slots (3 slots)
 - on launch of game: track if a run was occurring, then pick up where the player left off
