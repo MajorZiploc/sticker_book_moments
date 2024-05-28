@@ -1,5 +1,9 @@
 # Sticker Book: Time Attack
 
+## NOTES:
+
+- When making a demo versus real fully game, just change the main scene. dont make a fork or branch for demo, that will be hard to manage
+
 ## TODO:
 
 ### level_map
