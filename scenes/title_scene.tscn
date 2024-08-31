@@ -83,7 +83,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
-text = "Play"
+text = " Play "
 
 [node name="options_btn" type="Button" parent="ui_root/ui"]
 layout_mode = 0
