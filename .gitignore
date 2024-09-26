@@ -20,3 +20,5 @@ tags
 exports/
 
 Session.vim
+
+cscope.out
