@@ -24,7 +24,7 @@ func stop_animate_generic(frame_type: FrameType):
   for tween in frame_data.animate.tweens:
     tween.stop();
 
-var frame_data_dict: Dictionary = {
+var frame_data_dict: Dictionary[FrameType, FrameData.Data] = {
   FrameType.IDLE: FrameData.Data.new(
     FrameData.AnimateData.new(
       [],

@@ -80,7 +80,7 @@ func calc_qte_area():
 
 var qte_items: Array[BattleSceneHelper.QTEItem] = [];
 
-var qte_item_metadata: Dictionary = {
+var qte_item_metadata: Dictionary[String, BattleSceneHelper.QTEItemMetaData] = {
   "up": BattleSceneHelper.QTEItemMetaData.new(
     preload("res://art/my/ui/qte_btn/up/normal.png"),
     [BattleSceneHelper.QTEMode.BUTTON, BattleSceneHelper.QTEMode.TOUCH_AND_BUTTON],
@@ -105,7 +105,7 @@ var qte_item_metadata: Dictionary = {
 
 @onready var player_info_controller = $ui_root/ui/player_info/hbox/combat_unit_info/vbox/panel/vbox/controller;
 
-var mod_item_metadata: Dictionary = {
+var mod_item_metadata: Dictionary[BattleSceneHelper.ModItemType, BattleSceneHelper.ModItemMetaData] = {
   BattleSceneHelper.ModItemType.PARALYZED: BattleSceneHelper.ModItemMetaData.new(
     preload("res://art/my/items/paralyzed.png"),
     true,

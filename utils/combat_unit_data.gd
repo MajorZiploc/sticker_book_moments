@@ -27,7 +27,7 @@ class Data:
     self.damage_modifier = damage_modifier_;
     self.game_completion_count_required = game_completion_count_required_;
 
-var entries: Dictionary = {
+var entries: Dictionary[Type, Data] = {
   Type.DUAL_HYBRID: Data.new(
     "res://art/my/char/dual_hybrid.png",
     "res://art/my/char/dual_hybrid_bust.png",
