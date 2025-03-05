@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsdv4cuy1tvrv"]
 
-[ext_resource type="Script" path="res://scenes/choose_char.gd" id="1_7bg8u"]
+[ext_resource type="Script" uid="uid://bmf0vhjqryhkr" path="res://scenes/choose_char.gd" id="1_7bg8u"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_wkpab"]
 
 [node name="choose_char" type="Node2D"]

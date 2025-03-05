@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bgtbv2iq43kru"]
 
-[ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
+[ext_resource type="Script" uid="uid://bhsl67xlc5w48" path="res://scenes/battle_scene.gd" id="1_7ul4m"]
 [ext_resource type="PackedScene" uid="uid://c2hixb1emgvvq" path="res://scenes/battle_char.tscn" id="2_7aox0"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_d7hhp"]
 [ext_resource type="Texture2D" uid="uid://dv43001dq4qm2" path="res://art/my/char/dual_wield_stub_bust.png" id="4_aqxti"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c76wd8iwrix3h"]
 
-[ext_resource type="Script" path="res://scenes/title_scene.gd" id="1_fopmr"]
+[ext_resource type="Script" uid="uid://cr54bi8vck8fi" path="res://scenes/title_scene.gd" id="1_fopmr"]
 [ext_resource type="PackedScene" uid="uid://b5hiemgtytg3" path="res://scenes/bg_root.tscn" id="2_aj1vx"]
 [ext_resource type="AudioStream" uid="uid://bupa8c651w15b" path="res://art/assets/music/the_enchanged_land_fantasy_music_pack/Calm_Music_I_Loop.wav" id="3_kywit"]
 
