@@ -10,9 +10,10 @@ func find_index(pred, lst: Array):
 func dict_get(dict: Dictionary, keys: Array[String], default_value):
   var cur_idx = 0;
   var last_idx = keys.size() - 1;
-  var cur_dict = dict;
+  var cur_dict = dict if dict else {};
   while cur_idx < last_idx:
     var key = keys[cur_idx];
     cur_dict = cur_dict.get(key, {});
     cur_idx = cur_idx + 1;
-  return cur_dict.get(keys[cur_idx], default_value);
+  var res = cur_dict.get(keys[cur_idx], default_value);
+  return res if is_instance_valid(res) else default_value;
