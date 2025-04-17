@@ -6,7 +6,7 @@ class_name BattleChar
 var health: float = CombatUnitData.default_max_health:
   set(value):
     health = value;
-    
+
 enum FrameType {
   IDLE,
   PREATK,

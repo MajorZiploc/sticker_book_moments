@@ -29,7 +29,7 @@ func _ready():
   ui.add_child(stats_page);
   AppState.save_session();
   await get_tree().create_timer(scene_tween_time).timeout;
-  
+
 func _on_options_btn_button_up():
   if not pause_menu:
     pause_menu = SceneHelper.make_pause_menu();
