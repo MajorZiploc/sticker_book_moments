@@ -15,5 +15,8 @@ func dict_get(dict: Dictionary, keys: Array[String], default_value):
     var key = keys[cur_idx];
     cur_dict = cur_dict.get(key, {});
     cur_idx = cur_idx + 1;
-  var res = cur_dict.get(keys[cur_idx], default_value);
-  return res if is_instance_valid(res) else default_value;
+  var item = cur_dict.get(keys[cur_idx], default_value);
+  var item_type = typeof(item);
+  # var res = item if weakref(item).get_ref() else default_value;
+  var res = item if typeof(item) == TYPE_ARRAY or is_instance_valid(item) else default_value;
+  return res;
