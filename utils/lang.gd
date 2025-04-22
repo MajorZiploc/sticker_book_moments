@@ -17,6 +17,5 @@ func dict_get(dict: Dictionary, keys: Array[String], default_value):
     cur_idx = cur_idx + 1;
   var item = cur_dict.get(keys[cur_idx], default_value);
   var item_type = typeof(item);
-  # var res = item if weakref(item).get_ref() else default_value;
-  var res = item if typeof(item) == TYPE_ARRAY or is_instance_valid(item) else default_value;
+  var res = item if (item_type == TYPE_OBJECT and weakref(item).get_ref()) or item_type != TYPE_OBJECT else default_value;
   return res;
