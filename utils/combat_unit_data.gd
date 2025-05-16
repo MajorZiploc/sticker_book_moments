@@ -77,6 +77,5 @@ func init_idle_tweens(sprite: Sprite2D, sprite_scalar: float = 1.0) -> Array[Twe
   rotation_tween.tween_property(sprite, "rotation_degrees", -3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
   rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
   rotation_tween.tween_property(sprite, "rotation_degrees", 3.4, 1).set_trans(rotation_tween.TRANS_EXPO);
-  rotation_tween.tween_property(sprite, "rotation_degrees", og_rotation, 1).set_trans(rotation_tween.TRANS_EXPO);
   rotation_tween.set_loops(-1);
   return [scale_tween, rotation_tween];
